@@ -1,0 +1,1836 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="View property details, features, price and contact information."
+    >
+
+    <meta
+        name="theme-color"
+        content="#0f766e"
+    >
+
+    <title>
+        Property Details | EstatePro
+    </title>
+
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="responsive.css"
+    >
+
+
+    <style>
+
+        .detail-loading,
+        .detail-error {
+            text-align: center;
+            padding: 70px 20px;
+            color: #64748b;
+        }
+
+        .detail-error {
+            color: #b91c1c;
+        }
+
+        .detail-real-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .detail-image-placeholder {
+            min-height: 300px;
+            display: grid;
+            place-items: center;
+        }
+
+        .dynamic-feature-list {
+            display: grid;
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(180px, 1fr)
+                );
+            gap: 10px;
+        }
+
+        .dynamic-feature-list .feature-item {
+            padding: 12px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="site-header">
+
+    <div class="container nav-container">
+
+
+        <a
+            href="index.html"
+            class="brand"
+            aria-label="EstatePro Home"
+        >
+
+            <span class="brand-mark">
+                E
+            </span>
+
+            <span class="brand-name">
+                EstatePro
+            </span>
+
+        </a>
+
+
+
+        <button
+            class="menu-toggle"
+            id="menuToggle"
+            type="button"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+        >
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </button>
+
+
+
+        <nav
+            class="main-nav"
+            id="mainNav"
+            aria-label="Main navigation"
+        >
+
+            <a
+                href="index.html"
+                class="nav-link"
+            >
+                Home
+            </a>
+
+            <a
+                href="properties.html"
+                class="nav-link"
+            >
+                Properties
+            </a>
+
+            <a
+                href="about.html"
+                class="nav-link"
+            >
+                About
+            </a>
+
+            <a
+                href="contact.html"
+                class="nav-link"
+            >
+                Contact
+            </a>
+
+            <a
+                href="#"
+                class="nav-whatsapp"
+                id="navWhatsapp"
+            >
+                WhatsApp
+            </a>
+
+        </nav>
+
+
+    </div>
+
+</header>
+
+
+
+<main>
+
+
+<section class="property-detail-top">
+
+    <div class="container">
+
+        <a
+            href="properties.html"
+            class="back-link"
+        >
+            ← Back to Properties
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<section class="section">
+
+    <div class="container">
+
+        <div
+            id="detailLoading"
+            class="detail-loading"
+        >
+            Loading property...
+        </div>
+
+
+        <div
+            id="detailError"
+            class="detail-error"
+            style="display:none;"
+        >
+            Property not found.
+        </div>
+
+
+        <div
+            id="propertyContent"
+            style="display:none;"
+        >
+
+
+            <div class="property-detail-image">
+
+                <div
+                    id="propertyImageArea"
+                    class="detail-image-placeholder"
+                >
+                    Property Image
+                </div>
+
+
+                <span
+                    class="detail-status"
+                    id="detailStatus"
+                >
+                    For Sale
+                </span>
+
+            </div>
+
+
+
+            <div class="property-detail-layout">
+
+
+                <div class="property-detail-main">
+
+
+                    <span
+                        class="section-label"
+                        id="detailFeatured"
+                    >
+                        PROPERTY
+                    </span>
+
+
+                    <h1 id="detailTitle">
+                        Property
+                    </h1>
+
+
+                    <p
+                        class="detail-location"
+                        id="detailLocation"
+                    >
+                        📍 Location
+                    </p>
+
+
+                    <div
+                        class="detail-price"
+                        id="detailPrice"
+                    >
+                        Price on request
+                    </div>
+
+
+
+                    <div class="detail-specs">
+
+
+                        <div class="detail-spec">
+
+                            <span>
+                                🛏
+                            </span>
+
+                            <strong
+                                id="detailBedrooms"
+                            >
+                                -
+                            </strong>
+
+                            <small>
+                                Bedrooms
+                            </small>
+
+                        </div>
+
+
+
+                        <div class="detail-spec">
+
+                            <span>
+                                🚿
+                            </span>
+
+                            <strong
+                                id="detailBathrooms"
+                            >
+                                -
+                            </strong>
+
+                            <small>
+                                Bathrooms
+                            </small>
+
+                        </div>
+
+
+
+                        <div class="detail-spec">
+
+                            <span>
+                                📐
+                            </span>
+
+                            <strong
+                                id="detailArea"
+                            >
+                                -
+                            </strong>
+
+                            <small>
+                                Square Metres
+                            </small>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="detail-section">
+
+                        <h2>
+                            Property Description
+                        </h2>
+
+                        <p id="detailDescription">
+                            No description available.
+                        </p>
+
+                    </div>
+
+
+
+                    <div class="detail-section">
+
+                        <h2>
+                            Property Features
+                        </h2>
+
+
+                        <div
+                            class="features-grid dynamic-feature-list"
+                            id="detailFeatures"
+                        >
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <aside class="property-contact-card">
+
+
+                    <span class="section-label">
+                        INTERESTED?
+                    </span>
+
+
+                    <h2>
+                        Interested in this property?
+                    </h2>
+
+
+                    <p>
+                        Contact us to get more information
+                        or arrange a viewing.
+                    </p>
+
+
+                    <a
+                        href="#"
+                        class="detail-whatsapp-button"
+                        id="detailWhatsapp"
+                    >
+                        💬 Contact on WhatsApp
+                    </a>
+
+
+                    <a
+                        href="tel:+2340000000000"
+                        class="detail-call-button"
+                        id="detailCall"
+                    >
+                        📞 Call Agent
+                    </a>
+
+
+                    <div class="agent-info">
+
+                        <strong>
+                            Property Agent
+                        </strong>
+
+                        <span>
+                            EstatePro
+                        </span>
+
+                    </div>
+
+
+                </aside>
+
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<section class="cta-section">
+
+    <div class="container cta-content">
+
+        <span class="section-label">
+            FIND YOUR NEXT HOME
+        </span>
+
+        <h2>
+            Looking for More Properties?
+        </h2>
+
+        <p>
+            Browse our available properties and find
+            one that matches your needs.
+        </p>
+
+        <a
+            href="properties.html"
+            class="cta-button"
+        >
+            View All Properties
+        </a>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+
+<footer class="site-footer">
+
+    <div class="container footer-grid">
+
+
+        <div class="footer-brand">
+
+            <a
+                href="index.html"
+                class="brand footer-logo"
+            >
+
+                <span class="brand-mark">
+                    E
+                </span>
+
+                <span class="brand-name">
+                    EstatePro
+                </span>
+
+            </a>
+
+            <p>
+                A simple and professional platform for
+                discovering properties.
+            </p>
+
+        </div>
+
+
+
+        <div class="footer-column">
+
+            <h3>
+                Quick Links
+            </h3>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="properties.html">
+                Properties
+            </a>
+
+            <a href="about.html">
+                About
+            </a>
+
+            <a href="contact.html">
+                Contact
+            </a>
+
+        </div>
+
+
+
+        <div class="footer-column">
+
+            <h3>
+                Property Types
+            </h3>
+
+            <a href="properties.html?type=house">
+                Houses
+            </a>
+
+            <a href="properties.html?type=apartment">
+                Apartments
+            </a>
+
+            <a href="properties.html?type=land">
+                Land
+            </a>
+
+            <a href="properties.html?type=commercial">
+                Commercial
+            </a>
+
+        </div>
+
+
+
+        <div class="footer-column">
+
+            <h3>
+                Contact
+            </h3>
+
+            <a
+                href="tel:+2340000000000"
+                id="footerPhone"
+            >
+                +234 000 000 0000
+            </a>
+
+            <a
+                href="mailto:hello@example.com"
+                id="footerEmail"
+            >
+                hello@example.com
+            </a>
+
+            <span>
+                Nigeria
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="footer-bottom">
+
+        <div class="container">
+
+            <p>
+                ©
+                <span id="currentYear"></span>
+                EstatePro. All rights reserved.
+            </p>
+
+        </div>
+
+    </div>
+
+</footer>
+<script type="module">
+
+import {
+    initializeApp,
+    getApps
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+    getFirestore,
+    doc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* =========================================================
+   FIREBASE
+========================================================= */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyAE44DxNnqz3m8ScqaZxoSj2FdQ7aJ2NIg",
+
+    authDomain:
+        "estate-pro-d564b.firebaseapp.com",
+
+    projectId:
+        "estate-pro-d564b",
+
+    storageBucket:
+        "estate-pro-d564b.firebasestorage.app",
+
+    messagingSenderId:
+        "600309829118",
+
+    appId:
+        "1:600309829118:web:60c61624ca8cdf05e884af",
+
+    measurementId:
+        "G-TG60FCJHXB"
+
+};
+
+
+const app =
+    getApps().length
+        ? getApps()[0]
+        : initializeApp(firebaseConfig);
+
+
+const db =
+    getFirestore(app);
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function escapeHTML(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+function getValue(
+    object,
+    names,
+    fallback = ""
+) {
+
+    for (const name of names) {
+
+        if (
+            object[name] !== undefined &&
+            object[name] !== null &&
+            object[name] !== ""
+        ) {
+
+            return object[name];
+
+        }
+
+    }
+
+    return fallback;
+
+}
+
+
+function formatPrice(
+    price,
+    purpose
+) {
+
+    if (
+        price === undefined ||
+        price === null ||
+        price === ""
+    ) {
+
+        return "Price on request";
+
+    }
+
+
+    const number =
+        Number(price);
+
+
+    if (!Number.isFinite(number)) {
+
+        return escapeHTML(price);
+
+    }
+
+
+    const formatted =
+        new Intl.NumberFormat(
+            "en-NG"
+        ).format(number);
+
+
+    if (
+        String(purpose).toLowerCase()
+        === "rent"
+    ) {
+
+        return `₦${formatted} / year`;
+
+    }
+
+
+    return `₦${formatted}`;
+
+}
+
+
+/* =========================================================
+   SHOW ERROR
+========================================================= */
+
+function showError(message = "Property not found.") {
+
+    const loading =
+        document.getElementById(
+            "detailLoading"
+        );
+
+    const content =
+        document.getElementById(
+            "propertyContent"
+        );
+
+    const error =
+        document.getElementById(
+            "detailError"
+        );
+
+
+    if (loading) {
+
+        loading.style.display =
+            "none";
+
+    }
+
+
+    if (content) {
+
+        content.style.display =
+            "none";
+
+    }
+
+
+    if (error) {
+
+        error.textContent =
+            message;
+
+        error.style.display =
+            "block";
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD COMPANY SETTINGS
+========================================================= */
+
+async function loadCompanySettings() {
+
+    try {
+
+        const companyRef =
+            doc(
+                db,
+                "CompanySettings",
+                "main"
+            );
+
+
+        const snapshot =
+            await getDoc(
+                companyRef
+            );
+
+
+        if (!snapshot.exists()) {
+
+            console.warn(
+                "CompanySettings/main not found."
+            );
+
+            return {};
+
+        }
+
+
+        const data =
+            snapshot.data();
+
+
+        console.log(
+            "Property Details: Company settings loaded."
+        );
+
+
+        /* COMPANY NAME */
+
+        const companyName =
+            getValue(
+                data,
+                ["companyName"],
+                "EstatePro"
+            );
+
+
+        document
+            .querySelectorAll(
+                ".brand-name"
+            )
+            .forEach(
+                element => {
+
+                    element.textContent =
+                        companyName;
+
+                }
+            );
+
+
+        /* LOGO */
+
+        const logoURL =
+            getValue(
+                data,
+                ["companyLogo"],
+                ""
+            );
+
+
+        if (logoURL) {
+
+            document
+                .querySelectorAll(
+                    ".brand-mark"
+                )
+                .forEach(
+                    mark => {
+
+                        mark.innerHTML = `
+
+                            <img
+                                src="${escapeHTML(logoURL)}"
+                                alt="${escapeHTML(companyName)}"
+                                style="
+                                    width:100%;
+                                    height:100%;
+                                    object-fit:contain;
+                                    display:block;
+                                "
+                            >
+
+                        `;
+
+                    }
+            );
+
+        }
+
+
+        /* FOOTER DESCRIPTION */
+
+        const description =
+            getValue(
+                data,
+                ["companyDescription"],
+                ""
+            );
+
+
+        if (description) {
+
+            const footerDescription =
+                document.querySelector(
+                    ".footer-brand p"
+                );
+
+
+            if (footerDescription) {
+
+                footerDescription.textContent =
+                    description;
+
+            }
+
+        }
+
+
+        /* PHONE */
+
+        const phone =
+            getValue(
+                data,
+                ["companyPhone"],
+                ""
+            );
+
+
+        const footerPhone =
+            document.getElementById(
+                "footerPhone"
+            );
+
+
+        const detailCall =
+            document.getElementById(
+                "detailCall"
+            );
+
+
+        if (phone) {
+
+            const cleanPhone =
+                String(phone).trim();
+
+
+            if (footerPhone) {
+
+                footerPhone.textContent =
+                    cleanPhone;
+
+                footerPhone.href =
+                    "tel:" +
+                    cleanPhone;
+
+            }
+
+
+            if (detailCall) {
+
+                detailCall.textContent =
+                    "📞 Call Agent";
+
+                detailCall.href =
+                    "tel:" +
+                    cleanPhone;
+
+            }
+
+        }
+
+
+        /* EMAIL */
+
+        const email =
+            getValue(
+                data,
+                ["companyEmail"],
+                ""
+            );
+
+
+        const footerEmail =
+            document.getElementById(
+                "footerEmail"
+            );
+
+
+        if (
+            email &&
+            footerEmail
+        ) {
+
+            footerEmail.textContent =
+                email;
+
+            footerEmail.href =
+                "mailto:" +
+                email;
+
+        }
+
+
+        /* ADDRESS */
+
+        const address =
+            getValue(
+                data,
+                ["companyAddress"],
+                ""
+            );
+
+
+        if (address) {
+
+            const footerColumns =
+                document.querySelectorAll(
+                    ".footer-column"
+                );
+
+
+            const contactColumn =
+                footerColumns[
+                    footerColumns.length - 1
+                ];
+
+
+            if (contactColumn) {
+
+                const spans =
+                    contactColumn.querySelectorAll(
+                        "span"
+                    );
+
+
+                spans.forEach(
+                    span => {
+
+                        span.textContent =
+                            address;
+
+                    }
+                );
+
+            }
+
+        }
+
+
+        /* WHATSAPP */
+
+        const whatsapp =
+            getValue(
+                data,
+                ["companyWhatsApp"],
+                ""
+            );
+
+
+        let whatsappNumber = "";
+
+
+        if (whatsapp) {
+
+            whatsappNumber =
+                String(
+                    whatsapp
+                ).replace(
+                    /\D/g,
+                    ""
+                );
+
+
+            const navWhatsapp =
+                document.getElementById(
+                    "navWhatsapp"
+                );
+
+
+            if (navWhatsapp) {
+
+                navWhatsapp.href =
+                    "https://wa.me/" +
+                    whatsappNumber;
+
+                navWhatsapp.target =
+                    "_blank";
+
+            }
+
+        }
+
+
+        return {
+
+            companyName,
+            whatsappNumber
+
+        };
+
+
+    } catch (error) {
+
+        console.error(
+            "Company settings error:",
+            error
+        );
+
+        return {};
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD PROPERTY
+========================================================= */
+
+async function loadProperty() {
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const propertyId =
+        params.get("id");
+
+
+    if (!propertyId) {
+
+        showError(
+            "No property ID was provided."
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        /* =============================================
+           GET PROPERTY
+        ============================================= */
+
+        const propertyRef =
+            doc(
+                db,
+                "Properties",
+                propertyId
+            );
+
+
+        const snapshot =
+            await getDoc(
+                propertyRef
+            );
+
+
+        if (!snapshot.exists()) {
+
+            showError(
+                "This property no longer exists."
+            );
+
+            return;
+
+        }
+
+
+        const property = {
+
+            id:
+                snapshot.id,
+
+            ...snapshot.data()
+
+        };
+
+
+        console.log(
+            "Property loaded:",
+            property
+        );
+
+
+        /* =============================================
+           COMPANY SETTINGS
+        ============================================= */
+
+        const company =
+            await loadCompanySettings();
+
+
+        const companyName =
+            company.companyName ||
+            "EstatePro";
+
+
+        /* =============================================
+           BASIC PROPERTY DATA
+        ============================================= */
+
+        const title =
+            getValue(
+                property,
+                [
+                    "title",
+                    "name",
+                    "propertyName"
+                ],
+                "Untitled Property"
+            );
+
+
+        const location =
+            getValue(
+                property,
+                [
+                    "Location",
+                    "location",
+                    "address",
+                    "city"
+                ],
+                "Location not provided"
+            );
+
+
+        const purpose =
+            String(
+                getValue(
+                    property,
+                    [
+                        "purpose",
+                        "status"
+                    ],
+                    "sale"
+                )
+            ).toLowerCase();
+
+
+        const purposeLabel =
+            purpose === "rent"
+                ? "For Rent"
+                : "For Sale";
+
+
+        const propertyType =
+            getValue(
+                property,
+                [
+                    "propertyType",
+                    "type"
+                ],
+                ""
+            );
+
+
+        const bedrooms =
+            getValue(
+                property,
+                [
+                    "bedrooms",
+                    "beds",
+                    "bed"
+                ],
+                "-"
+            );
+
+
+        const bathrooms =
+            getValue(
+                property,
+                [
+                    "bathrooms",
+                    "baths",
+                    "bath"
+                ],
+                "-"
+            );
+
+
+        const area =
+            getValue(
+                property,
+                [
+                    "area",
+                    "size",
+                    "squareMeters"
+                ],
+                "-"
+            );
+
+
+        const description =
+            getValue(
+                property,
+                [
+                    "description",
+                    "details",
+                    "propertyDescription"
+                ],
+                "No description available."
+            );
+
+
+        /* =============================================
+           PAGE TITLE
+        ============================================= */
+
+        document.title =
+            `${title} | ${companyName}`;
+
+
+        /* =============================================
+           TITLE
+        ============================================= */
+
+        document
+            .getElementById(
+                "detailTitle"
+            )
+            .textContent =
+            title;
+
+
+        /* =============================================
+           LOCATION
+        ============================================= */
+
+        document
+            .getElementById(
+                "detailLocation"
+            )
+            .textContent =
+            `📍 ${location}`;
+
+
+        /* =============================================
+           PRICE
+        ============================================= */
+
+        document
+            .getElementById(
+                "detailPrice"
+            )
+            .textContent =
+            formatPrice(
+                property.price,
+                purpose
+            );
+
+
+        /* =============================================
+           STATUS
+        ============================================= */
+
+        document
+            .getElementById(
+                "detailStatus"
+            )
+            .textContent =
+            purposeLabel;
+
+
+        /* =============================================
+           BEDROOMS
+        ============================================= */
+
+        document
+            .getElementById(
+                "detailBedrooms"
+            )
+            .textContent =
+            bedrooms;
+
+
+        /* =============================================
+           BATHROOMS
+        ============================================= */
+
+        document
+            .getElementById(
+                "detailBathrooms"
+            )
+            .textContent =
+            bathrooms;
+
+
+        /* =============================================
+           AREA
+        ============================================= */
+
+        document
+            .getElementById(
+                "detailArea"
+            )
+            .textContent =
+            area;
+
+
+        /* =============================================
+           DESCRIPTION
+        ============================================= */
+
+        document
+            .getElementById(
+                "detailDescription"
+            )
+            .textContent =
+            description;
+
+
+        /* =============================================
+           PROPERTY LABEL
+        ============================================= */
+
+        const detailFeatured =
+            document.getElementById(
+                "detailFeatured"
+            );
+
+
+        if (detailFeatured) {
+
+            detailFeatured.textContent =
+                property.featured === true
+                    ? "FEATURED PROPERTY"
+                    : (
+                        propertyType ||
+                        "PROPERTY"
+                    ).toUpperCase();
+
+        }
+
+
+        /* =============================================
+           IMAGE
+        ============================================= */
+
+        const imageArea =
+            document.getElementById(
+                "propertyImageArea"
+            );
+
+
+        const image =
+            getValue(
+                property,
+                [
+                    "imageUrl",
+                    "imageURL",
+                    "image",
+                    "propertyImage",
+                    "propertyImageUrl"
+                ],
+                ""
+            );
+
+
+        if (image) {
+
+            imageArea.innerHTML = `
+
+                <img
+                    src="${escapeHTML(image)}"
+                    alt="${escapeHTML(title)}"
+                    class="detail-real-image"
+                    loading="eager"
+                    onerror="
+                        this.style.display='none';
+                        this.nextElementSibling.style.display='grid';
+                    "
+                >
+
+                <div
+                    class="detail-image-placeholder"
+                    style="display:none;"
+                >
+                    Property Image
+                </div>
+
+            `;
+
+        } else {
+
+            imageArea.innerHTML = `
+
+                <div class="detail-image-placeholder">
+                    Property Image
+                </div>
+
+            `;
+
+        }
+
+
+        /* =============================================
+           FEATURES
+        ============================================= */
+
+        const features =
+            document.getElementById(
+                "detailFeatures"
+            );
+
+
+        const generatedFeatures = [];
+
+
+        if (bedrooms !== "-") {
+
+            generatedFeatures.push(
+                `✓ ${bedrooms} Bedrooms`
+            );
+
+        }
+
+
+        if (bathrooms !== "-") {
+
+            generatedFeatures.push(
+                `✓ ${bathrooms} Bathrooms`
+            );
+
+        }
+
+
+        if (area !== "-") {
+
+            generatedFeatures.push(
+                `✓ ${area} sqm`
+            );
+
+        }
+
+
+        if (propertyType) {
+
+            generatedFeatures.push(
+                `✓ ${propertyType}`
+            );
+
+        }
+
+
+        if (purposeLabel) {
+
+            generatedFeatures.push(
+                `✓ ${purposeLabel}`
+            );
+
+        }
+
+
+        /*
+           If Admin has a features array,
+           display those too.
+        */
+
+        if (
+            Array.isArray(
+                property.features
+            )
+        ) {
+
+            property.features.forEach(
+                feature => {
+
+                    if (feature) {
+
+                        generatedFeatures.push(
+                            `✓ ${feature}`
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+
+
+        /*
+           If Admin used a comma-separated
+           features field.
+        */
+
+        else if (
+            typeof property.features === "string" &&
+            property.features.trim()
+        ) {
+
+            property.features
+                .split(",")
+                .map(
+                    feature =>
+                        feature.trim()
+                )
+                .filter(Boolean)
+                .forEach(
+                    feature => {
+
+                        generatedFeatures.push(
+                            `✓ ${feature}`
+                        );
+
+                    }
+                );
+
+        }
+
+
+        if (
+            property.featured === true
+        ) {
+
+            generatedFeatures.push(
+                "✓ Featured Property"
+            );
+
+        }
+
+
+        if (
+            features &&
+            generatedFeatures.length
+        ) {
+
+            features.innerHTML =
+                generatedFeatures
+                    .map(
+                        feature => `
+
+                            <div class="feature-item">
+                                ${escapeHTML(feature)}
+                            </div>
+
+                        `
+                    )
+                    .join("");
+
+        }
+        else if (features) {
+
+            features.innerHTML = `
+
+                <div class="feature-item">
+                    Property features not provided.
+                </div>
+
+            `;
+
+        }
+
+
+        /* =============================================
+           WHATSAPP
+        ============================================= */
+
+        const detailWhatsapp =
+            document.getElementById(
+                "detailWhatsapp"
+            );
+
+
+        if (
+            detailWhatsapp &&
+            company.whatsappNumber
+        ) {
+
+            const message =
+                encodeURIComponent(
+                    `Hello ${companyName}, I am interested in the property "${title}" located at ${location}.`
+                );
+
+
+            detailWhatsapp.href =
+                `https://wa.me/${company.whatsappNumber}?text=${message}`;
+
+            detailWhatsapp.target =
+                "_blank";
+
+        }
+        else if (detailWhatsapp) {
+
+            detailWhatsapp.href =
+                "#";
+
+        }
+
+
+        /* =============================================
+           AGENT INFO
+        ============================================= */
+
+        const agentInfo =
+            document.querySelector(
+                ".agent-info"
+            );
+
+
+        if (agentInfo) {
+
+            agentInfo.innerHTML = `
+
+                <strong>
+                    Property Agent
+                </strong>
+
+                <span>
+                    ${escapeHTML(companyName)}
+                </span>
+
+            `;
+
+        }
+
+
+        /* =============================================
+           HIDE LOADING / SHOW CONTENT
+        ============================================= */
+
+        document
+            .getElementById(
+                "detailLoading"
+            )
+            .style.display =
+            "none";
+
+
+        document
+            .getElementById(
+                "detailError"
+            )
+            .style.display =
+            "none";
+
+
+        document
+            .getElementById(
+                "propertyContent"
+            )
+            .style.display =
+            "block";
+
+
+    } catch (error) {
+
+        console.error(
+            "EstatePro: Property details error:",
+            error
+        );
+
+
+        showError(
+            "Unable to load this property. Please try again."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CURRENT YEAR
+========================================================= */
+
+const year =
+    document.getElementById(
+        "currentYear"
+    );
+
+
+if (year) {
+
+    year.textContent =
+        new Date().getFullYear();
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+loadProperty();
+
+</script>
+
+
+
+
+
+<script src="app.js?v=4"></script>
+
+</body>
+
+</html>

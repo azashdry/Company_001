@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Browse available houses, apartments, lands and commercial properties."
+    >
+
+    <meta
+        name="theme-color"
+        content="#0f766e"
+    >
+
+    <title>Properties | EstatePro</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="responsive.css">
+
+    <style>
+
+        .property-loading,
+        .property-empty,
+        .property-error {
+            width: 100%;
+            text-align: center;
+            padding: 45px 20px;
+            color: #64748b;
+        }
+
+        .property-error {
+            color: #b91c1c;
+        }
+
+        .dynamic-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-placeholder {
+            min-height: 220px;
+            display: grid;
+            place-items: center;
+        }
+
+        .category-active {
+            display: inline-block;
+            margin-top: 10px;
+            font-weight: 700;
+            color: #0f766e;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="site-header">
+
+    <div class="container nav-container">
+
+        <a
+            href="index.html"
+            class="brand"
+            aria-label="EstatePro Home"
+        >
+
+           <span class="brand-mark">
+
+    <img
+        id="companyLogo"
+        src=""
+        alt="Company Logo"
+        style="display:none;"
+    >
+
+    <span id="companyLogoLetter">E</span>
+
+</span>
+
+<span
+    class="brand-name"
+    id="companyName"
+>
+    EstatePro
+</span> 
+
+        </a>
+
+
+        <button
+            class="menu-toggle"
+            id="menuToggle"
+            type="button"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+        >
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </button>
+
+
+        <nav
+            class="main-nav"
+            id="mainNav"
+            aria-label="Main navigation"
+        >
+
+            <a href="index.html" class="nav-link">
+                Home
+            </a>
+
+            <a
+                href="properties.html"
+                class="nav-link active"
+            >
+                Properties
+            </a>
+
+            <a href="about.html" class="nav-link">
+                About
+            </a>
+
+            <a href="contact.html" class="nav-link">
+                Contact
+            </a>
+
+            <a
+                href="#"
+                class="nav-whatsapp"
+                id="navWhatsapp"
+            >
+                WhatsApp
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+
+<main>
+
+
+<section class="property-page-hero">
+
+    <div class="container">
+
+        <span class="section-label">
+            OUR PROPERTIES
+        </span>
+
+        <h1 id="pageTitle">
+            Find Your Perfect Property
+        </h1>
+
+        <p>
+            Browse houses, apartments, lands and
+            commercial properties available for sale
+            or rent.
+        </p>
+
+        <span
+            id="categoryActive"
+            class="category-active"
+        ></span>
+
+    </div>
+
+</section>
+
+
+
+<section class="section property-listing-section">
+
+    <div class="container">
+
+
+        <div class="property-filter">
+
+            <div class="filter-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        SEARCH
+                    </span>
+
+                    <h2>
+                        Find a Property
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="filter-grid">
+
+
+                <div class="filter-field">
+
+                    <label for="propertyLocation">
+                        Location
+                    </label>
+
+                    <input
+                        type="text"
+                        id="propertyLocation"
+                        placeholder="e.g. Kano"
+                    >
+
+                </div>
+
+
+                <div class="filter-field">
+
+                    <label for="propertyType">
+                        Property Type
+                    </label>
+
+                    <select id="propertyType">
+
+                        <option value="">
+                            Any Type
+                        </option>
+
+                        <option value="house">
+                            House
+                        </option>
+
+                        <option value="apartment">
+                            Apartment
+                        </option>
+
+                        <option value="land">
+                            Land
+                        </option>
+
+                        <option value="commercial">
+                            Commercial
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="filter-field">
+
+                    <label for="propertyPurpose">
+                        Purpose
+                    </label>
+
+                    <select id="propertyPurpose">
+
+                        <option value="">
+                            Sale or Rent
+                        </option>
+
+                        <option value="sale">
+                            For Sale
+                        </option>
+
+                        <option value="rent">
+                            For Rent
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="search-button"
+                    id="propertyFilterButton"
+                >
+                    Search
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="listing-heading">
+
+            <div>
+
+                <span class="section-label">
+                    AVAILABLE
+                </span>
+
+                <h2>
+                    Property Listings
+                </h2>
+
+            </div>
+
+
+            <span
+                class="property-count"
+                id="propertyCount"
+            >
+                0 Properties
+            </span>
+
+        </div>
+
+
+
+        <div
+            class="property-grid"
+            id="propertyListings"
+        >
+
+            <div class="property-loading">
+                Loading properties...
+            </div>
+
+        </div>
+
+
+
+        <div
+            class="no-properties"
+            id="noProperties"
+            hidden
+        >
+
+            <h3>
+                No Properties Found
+            </h3>
+
+            <p>
+                There are currently no properties
+                available in this category.
+            </p>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<section class="cta-section">
+
+    <div class="container cta-content">
+
+        <span class="section-label">
+            NEED HELP?
+        </span>
+
+        <h2>
+            Can't Find What You're Looking For?
+        </h2>
+
+        <p>
+            Contact us directly and let us know
+            what type of property you need.
+        </p>
+
+        <a
+            href="#"
+            class="cta-button"
+            id="propertyWhatsapp"
+        >
+            Contact Us on WhatsApp
+        </a>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+
+<footer class="site-footer">
+
+    <div class="container footer-grid">
+
+
+        <div class="footer-brand">
+
+            <a
+                href="index.html"
+                class="brand footer-logo"
+            >
+
+               <span class="brand-mark">
+
+    <img
+        id="footerCompanyLogo"
+        src=""
+        alt="Company Logo"
+        style="display:none;"
+    >
+
+    <span id="footerCompanyLogoLetter">E</span>
+
+</span>
+
+<span
+    class="brand-name"
+    id="footerCompanyName"
+>
+    EstatePro
+</span> 
+
+            </a>
+
+  <p id="companyDescription">
+    A simple and professional platform for
+    discovering properties.
+</p>
+
+        </div>
+
+
+
+        <div class="footer-column">
+
+            <h3>
+                Quick Links
+            </h3>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="properties.html">
+                Properties
+            </a>
+
+            <a href="about.html">
+                About
+            </a>
+
+            <a href="contact.html">
+                Contact
+            </a>
+
+        </div>
+
+
+
+        <div class="footer-column">
+
+            <h3>
+                Property Types
+            </h3>
+
+            <a href="properties.html?type=house">
+                Houses
+            </a>
+
+            <a href="properties.html?type=apartment">
+                Apartments
+            </a>
+
+            <a href="properties.html?type=land">
+                Land
+            </a>
+
+            <a href="properties.html?type=commercial">
+                Commercial
+            </a>
+
+        </div>
+
+
+
+        <div class="footer-column">
+
+            <h3>
+                Contact
+            </h3>
+
+            <a
+                href="tel:+2340000000000"
+                id="footerPhone"
+            >
+                +234 000 000 0000
+            </a>
+
+            <a
+                href="mailto:hello@example.com"
+                id="footerEmail"
+            >
+                hello@example.com
+            </a>
+
+            <span id="footerAddress">
+                Nigeria
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="footer-bottom">
+
+        <div class="container">
+
+            <p>
+                ©
+                <span id="currentYear"></span>
+                EstatePro. All rights reserved.
+            </p>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+
+<script type="module">
+
+import {
+    initializeApp,
+    getApps
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+import {
+    getFirestore,
+    collection,
+    getDocs,
+    doc,
+    getDoc
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* =====================================================
+   FIREBASE
+===================================================== */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyAE44DxNnqz3m8ScqaZxoSj2FdQ7aJ2NIg",
+
+    authDomain:
+        "estate-pro-d564b.firebaseapp.com",
+
+    projectId:
+        "estate-pro-d564b",
+
+    storageBucket:
+        "estate-pro-d564b.firebasestorage.app",
+
+    messagingSenderId:
+        "600309829118",
+
+    appId:
+        "1:600309829118:web:60c61624ca8cdf05e884af",
+
+    measurementId:
+        "G-TG60FCJHXB"
+
+};
+
+
+const app =
+    getApps().length
+        ? getApps()[0]
+        : initializeApp(firebaseConfig);
+
+
+const db =
+    getFirestore(app);
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const listings =
+    document.getElementById(
+        "propertyListings"
+    );
+
+
+const count =
+    document.getElementById(
+        "propertyCount"
+    );
+
+
+const noProperties =
+    document.getElementById(
+        "noProperties"
+    );
+
+
+const typeSelect =
+    document.getElementById(
+        "propertyType"
+    );
+
+
+const locationInput =
+    document.getElementById(
+        "propertyLocation"
+    );
+
+
+const purposeSelect =
+    document.getElementById(
+        "propertyPurpose"
+    );
+
+
+let allProperties = [];
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(value) {
+
+    return String(value ?? "")
+
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =====================================================
+   FORMAT PRICE
+===================================================== */
+
+function formatPrice(
+    price,
+    purpose
+) {
+
+    if (
+        price === undefined ||
+        price === null ||
+        price === ""
+    ) {
+
+        return "Price on request";
+
+    }
+
+
+    const number =
+        Number(price);
+
+
+    if (!Number.isFinite(number)) {
+
+        return escapeHTML(
+            String(price)
+        );
+
+    }
+
+
+    const formatted =
+        new Intl.NumberFormat(
+            "en-NG"
+        ).format(number);
+
+
+    if (
+        String(purpose)
+            .toLowerCase() === "rent"
+    ) {
+
+        return `₦${formatted} / year`;
+
+    }
+
+
+    return `₦${formatted}`;
+
+}
+
+
+/* =====================================================
+   GET URL CATEGORY
+===================================================== */
+
+function getCategoryFromURL() {
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    return String(
+        params.get("type") || ""
+    )
+        .trim()
+        .toLowerCase();
+
+}
+
+
+const urlCategory =
+    getCategoryFromURL();
+
+
+/* =====================================================
+   SET CATEGORY FROM URL
+===================================================== */
+
+function setupCategory() {
+
+    const validCategories = [
+        "house",
+        "apartment",
+        "land",
+        "commercial"
+    ];
+
+
+    if (
+        validCategories.includes(
+            urlCategory
+        )
+    ) {
+
+        typeSelect.value =
+            urlCategory;
+
+
+        const names = {
+
+            house:
+                "Houses",
+
+            apartment:
+                "Apartments",
+
+            land:
+                "Land",
+
+            commercial:
+                "Commercial"
+
+        };
+
+
+        document
+            .getElementById(
+                "pageTitle"
+            )
+            .textContent =
+            `${names[urlCategory]} Properties`;
+
+
+        document
+            .getElementById(
+                "categoryActive"
+            )
+            .textContent =
+            `Showing ${names[urlCategory]} only`;
+
+    }
+
+}
+
+
+/* =====================================================
+   RENDER PROPERTIES
+===================================================== */
+
+function renderProperties(
+    properties
+) {
+
+    count.textContent =
+        `${properties.length} ${
+            properties.length === 1
+                ? "Property"
+                : "Properties"
+        }`;
+
+
+    if (!properties.length) {
+
+        listings.innerHTML = "";
+
+        noProperties.hidden =
+            false;
+
+        return;
+
+    }
+
+
+    noProperties.hidden =
+        true;
+
+
+    listings.innerHTML =
+        properties.map(
+            property => {
+
+                const location =
+                    property.Location ||
+                    property.location ||
+                    property.address ||
+                    "Location not provided";
+
+
+                const purpose =
+                    String(
+                        property.purpose ||
+                        property.status ||
+                        "sale"
+                    )
+                        .trim()
+                        .toLowerCase();
+
+
+                const purposeLabel =
+                    purpose === "rent"
+                        ? "For Rent"
+                        : "For Sale";
+
+
+                const propertyType =
+                    String(
+                        property.propertyType ||
+                        property.type ||
+                        ""
+                    )
+                        .trim()
+                        .toLowerCase();
+
+
+                const image =
+                    property.imageUrl ||
+                    property.imageURL ||
+                    property.image ||
+                    "";
+
+
+                const title =
+                    property.title ||
+                    property.name ||
+                    "Untitled Property";
+
+
+                const imageHTML =
+                    image
+                        ? `
+                            <img
+                                src="${escapeHTML(image)}"
+                                alt="${escapeHTML(title)}"
+                                class="dynamic-image"
+                                loading="lazy"
+                                onerror="
+                                    this.style.display='none';
+                                    this.nextElementSibling.style.display='grid';
+                                "
+                            >
+
+                            <div
+                                class="image-placeholder"
+                                style="display:none;"
+                            >
+                                Property Image
+                            </div>
+                        `
+                        : `
+                            <div class="image-placeholder">
+                                Property Image
+                            </div>
+                        `;
+
+
+                return `
+
+                    <article class="property-card">
+
+                        <div class="property-image">
+
+                            ${imageHTML}
+
+                            <span class="property-status">
+                                ${purposeLabel}
+                            </span>
+
+                        </div>
+
+
+                        <div class="property-content">
+
+                            <h3>
+                                ${escapeHTML(title)}
+                            </h3>
+
+
+                            <p class="property-location">
+                                📍
+                                ${escapeHTML(location)}
+                            </p>
+
+
+                            <div class="property-meta">
+
+                                ${
+                                    property.bedrooms
+                                        ? `
+                                            <span>
+                                                🛏
+                                                ${escapeHTML(
+                                                    property.bedrooms
+                                                )}
+                                                Beds
+                                            </span>
+                                        `
+                                        : ""
+                                }
+
+
+                                ${
+                                    property.bathrooms
+                                        ? `
+                                            <span>
+                                                🚿
+                                                ${escapeHTML(
+                                                    property.bathrooms
+                                                )}
+                                                Baths
+                                            </span>
+                                        `
+                                        : ""
+                                }
+
+
+                                ${
+                                    property.area
+                                        ? `
+                                            <span>
+                                                📐
+                                                ${escapeHTML(
+                                                    property.area
+                                                )}
+                                                sqm
+                                            </span>
+                                        `
+                                        : ""
+                                }
+
+
+                                ${
+                                    propertyType
+                                        ? `
+                                            <span>
+                                                🏠
+                                                ${escapeHTML(
+                                                    propertyType
+                                                )}
+                                            </span>
+                                        `
+                                        : ""
+                                }
+
+                            </div>
+
+
+                            <div class="property-bottom">
+
+                                <strong>
+                                    ${formatPrice(
+                                        property.price,
+                                        purpose
+                                    )}
+                                </strong>
+
+
+                                <a
+                                    href="property-details.html?id=${encodeURIComponent(property.id)}"
+                                >
+                                    View Details →
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                `;
+
+            }
+        ).join("");
+
+}
+
+
+/* =====================================================
+   APPLY FILTERS
+===================================================== */
+
+function applyFilters() {
+
+    const location =
+        locationInput.value
+            .trim()
+            .toLowerCase();
+
+
+    const type =
+        typeSelect.value
+            .trim()
+            .toLowerCase();
+
+
+    const purpose =
+        purposeSelect.value
+            .trim()
+            .toLowerCase();
+
+
+    const filtered =
+        allProperties.filter(
+            property => {
+
+                const propertyLocation =
+                    String(
+                        property.Location ||
+                        property.location ||
+                        property.address ||
+                        ""
+                    )
+                        .toLowerCase();
+
+
+                const propertyType =
+                    String(
+                        property.propertyType ||
+                        property.type ||
+                        ""
+                    )
+                        .trim()
+                        .toLowerCase();
+
+
+                const propertyPurpose =
+                    String(
+                        property.purpose ||
+                        property.status ||
+                        ""
+                    )
+                        .trim()
+                        .toLowerCase();
+
+
+                return (
+
+                    (
+                        !location ||
+                        propertyLocation.includes(
+                            location
+                        )
+                    )
+
+                    &&
+
+                    (
+                        !type ||
+                        propertyType === type
+                    )
+
+                    &&
+
+                    (
+                        !purpose ||
+                        propertyPurpose === purpose
+                    )
+
+                );
+
+            }
+        );
+
+
+    renderProperties(
+        filtered
+    );
+
+}
+
+
+/* =====================================================
+   SEARCH BUTTON
+===================================================== */
+
+document
+    .getElementById(
+        "propertyFilterButton"
+    )
+    .addEventListener(
+        "click",
+        applyFilters
+    );
+
+
+/* =====================================================
+   LOAD PROPERTIES
+===================================================== */
+
+async function loadProperties() {
+
+    listings.innerHTML = `
+        <div class="property-loading">
+            Loading properties...
+        </div>
+    `;
+
+
+    try {
+
+        const snapshot =
+            await getDocs(
+                collection(
+                    db,
+                    "Properties"
+                )
+            );
+
+
+        allProperties =
+            snapshot.docs.map(
+                item => ({
+
+                    id:
+                        item.id,
+
+                    ...item.data()
+
+                })
+            );
+
+
+        /*
+         * First apply category from URL.
+         */
+
+        applyFilters();
+
+
+    } catch (error) {
+
+        console.error(
+            "EstatePro: Properties loading error:",
+            error
+        );
+
+
+        listings.innerHTML = `
+            <div class="property-error">
+                Unable to load properties from Firebase.
+            </div>
+        `;
+
+
+        count.textContent =
+            "0 Properties";
+
+    }
+
+}
+
+
+/* =====================================================
+   COMPANY SETTINGS
+===================================================== */
+
+async function loadCompanySettings() {
+
+    try {
+
+        const companyRef =
+            doc(
+                db,
+                "CompanySettings",
+                "main"
+            );
+
+
+        const snapshot =
+            await getDoc(
+                companyRef
+            );
+
+
+        if (!snapshot.exists()) {
+
+            return;
+
+        }
+
+
+        const data =
+            snapshot.data();
+
+
+        const phone =
+            document.getElementById(
+                "footerPhone"
+            );
+
+
+        const email =
+            document.getElementById(
+                "footerEmail"
+            );
+
+
+        const address =
+            document.getElementById(
+                "footerAddress"
+            );
+
+
+        if (
+            phone &&
+            data.companyPhone
+        ) {
+
+            phone.textContent =
+                data.companyPhone;
+
+            phone.href =
+                "tel:" +
+                data.companyPhone;
+
+        }
+
+
+        if (
+            email &&
+            data.companyEmail
+        ) {
+
+            email.textContent =
+                data.companyEmail;
+
+            email.href =
+                "mailto:" +
+                data.companyEmail;
+
+        }
+
+
+        if (
+            address &&
+            data.companyAddress
+        ) {
+
+            address.textContent =
+                data.companyAddress;
+
+        }
+
+
+        const whatsappNumber =
+            String(
+                data.companyWhatsApp ||
+                data.companyPhone ||
+                ""
+            )
+                .replace(
+                    /\D/g,
+                    ""
+                );
+
+
+        const navWhatsapp =
+            document.getElementById(
+                "navWhatsapp"
+            );
+
+
+        const propertyWhatsapp =
+            document.getElementById(
+                "propertyWhatsapp"
+            );
+
+
+        if (whatsappNumber) {
+
+            const whatsappURL =
+                `https://wa.me/${whatsappNumber}`;
+
+
+            if (navWhatsapp) {
+
+                navWhatsapp.href =
+                    whatsappURL;
+
+            }
+
+
+            if (propertyWhatsapp) {
+
+                propertyWhatsapp.href =
+                    whatsappURL;
+
+            }
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "EstatePro: Company settings error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+setupCategory();
+
+loadProperties();
+
+loadCompanySettings();
+
+
+/* =====================================================
+   YEAR
+===================================================== */
+
+const year =
+    document.getElementById(
+        "currentYear"
+    );
+
+
+if (year) {
+
+    year.textContent =
+        new Date().getFullYear();
+
+}
+
+</script>
+
+
+<script src="app.js?v=5"></script>
+
+</body>
+
+</html>
