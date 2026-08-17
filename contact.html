@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Contact us for property enquiries, sales, rentals and more."
+    >
+
+    <meta
+        name="theme-color"
+        content="#0f766e"
+    >
+
+    <title>Contact | EstatePro</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="responsive.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+====================================================== -->
+
+<header class="site-header">
+
+    <div class="container nav-container">
+
+
+        <a
+            href="index.html"
+            class="brand"
+            aria-label="EstatePro Home"
+        >
+
+            <span
+                class="brand-mark"
+                id="companyLogoLetter"
+            >
+                E
+            </span>
+
+            <img
+                id="companyLogo"
+                class="company-header-logo"
+                alt="Company Logo"
+                style="display:none;"
+            >
+
+            <span
+                class="brand-name"
+                id="companyName"
+            >
+                EstatePro
+            </span>
+
+        </a>
+
+
+        <button
+            class="menu-toggle"
+            id="menuToggle"
+            type="button"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+        >
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </button>
+
+
+        <nav
+            class="main-nav"
+            id="mainNav"
+            aria-label="Main navigation"
+        >
+
+            <a
+                href="index.html"
+                class="nav-link"
+            >
+                Home
+            </a>
+
+
+            <a
+                href="properties.html"
+                class="nav-link"
+            >
+                Properties
+            </a>
+
+
+            <a
+                href="about.html"
+                class="nav-link"
+            >
+                About
+            </a>
+
+
+            <a
+                href="contact.html"
+                class="nav-link active"
+            >
+                Contact
+            </a>
+
+
+            <a
+                href="#"
+                class="nav-whatsapp"
+                id="navWhatsapp"
+            >
+                WhatsApp
+            </a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+
+<main>
+
+
+<!-- =====================================================
+     HERO
+====================================================== -->
+
+<section class="contact-hero">
+
+    <div class="container">
+
+        <span class="section-label">
+            GET IN TOUCH
+        </span>
+
+        <h1>
+            Contact <span id="heroCompanyName">EstatePro</span>
+        </h1>
+
+        <p id="heroDescription">
+            We are here to help you with your property needs.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CONTACT
+====================================================== -->
+
+<section class="section contact-section">
+
+    <div class="container contact-grid">
+
+
+        <!-- COMPANY INFORMATION -->
+
+        <div class="contact-info">
+
+            <span class="section-label">
+                CONTACT US
+            </span>
+
+
+            <h2>
+                Let's Talk About Your Property Needs
+            </h2>
+
+
+            <p>
+                Whether you want to buy, rent, sell or simply
+                ask about a property, you can contact us directly.
+            </p>
+
+
+            <div class="contact-items">
+
+
+                <!-- PHONE -->
+
+                <div class="contact-item">
+
+                    <div class="contact-icon">
+                        📞
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Phone
+                        </h3>
+
+                        <a
+                            href="#"
+                            id="companyPhone"
+                        >
+                            Loading...
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- EMAIL -->
+
+                <div class="contact-item">
+
+                    <div class="contact-icon">
+                        ✉️
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Email
+                        </h3>
+
+                        <a
+                            href="#"
+                            id="companyEmail"
+                        >
+                            Loading...
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- WHATSAPP -->
+
+                <div class="contact-item">
+
+                    <div class="contact-icon">
+                        💬
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            WhatsApp
+                        </h3>
+
+                        <a
+                            href="#"
+                            id="companyWhatsApp"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Chat with us
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ADDRESS -->
+
+                <div class="contact-item">
+
+                    <div class="contact-icon">
+                        📍
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            Address
+                        </h3>
+
+                        <p id="companyAddress">
+                            Loading...
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- CONTACT FORM -->
+
+        <div class="contact-form-card">
+
+            <h2>
+                Send Us a Message
+            </h2>
+
+            <p>
+                Send your enquiry and our team will get back to you.
+            </p>
+
+
+            <form id="contactForm">
+
+
+                <div class="form-group">
+
+                    <label for="visitorName">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="visitorName"
+                        placeholder="Your name"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="visitorPhone">
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="visitorPhone"
+                        placeholder="Your phone number"
+                        required
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="visitorEmail">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="visitorEmail"
+                        placeholder="Your email"
+                    >
+
+                </div>
+
+
+
+                <div class="form-group">
+
+                    <label for="visitorMessage">
+                        Message
+                    </label>
+
+                    <textarea
+                        id="visitorMessage"
+                        placeholder="Write your message..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+
+                <button
+                    type="submit"
+                    class="contact-submit"
+                    id="contactSubmit"
+                >
+                    Send Message
+                </button>
+
+
+                <p
+                    id="contactStatus"
+                    class="contact-status"
+                ></p>
+
+
+            </form>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CTA
+====================================================== -->
+
+<section class="cta-section">
+
+    <div class="container cta-content">
+
+        <span class="section-label">
+            NEED QUICK HELP?
+        </span>
+
+        <h2>
+            Chat With Us on WhatsApp
+        </h2>
+
+        <p>
+            Get quick answers about available properties.
+        </p>
+
+        <a
+            href="#"
+            id="ctaWhatsapp"
+            class="cta-button"
+        >
+            Chat on WhatsApp
+        </a>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+
+<footer class="site-footer">
+
+    <div class="container footer-grid">
+
+
+        <div class="footer-brand">
+
+            <a
+                href="index.html"
+                class="brand footer-logo"
+            >
+
+                <span
+                    class="brand-mark"
+                    id="footerLogoLetter"
+                >
+                    E
+                </span>
+
+                <img
+                    id="footerLogo"
+                    alt="Company Logo"
+                    style="display:none;"
+                >
+
+                <span
+                    class="brand-name"
+                    id="footerCompanyName"
+                >
+                    EstatePro
+                </span>
+
+            </a>
+
+
+            <p id="footerDescription">
+                A simple and professional platform for
+                discovering properties.
+            </p>
+
+        </div>
+
+
+
+        <div class="footer-column">
+
+            <h3>
+                Quick Links
+            </h3>
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="properties.html">
+                Properties
+            </a>
+
+            <a href="about.html">
+                About
+            </a>
+
+            <a href="contact.html">
+                Contact
+            </a>
+
+        </div>
+
+
+
+        <div class="footer-column">
+
+            <h3>
+                Property Types
+            </h3>
+
+            <a href="properties.html?type=house">
+                Houses
+            </a>
+
+            <a href="properties.html?type=apartment">
+                Apartments
+            </a>
+
+            <a href="properties.html?type=land">
+                Land
+            </a>
+
+            <a href="properties.html?type=commercial">
+                Commercial
+            </a>
+
+        </div>
+
+
+
+        <div class="footer-column">
+
+            <h3>
+                Contact
+            </h3>
+
+            <a
+                href="#"
+                id="footerPhone"
+            >
+                Loading...
+            </a>
+
+            <a
+                href="#"
+                id="footerEmail"
+            >
+                Loading...
+            </a>
+
+            <span id="footerAddress">
+                Loading...
+            </span>
+
+        </div>
+
+
+    </div>
+
+
+
+    <div class="footer-bottom">
+
+        <div class="container">
+
+            <p>
+
+                ©
+                <span id="currentYear"></span>
+
+                <span id="copyrightCompanyName">
+                    EstatePro
+                </span>.
+
+                All rights reserved.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =====================================================
+     FIREBASE + CONTACT SCRIPT
+====================================================== -->
+
+<script type="module">
+
+import {
+    initializeApp,
+    getApps
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+import {
+    getFirestore,
+    doc,
+    getDoc,
+    collection,
+    addDoc,
+    serverTimestamp
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+
+/* =====================================================
+   FIREBASE CONFIG
+====================================================== */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyAE44DxNnqz3m8ScqaZxoSj2FdQ7aJ2NIg",
+
+    authDomain:
+        "estate-pro-d564b.firebaseapp.com",
+
+    projectId:
+        "estate-pro-d564b",
+
+    storageBucket:
+        "estate-pro-d564b.firebasestorage.app",
+
+    messagingSenderId:
+        "600309829118",
+
+    appId:
+        "1:600309829118:web:60c61624ca8cdf05e884af",
+
+    measurementId:
+        "G-TG60FCJHXB"
+
+};
+
+
+
+/* =====================================================
+   FIREBASE INITIALIZATION
+====================================================== */
+
+const app =
+    getApps().length
+        ? getApps()[0]
+        : initializeApp(firebaseConfig);
+
+
+const db =
+    getFirestore(app);
+
+
+
+/* =====================================================
+   MOBILE MENU
+====================================================== */
+
+const menuToggle =
+    document.getElementById("menuToggle");
+
+
+const mainNav =
+    document.getElementById("mainNav");
+
+
+if (
+    menuToggle &&
+    mainNav
+) {
+
+    menuToggle.addEventListener(
+        "click",
+        () => {
+
+            const open =
+                mainNav.classList.toggle("open");
+
+
+            menuToggle.setAttribute(
+                "aria-expanded",
+                open
+                    ? "true"
+                    : "false"
+            );
+
+
+            menuToggle.setAttribute(
+                "aria-label",
+                open
+                    ? "Close navigation menu"
+                    : "Open navigation menu"
+            );
+
+        }
+    );
+
+
+    mainNav
+        .querySelectorAll("a")
+        .forEach(
+            link => {
+
+                link.addEventListener(
+                    "click",
+                    () => {
+
+                        mainNav.classList.remove(
+                            "open"
+                        );
+
+                        menuToggle.setAttribute(
+                            "aria-expanded",
+                            "false"
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+}
+
+
+
+/* =====================================================
+   COMPANY SETTINGS
+====================================================== */
+
+async function loadCompanySettings() {
+
+    try {
+
+        const companyRef =
+            doc(
+                db,
+                "CompanySettings",
+                "main"
+            );
+
+
+        const snapshot =
+            await getDoc(
+                companyRef
+            );
+
+
+        if (!snapshot.exists()) {
+
+            console.warn(
+                "EstatePro: CompanySettings/main not found."
+            );
+
+            return;
+
+        }
+
+
+        const data =
+            snapshot.data();
+
+
+
+        const companyName =
+            data.companyName ||
+            "EstatePro";
+
+
+        const description =
+            data.companyDescription ||
+            "A simple and professional platform for discovering properties.";
+
+
+        const phone =
+            data.companyPhone ||
+            "";
+
+
+        const email =
+            data.companyEmail ||
+            "";
+
+
+        const address =
+            data.companyAddress ||
+            "Nigeria";
+
+
+        const whatsapp =
+            data.companyWhatsApp ||
+            phone;
+
+
+
+        /* COMPANY NAME */
+
+        const companyNameElement =
+            document.getElementById(
+                "companyName"
+            );
+
+
+        if (companyNameElement) {
+
+            companyNameElement.textContent =
+                companyName;
+
+        }
+
+
+        const heroCompanyName =
+            document.getElementById(
+                "heroCompanyName"
+            );
+
+
+        if (heroCompanyName) {
+
+            heroCompanyName.textContent =
+                companyName;
+
+        }
+
+
+        const footerCompanyName =
+            document.getElementById(
+                "footerCompanyName"
+            );
+
+
+        if (footerCompanyName) {
+
+            footerCompanyName.textContent =
+                companyName;
+
+        }
+
+
+        const copyrightCompanyName =
+            document.getElementById(
+                "copyrightCompanyName"
+            );
+
+
+        if (copyrightCompanyName) {
+
+            copyrightCompanyName.textContent =
+                companyName;
+
+        }
+
+
+
+        /* DESCRIPTION */
+
+        const heroDescription =
+            document.getElementById(
+                "heroDescription"
+            );
+
+
+        if (heroDescription) {
+
+            heroDescription.textContent =
+                description;
+
+        }
+
+
+        const footerDescription =
+            document.getElementById(
+                "footerDescription"
+            );
+
+
+        if (footerDescription) {
+
+            footerDescription.textContent =
+                description;
+
+        }
+
+
+
+        /* TITLE */
+
+        document.title =
+            `Contact | ${companyName}`;
+
+
+
+        /* PHONE */
+
+        const phoneElement =
+            document.getElementById(
+                "companyPhone"
+            );
+
+
+        const footerPhone =
+            document.getElementById(
+                "footerPhone"
+            );
+
+
+        if (phone) {
+
+            if (phoneElement) {
+
+                phoneElement.textContent =
+                    phone;
+
+                phoneElement.href =
+                    `tel:${phone}`;
+
+            }
+
+
+            if (footerPhone) {
+
+                footerPhone.textContent =
+                    phone;
+
+                footerPhone.href =
+                    `tel:${phone}`;
+
+            }
+
+        }
+
+
+
+        /* EMAIL */
+
+        const emailElement =
+            document.getElementById(
+                "companyEmail"
+            );
+
+
+        const footerEmail =
+            document.getElementById(
+                "footerEmail"
+            );
+
+
+        if (email) {
+
+            if (emailElement) {
+
+                emailElement.textContent =
+                    email;
+
+                emailElement.href =
+                    `mailto:${email}`;
+
+            }
+
+
+            if (footerEmail) {
+
+                footerEmail.textContent =
+                    email;
+
+                footerEmail.href =
+                    `mailto:${email}`;
+
+            }
+
+        }
+
+
+
+        /* ADDRESS */
+
+        const addressElement =
+            document.getElementById(
+                "companyAddress"
+            );
+
+
+        const footerAddress =
+            document.getElementById(
+                "footerAddress"
+            );
+
+
+        if (addressElement) {
+
+            addressElement.textContent =
+                address;
+
+        }
+
+
+        if (footerAddress) {
+
+            footerAddress.textContent =
+                address;
+
+        }
+
+
+
+        /* WHATSAPP */
+
+        let whatsappNumber =
+            String(whatsapp)
+                .replace(/\D/g, "");
+
+
+        if (
+            whatsappNumber.startsWith("0")
+        ) {
+
+            whatsappNumber =
+                "234" +
+                whatsappNumber.substring(1);
+
+        }
+
+
+        if (whatsappNumber) {
+
+            const whatsappURL =
+                `https://wa.me/${whatsappNumber}`;
+
+
+            const whatsappLink =
+                document.getElementById(
+                    "companyWhatsApp"
+                );
+
+
+            const navWhatsapp =
+                document.getElementById(
+                    "navWhatsapp"
+                );
+
+
+            const ctaWhatsapp =
+                document.getElementById(
+                    "ctaWhatsapp"
+                );
+
+
+            if (whatsappLink) {
+
+                whatsappLink.href =
+                    whatsappURL;
+
+                whatsappLink.target =
+                    "_blank";
+
+            }
+
+
+            if (navWhatsapp) {
+
+                navWhatsapp.href =
+                    whatsappURL;
+
+                navWhatsapp.target =
+                    "_blank";
+
+            }
+
+
+            if (ctaWhatsapp) {
+
+                ctaWhatsapp.href =
+                    whatsappURL;
+
+                ctaWhatsapp.target =
+                    "_blank";
+
+            }
+
+        }
+
+
+
+        /* LOGO */
+
+        const logo =
+            data.companyLogo ||
+            "";
+
+
+        if (logo) {
+
+            const mainLogo =
+                document.getElementById(
+                    "companyLogo"
+                );
+
+
+            const footerLogo =
+                document.getElementById(
+                    "footerLogo"
+                );
+
+
+            const mainLetter =
+                document.getElementById(
+                    "companyLogoLetter"
+                );
+
+
+            const footerLetter =
+                document.getElementById(
+                    "footerLogoLetter"
+                );
+
+
+            if (mainLogo) {
+
+                mainLogo.src =
+                    logo;
+
+                mainLogo.style.display =
+                    "block";
+
+            }
+
+
+            if (footerLogo) {
+
+                footerLogo.src =
+                    logo;
+
+                footerLogo.style.display =
+                    "block";
+
+            }
+
+
+            if (mainLetter) {
+
+                mainLetter.style.display =
+                    "none";
+
+            }
+
+
+            if (footerLetter) {
+
+                footerLetter.style.display =
+                    "none";
+
+            }
+
+        }
+        else {
+
+            const firstLetter =
+                companyName
+                    .charAt(0)
+                    .toUpperCase();
+
+
+            const mainLetter =
+                document.getElementById(
+                    "companyLogoLetter"
+                );
+
+
+            const footerLetter =
+                document.getElementById(
+                    "footerLogoLetter"
+                );
+
+
+            if (mainLetter) {
+
+                mainLetter.textContent =
+                    firstLetter;
+
+            }
+
+
+            if (footerLetter) {
+
+                footerLetter.textContent =
+                    firstLetter;
+
+            }
+
+        }
+
+
+    }
+    catch (error) {
+
+        console.error(
+            "EstatePro Contact: Failed to load company settings:",
+            error
+        );
+
+    }
+
+}
+
+
+
+/* =====================================================
+   CONTACT FORM → FIRESTORE
+====================================================== */
+
+const contactForm =
+    document.getElementById(
+        "contactForm"
+    );
+
+
+if (contactForm) {
+
+    contactForm.addEventListener(
+        "submit",
+        async event => {
+
+            event.preventDefault();
+
+
+            const button =
+                document.getElementById(
+                    "contactSubmit"
+                );
+
+
+            const status =
+                document.getElementById(
+                    "contactStatus"
+                );
+
+
+            const name =
+                document.getElementById(
+                    "visitorName"
+                )
+                .value
+                .trim();
+
+
+            const phone =
+                document.getElementById(
+                    "visitorPhone"
+                )
+                .value
+                .trim();
+
+
+            const email =
+                document.getElementById(
+                    "visitorEmail"
+                )
+                .value
+                .trim();
+
+
+            const message =
+                document.getElementById(
+                    "visitorMessage"
+                )
+                .value
+                .trim();
+
+
+            if (!name || !phone || !message) {
+
+                status.textContent =
+                    "Please fill in all required fields.";
+
+                status.style.color =
+                    "#dc2626";
+
+                return;
+
+            }
+
+
+            button.disabled =
+                true;
+
+
+            button.textContent =
+                "Sending...";
+
+
+            try {
+
+                await addDoc(
+                    collection(
+                        db,
+                        "Messages"
+                    ),
+                    {
+
+                        name:
+                            name,
+
+                        phone:
+                            phone,
+
+                        email:
+                            email,
+
+                        message:
+                            message,
+
+                        createdAt:
+                            serverTimestamp(),
+
+                        status:
+                            "new"
+
+                    }
+                );
+
+
+                status.textContent =
+                    "Your message has been sent successfully.";
+
+                status.style.color =
+                    "#15803d";
+
+
+                contactForm.reset();
+
+
+            }
+            catch (error) {
+
+                console.error(
+                    "EstatePro Contact: Message error:",
+                    error
+                );
+
+
+                status.textContent =
+                    "Unable to send your message. Please try WhatsApp or phone.";
+
+                status.style.color =
+                    "#dc2626";
+
+            }
+            finally {
+
+                button.disabled =
+                    false;
+
+                button.textContent =
+                    "Send Message";
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =====================================================
+   CURRENT YEAR
+====================================================== */
+
+const year =
+    document.getElementById(
+        "currentYear"
+    );
+
+
+if (year) {
+
+    year.textContent =
+        new Date().getFullYear();
+
+}
+
+
+
+/* =====================================================
+   START
+====================================================== */
+
+loadCompanySettings();
+
+</script>
+
+
+</body>
+
+</html>
