@@ -1,3599 +1,2421 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
-
-<meta
-    name="description"
-    id="pageDescription"
-    content="Browse available properties."
->
-
-<meta
-    name="theme-color"
-    content="#0f766e"
->
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" id="pageDescription" content="Browse available properties.">
+<meta name="theme-color" content="#0f766e">
 <title id="pageTitle">Properties</title>
 
-<link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
->
-
-<link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
->
-
-<link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+margin:0;
+font-family:Inter,Arial,sans-serif;
+background:#f5f7f9;
+color:#17202a
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+img{max-width:100%}
+a{text-decoration:none;color:inherit}
+.hidden{display:none!important}
 
-* {
-    box-sizing: border-box;
+.site-header{
+position:sticky;
+top:0;
+z-index:1000;
+background:#fff;
+border-bottom:1px solid #e5e7eb
+}
+.header-inner{
+max-width:1200px;
+margin:auto;
+padding:13px 18px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:20px
+}
+.brand{
+display:flex;
+align-items:center;
+gap:11px;
+min-width:0
+}
+.brand-logo{
+width:48px;
+height:48px;
+border-radius:12px;
+background:#ecfdf5;
+color:#0f766e;
+display:grid;
+place-items:center;
+overflow:hidden;
+flex-shrink:0;
+font-weight:800;
+font-size:20px
+}
+.brand-logo img{
+width:100%;
+height:100%;
+object-fit:contain
+}
+.brand-text{min-width:0}
+.brand-name{
+font-size:17px;
+font-weight:800;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis
+}
+.brand-location{
+color:#64748b;
+font-size:12px;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis
+}
+.header-actions{
+display:flex;
+align-items:center;
+gap:8px
+}
+.header-button{
+border:1px solid #d7dde3;
+background:#fff;
+color:#334155;
+padding:9px 13px;
+border-radius:8px;
+font-weight:600
+}
+.whatsapp-button{
+border:0;
+background:#0f766e;
+color:white;
+padding:10px 15px;
+border-radius:8px;
+font-weight:700
 }
 
-html {
-    scroll-behavior: smooth;
+.hero{
+background:linear-gradient(135deg,#0f766e,#115e59);
+color:white
+}
+.hero-inner{
+max-width:1200px;
+margin:auto;
+padding:65px 18px 70px
+}
+.hero-content{max-width:720px}
+.hero-label{
+display:inline-block;
+padding:7px 12px;
+border-radius:999px;
+background:rgba(255,255,255,.12);
+font-size:12px;
+font-weight:700;
+margin-bottom:15px
+}
+.hero h1{
+margin:0 0 15px;
+font-size:clamp(32px,6vw,55px);
+line-height:1.08
+}
+.hero p{
+margin:0;
+color:rgba(255,255,255,.86);
+line-height:1.7;
+max-width:650px
 }
 
-body {
-    margin: 0;
-    font-family: Inter, Arial, sans-serif;
-    background: #f5f7f9;
-    color: #17202a;
+.search-section{
+max-width:1100px;
+margin:-28px auto 0;
+position:relative;
+z-index:10;
+padding:0 18px
 }
-
-button,
-input,
-select,
-textarea {
-    font: inherit;
+.search-box{
+background:white;
+border-radius:15px;
+padding:15px;
+box-shadow:0 10px 35px rgba(0,0,0,.10);
+display:grid;
+grid-template-columns:1.5fr 1fr 1fr auto;
+gap:10px
 }
-
-button {
-    cursor: pointer;
-}
-
-img {
-    max-width: 100%;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-.hidden {
-    display: none !important;
-}
-
-
-/* =========================================================
-   HEADER
-========================================================= */
-
-.site-header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    background: #ffffff;
-    border-bottom: 1px solid #e5e7eb;
-}
-
-.header-inner {
-    max-width: 1200px;
-    margin: auto;
-    padding: 13px 18px;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-}
-
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 11px;
-    min-width: 0;
-}
-
-.brand-logo {
-    width: 48px;
-    height: 48px;
-
-    border-radius: 12px;
-
-    background: #ecfdf5;
-    color: #0f766e;
-
-    display: grid;
-    place-items: center;
-
-    overflow: hidden;
-    flex-shrink: 0;
-
-    font-weight: 800;
-    font-size: 20px;
-}
-
-.brand-logo img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.brand-text {
-    min-width: 0;
-}
-
-.brand-name {
-    font-size: 17px;
-    font-weight: 800;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.brand-location {
-    color: #64748b;
-    font-size: 12px;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.header-actions {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.header-button {
-    border: 1px solid #d7dde3;
-    background: #fff;
-    color: #334155;
-
-    padding: 9px 13px;
-    border-radius: 8px;
-
-    font-weight: 600;
-}
-
-.header-button:hover {
-    background: #f8fafc;
-}
-
-.whatsapp-button {
-    border: 0;
-    background: #0f766e;
-    color: white;
-
-    padding: 10px 15px;
-    border-radius: 8px;
-
-    font-weight: 700;
-}
-
-.whatsapp-button:hover {
-    background: #0d665f;
-}
-
-
-/* =========================================================
-   HERO
-========================================================= */
-
-.hero {
-    background:
-        linear-gradient(
-            135deg,
-            #0f766e,
-            #115e59
-        );
-
-    color: white;
-}
-
-.hero-inner {
-    max-width: 1200px;
-    margin: auto;
-
-    padding: 65px 18px 70px;
-}
-
-.hero-content {
-    max-width: 720px;
-}
-
-.hero-label {
-    display: inline-block;
-
-    padding: 7px 12px;
-
-    border-radius: 999px;
-
-    background: rgba(255,255,255,.12);
-
-    font-size: 12px;
-    font-weight: 700;
-
-    margin-bottom: 15px;
-}
-
-.hero h1 {
-    margin: 0 0 15px;
-
-    font-size: clamp(32px, 6vw, 55px);
-    line-height: 1.08;
-}
-
-.hero p {
-    margin: 0;
-
-    color: rgba(255,255,255,.86);
-
-    line-height: 1.7;
-
-    max-width: 650px;
-}
-
-
-/* =========================================================
-   SEARCH AREA
-========================================================= */
-
-.search-section {
-    max-width: 1100px;
-
-    margin: -28px auto 0;
-
-    position: relative;
-    z-index: 10;
-
-    padding: 0 18px;
-}
-
-.search-box {
-    background: white;
-
-    border-radius: 15px;
-
-    padding: 15px;
-
-    box-shadow:
-        0 10px 35px rgba(0,0,0,.10);
-
-    display: grid;
-
-    grid-template-columns:
-        1.5fr
-        1fr
-        1fr
-        auto;
-
-    gap: 10px;
-}
-
-.search-control {
-    min-width: 0;
-}
-
+.search-control{min-width:0}
 .search-control input,
-.search-control select {
-    width: 100%;
-
-    border: 1px solid #d7dde3;
-
-    background: white;
-
-    padding: 12px;
-
-    border-radius: 9px;
-
-    outline: none;
+.search-control select{
+width:100%;
+border:1px solid #d7dde3;
+background:white;
+padding:12px;
+border-radius:9px;
+outline:none
 }
-
 .search-control input:focus,
-.search-control select:focus {
-    border-color: #0f766e;
-
-    box-shadow:
-        0 0 0 3px
-        rgba(15,118,110,.08);
-}
-
-.search-button {
-    border: 0;
-
-    background: #0f766e;
-    color: white;
-
-    padding: 0 22px;
-
-    border-radius: 9px;
-
-    font-weight: 700;
-}
-
-.search-button:hover {
-    background: #0d665f;
-}
-
-
-/* =========================================================
-   MAIN
-========================================================= */
-
-.main-container {
-    max-width: 1200px;
-
-    margin: auto;
-
-    padding:
-        45px 18px
-        70px;
-}
-
-
-/* =========================================================
-   SECTION HEADER
-========================================================= */
-
-.section-header {
-    display: flex;
-
-    justify-content: space-between;
-    align-items: flex-end;
-
-    gap: 20px;
-
-    margin-bottom: 20px;
-}
-
-.section-header h2 {
-    margin: 0 0 5px;
-
-    font-size: 26px;
-}
-
-.section-header p {
-    margin: 0;
-
-    color: #64748b;
-
-    font-size: 14px;
-}
-
-.property-count {
-    color: #64748b;
-    font-size: 13px;
-}
-
-
-/* =========================================================
-   CATEGORY FILTERS
-========================================================= */
-
-.categories {
-    display: flex;
-
-    gap: 8px;
-
-    overflow-x: auto;
-
-    padding-bottom: 10px;
-
-    margin-bottom: 20px;
-
-    scrollbar-width: thin;
-}
-
-.category-button {
-    flex-shrink: 0;
-
-    border: 1px solid #d7dde3;
-
-    background: white;
-
-    color: #475569;
-
-    padding: 9px 14px;
-
-    border-radius: 999px;
-
-    font-size: 13px;
-
-    font-weight: 600;
-}
-
-.category-button:hover {
-    border-color: #0f766e;
-    color: #0f766e;
-}
-
-.category-button.active {
-    background: #0f766e;
-    border-color: #0f766e;
-    color: white;
-}
-
-
-/* =========================================================
-   PROPERTIES GRID
-========================================================= */
-
-.properties-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 20px;
-}
-
-
-/* =========================================================
-   PROPERTY CARD
-========================================================= */
-
-.property-card {
-    background: white;
-
-    border-radius: 15px;
-
-    overflow: hidden;
-
-    border: 1px solid #e5e7eb;
-
-    box-shadow:
-        0 4px 18px rgba(0,0,0,.045);
-
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease;
-}
-
-.property-card:hover {
-    transform: translateY(-3px);
-
-    box-shadow:
-        0 12px 30px rgba(0,0,0,.10);
-}
-
-.property-image {
-    position: relative;
-
-    height: 220px;
-
-    background: #e2e8f0;
-
-    overflow: hidden;
-}
-
-.property-image img {
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-
-    transition:
-        transform .3s ease;
-}
-
-.property-card:hover
-.property-image img {
-    transform: scale(1.04);
-}
-
-.image-placeholder {
-    width: 100%;
-    height: 100%;
-
-    display: grid;
-    place-items: center;
-
-    color: #94a3b8;
-
-    font-size: 13px;
-}
-
-.featured-label {
-    position: absolute;
-
-    top: 12px;
-    left: 12px;
-
-    background: #6d28d9;
-    color: white;
-
-    padding: 6px 9px;
-
-    border-radius: 7px;
-
-    font-size: 11px;
-
-    font-weight: 700;
-}
-
-.purpose-label {
-    position: absolute;
-
-    top: 12px;
-    right: 12px;
-
-    background: rgba(15,118,110,.95);
-    color: white;
-
-    padding: 6px 9px;
-
-    border-radius: 7px;
-
-    font-size: 11px;
-
-    font-weight: 700;
-}
-
-.property-body {
-    padding: 17px;
-}
-
-.property-type {
-    color: #0f766e;
-
-    font-size: 11px;
-
-    font-weight: 800;
-
-    text-transform: uppercase;
-
-    margin-bottom: 6px;
-}
-
-.property-title {
-    margin: 0 0 8px;
-
-    font-size: 18px;
-
-    line-height: 1.35;
-}
-
-.property-location {
-    color: #64748b;
-
-    font-size: 13px;
-
-    line-height: 1.5;
-
-    margin-bottom: 12px;
-}
-
-.property-price {
-    font-size: 20px;
-
-    font-weight: 800;
-
-    color: #0f766e;
-
-    margin-bottom: 12px;
-}
-
-.property-meta {
-    display: flex;
-
-    flex-wrap: wrap;
-
-    gap: 6px;
-
-    margin-bottom: 15px;
-}
-
-.meta-item {
-    background: #f1f5f9;
-
-    color: #475569;
-
-    padding: 6px 8px;
-
-    border-radius: 6px;
-
-    font-size: 11px;
-
-    font-weight: 600;
-}
-
-.property-description {
-    color: #64748b;
-
-    font-size: 13px;
-
-    line-height: 1.6;
-
-    display: -webkit-box;
-
-    -webkit-line-clamp: 3;
-
-    -webkit-box-orient: vertical;
-
-    overflow: hidden;
-
-    margin-bottom: 15px;
-}
-
-.view-button {
-    width: 100%;
-
-    border: 0;
-
-    background: #0f766e;
-    color: white;
-
-    padding: 11px;
-
-    border-radius: 8px;
-
-    font-weight: 700;
-}
-
-.view-button:hover {
-    background: #0d665f;
-}
-
-
-/* =========================================================
-   STATUS
-========================================================= */
-
-.status-badge {
-    display: inline-block;
-
-    padding: 5px 8px;
-
-    border-radius: 999px;
-
-    background: #dcfce7;
-
-    color: #166534;
-
-    font-size: 10px;
-
-    font-weight: 800;
-
-    text-transform: uppercase;
-
-    margin-bottom: 8px;
-}
-
-.status-sold {
-    background: #fee2e2;
-    color: #b91c1c;
-}
-
-.status-rented {
-    background: #fef3c7;
-    color: #92400e;
-}
-
-
-/* =========================================================
-   LOADING
-========================================================= */
-
-.loading {
-    grid-column: 1 / -1;
-
-    background: white;
-
-    border-radius: 14px;
-
-    padding: 50px 20px;
-
-    text-align: center;
-
-    color: #64748b;
-}
-
-.spinner {
-    width: 35px;
-    height: 35px;
-
-    border:
-        3px solid #d1fae5;
-
-    border-top-color:
-        #0f766e;
-
-    border-radius: 50%;
-
-    animation:
-        spin .8s linear infinite;
-
-    margin:
-        0 auto 15px;
-}
-
-@keyframes spin {
-
-    to {
-        transform: rotate(360deg);
-    }
-
-}
-
-
-/* =========================================================
-   EMPTY
-========================================================= */
-
-.empty-state {
-    grid-column: 1 / -1;
-
-    background: white;
-
-    border-radius: 14px;
-
-    padding: 55px 20px;
-
-    text-align: center;
-
-    border: 1px solid #e5e7eb;
-}
-
-.empty-icon {
-    font-size: 42px;
-
-    margin-bottom: 10px;
-}
-
-.empty-state h3 {
-    margin: 0 0 7px;
-}
-
-.empty-state p {
-    margin: 0;
-
-    color: #64748b;
-}
-
-
-/* =========================================================
-   ABOUT COMPANY
-========================================================= */
-
-.about-section {
-    margin-top: 55px;
-
-    background: white;
-
-    border-radius: 16px;
-
-    padding: 30px;
-
-    border: 1px solid #e5e7eb;
-
-    display: grid;
-
-    grid-template-columns:
-        180px 1fr;
-
-    gap: 30px;
-
-    align-items: center;
-}
-
-.about-logo {
-    width: 160px;
-    height: 160px;
-
-    border-radius: 18px;
-
-    background: #ecfdf5;
-
-    display: grid;
-    place-items: center;
-
-    overflow: hidden;
-
-    color: #0f766e;
-
-    font-size: 55px;
-
-    font-weight: 800;
-}
-
-.about-logo img {
-    width: 100%;
-    height: 100%;
-
-    object-fit: contain;
-}
-
-.about-content h2 {
-    margin: 0 0 10px;
-
-    font-size: 27px;
-}
-
-.about-content p {
-    color: #64748b;
-
-    line-height: 1.7;
-
-    margin: 0 0 15px;
-}
-
-.company-contact {
-    display: flex;
-
-    flex-wrap: wrap;
-
-    gap: 8px;
-}
-
-.contact-item {
-    background: #f8fafc;
-
-    border: 1px solid #e2e8f0;
-
-    border-radius: 8px;
-
-    padding: 9px 11px;
-
-    color: #475569;
-
-    font-size: 12px;
-
-    font-weight: 600;
-}
-
-
-/* =========================================================
-   PROPERTY MODAL
-========================================================= */
-
-.modal {
-    position: fixed;
-
-    inset: 0;
-
-    z-index: 3000;
-
-    background:
-        rgba(15,23,42,.70);
-
-    display: none;
-
-    align-items: center;
-    justify-content: center;
-
-    padding: 18px;
-}
-
-.modal.show {
-    display: flex;
-}
-
-.modal-box {
-    width: 100%;
-    max-width: 850px;
-
-    max-height: 92vh;
-
-    overflow-y: auto;
-
-    background: white;
-
-    border-radius: 16px;
-
-    position: relative;
-
-    box-shadow:
-        0 25px 70px rgba(0,0,0,.25);
-}
-
-.modal-close {
-    position: absolute;
-
-    top: 12px;
-    right: 12px;
-
-    z-index: 5;
-
-    width: 38px;
-    height: 38px;
-
-    border: 0;
-
-    border-radius: 50%;
-
-    background:
-        rgba(0,0,0,.55);
-
-    color: white;
-
-    font-size: 22px;
-}
-
-.modal-image {
-    width: 100%;
-
-    height: 390px;
-
-    background: #e2e8f0;
-}
-
-.modal-image img {
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-}
-
-.modal-content {
-    padding: 25px;
-}
-
-.modal-content h2 {
-    margin: 0 0 8px;
-
-    font-size: 27px;
-}
-
-.modal-location {
-    color: #64748b;
-
-    font-size: 14px;
-
-    margin-bottom: 14px;
-}
-
-.modal-price {
-    color: #0f766e;
-
-    font-size: 24px;
-
-    font-weight: 800;
-
-    margin-bottom: 15px;
-}
-
-.modal-meta {
-    display: flex;
-
-    flex-wrap: wrap;
-
-    gap: 8px;
-
-    margin-bottom: 20px;
-}
-
-.modal-description {
-    color: #475569;
-
-    line-height: 1.75;
-
-    white-space: pre-line;
-
-    margin-bottom: 20px;
-}
-
-.modal-contact {
-    display: grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap: 10px;
-}
-
-.modal-contact a {
-    text-align: center;
-
-    padding: 12px;
-
-    border-radius: 8px;
-
-    background: #0f766e;
-
-    color: white;
-
-    font-weight: 700;
-}
-
-.modal-contact a.secondary {
-    background: #f1f5f9;
-
-    color: #334155;
-}
-
-
-/* =========================================================
-   ERROR
-========================================================= */
-
-.error-box {
-    max-width: 600px;
-
-    margin: 50px auto;
-
-    padding: 25px;
-
-    background: #fee2e2;
-
-    color: #991b1b;
-
-    border-radius: 12px;
-
-    line-height: 1.6;
-
-    text-align: center;
-}
-
-.error-box h2 {
-    margin-top: 0;
-}
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
-
-.footer {
-    background: #0f172a;
-
-    color: white;
-
-    margin-top: 30px;
-}
-
-.footer-inner {
-    max-width: 1200px;
-
-    margin: auto;
-
-    padding: 35px 18px;
-
-    display: grid;
-
-    grid-template-columns:
-        1.5fr 1fr 1fr;
-
-    gap: 30px;
-}
-
-.footer-brand {
-    font-size: 20px;
-
-    font-weight: 800;
-
-    margin-bottom: 8px;
-}
-
-.footer p {
-    color: #94a3b8;
-
-    font-size: 13px;
-
-    line-height: 1.6;
+.search-control select:focus{
+border-color:#0f766e;
+box-shadow:0 0 0 3px rgba(15,118,110,.08)
+}
+.search-button{
+border:0;
+background:#0f766e;
+color:white;
+padding:0 22px;
+border-radius:9px;
+font-weight:700
+}
+
+.main-container{
+max-width:1200px;
+margin:auto;
+padding:45px 18px 70px
+}
+.section-header{
+display:flex;
+justify-content:space-between;
+align-items:flex-end;
+gap:20px;
+margin-bottom:20px
+}
+.section-header h2{
+margin:0 0 5px;
+font-size:26px
+}
+.section-header p{
+margin:0;
+color:#64748b;
+font-size:14px
+}
+.property-count{
+color:#64748b;
+font-size:13px
+}
+
+.categories{
+display:flex;
+gap:8px;
+overflow-x:auto;
+padding-bottom:10px;
+margin-bottom:20px;
+scrollbar-width:thin
+}
+.category-button{
+flex-shrink:0;
+border:1px solid #d7dde3;
+background:white;
+color:#475569;
+padding:9px 14px;
+border-radius:999px;
+font-size:13px;
+font-weight:600
+}
+.category-button.active{
+background:#0f766e;
+border-color:#0f766e;
+color:white
+}
+
+.properties-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px
+}
+.property-card{
+background:white;
+border-radius:15px;
+overflow:hidden;
+border:1px solid #e5e7eb;
+box-shadow:0 4px 18px rgba(0,0,0,.045);
+transition:.2s
+}
+.property-card:hover{
+transform:translateY(-3px);
+box-shadow:0 12px 30px rgba(0,0,0,.10)
+}
+.property-image{
+position:relative;
+height:220px;
+background:#e2e8f0;
+overflow:hidden
+}
+.property-image img{
+width:100%;
+height:100%;
+object-fit:cover;
+transition:.3s
+}
+.property-card:hover .property-image img{
+transform:scale(1.04)
+}
+.image-placeholder{
+width:100%;
+height:100%;
+display:grid;
+place-items:center;
+color:#94a3b8;
+font-size:13px
+}
+.featured-label{
+position:absolute;
+top:12px;
+left:12px;
+background:#6d28d9;
+color:white;
+padding:6px 9px;
+border-radius:7px;
+font-size:11px;
+font-weight:700
+}
+.purpose-label{
+position:absolute;
+top:12px;
+right:12px;
+background:rgba(15,118,110,.95);
+color:white;
+padding:6px 9px;
+border-radius:7px;
+font-size:11px;
+font-weight:700
+}
+.property-body{padding:17px}
+.property-type{
+color:#0f766e;
+font-size:11px;
+font-weight:800;
+text-transform:uppercase;
+margin-bottom:6px
+}
+.property-title{
+margin:0 0 8px;
+font-size:18px;
+line-height:1.35
+}
+.property-location{
+color:#64748b;
+font-size:13px;
+line-height:1.5;
+margin-bottom:12px
+}
+.property-price{
+font-size:20px;
+font-weight:800;
+color:#0f766e;
+margin-bottom:12px
+}
+.property-meta{
+display:flex;
+flex-wrap:wrap;
+gap:6px;
+margin-bottom:15px
+}
+.meta-item{
+background:#f1f5f9;
+color:#475569;
+padding:6px 8px;
+border-radius:6px;
+font-size:11px;
+font-weight:600
+}
+.property-description{
+color:#64748b;
+font-size:13px;
+line-height:1.6;
+display:-webkit-box;
+-webkit-line-clamp:3;
+-webkit-box-orient:vertical;
+overflow:hidden;
+margin-bottom:15px
+}
+.view-button{
+width:100%;
+border:0;
+background:#0f766e;
+color:white;
+padding:11px;
+border-radius:8px;
+font-weight:700
+}
+
+.status-badge{
+display:inline-block;
+padding:5px 8px;
+border-radius:999px;
+background:#dcfce7;
+color:#166534;
+font-size:10px;
+font-weight:800;
+text-transform:uppercase;
+margin-bottom:8px
+}
+.status-sold{background:#fee2e2;color:#b91c1c}
+.status-rented{background:#fef3c7;color:#92400e}
+
+.loading{
+grid-column:1/-1;
+background:white;
+border-radius:14px;
+padding:50px 20px;
+text-align:center;
+color:#64748b
+}
+.spinner{
+width:35px;
+height:35px;
+border:3px solid #d1fae5;
+border-top-color:#0f766e;
+border-radius:50%;
+animation:spin .8s linear infinite;
+margin:0 auto 15px
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.empty-state{
+grid-column:1/-1;
+background:white;
+border-radius:14px;
+padding:55px 20px;
+text-align:center;
+border:1px solid #e5e7eb
+}
+.empty-icon{font-size:42px;margin-bottom:10px}
+.empty-state h3{margin:0 0 7px}
+.empty-state p{margin:0;color:#64748b}
+
+.about-section{
+margin-top:55px;
+background:white;
+border-radius:16px;
+padding:30px;
+border:1px solid #e5e7eb;
+display:grid;
+grid-template-columns:180px 1fr;
+gap:30px;
+align-items:center
+}
+.about-logo{
+width:160px;
+height:160px;
+border-radius:18px;
+background:#ecfdf5;
+display:grid;
+place-items:center;
+overflow:hidden;
+color:#0f766e;
+font-size:55px;
+font-weight:800
+}
+.about-logo img{
+width:100%;
+height:100%;
+object-fit:contain
+}
+.about-content h2{
+margin:0 0 10px;
+font-size:27px
+}
+.about-content p{
+color:#64748b;
+line-height:1.7;
+margin:0 0 15px
+}
+.company-contact{
+display:flex;
+flex-wrap:wrap;
+gap:8px
+}
+.contact-item{
+background:#f8fafc;
+border:1px solid #e2e8f0;
+border-radius:8px;
+padding:9px 11px;
+color:#475569;
+font-size:12px;
+font-weight:600
+}
+
+.modal{
+position:fixed;
+inset:0;
+z-index:3000;
+background:rgba(15,23,42,.70);
+display:none;
+align-items:center;
+justify-content:center;
+padding:18px
+}
+.modal.show{display:flex}
+.modal-box{
+width:100%;
+max-width:850px;
+max-height:92vh;
+overflow-y:auto;
+background:white;
+border-radius:16px;
+position:relative;
+box-shadow:0 25px 70px rgba(0,0,0,.25)
+}
+.modal-close{
+position:absolute;
+top:12px;
+right:12px;
+z-index:5;
+width:38px;
+height:38px;
+border:0;
+border-radius:50%;
+background:rgba(0,0,0,.55);
+color:white;
+font-size:22px
+}
+.modal-image{
+width:100%;
+height:390px;
+background:#e2e8f0
+}
+.modal-image img{
+width:100%;
+height:100%;
+object-fit:cover
+}
+.modal-content{padding:25px}
+.modal-content h2{
+margin:0 0 8px;
+font-size:27px
+}
+.modal-location{
+color:#64748b;
+font-size:14px;
+margin-bottom:14px
+}
+.modal-price{
+color:#0f766e;
+font-size:24px;
+font-weight:800;
+margin-bottom:15px
+}
+.modal-meta{
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+margin-bottom:20px
+}
+.modal-description{
+color:#475569;
+line-height:1.75;
+white-space:pre-line;
+margin-bottom:20px
+}
+.modal-contact{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px
+}
+.modal-contact a{
+text-align:center;
+padding:12px;
+border-radius:8px;
+background:#0f766e;
+color:white;
+font-weight:700
+}
+.modal-contact a.secondary{
+background:#f1f5f9;
+color:#334155
+}
+
+.error-box{
+max-width:650px;
+margin:50px auto;
+padding:25px;
+background:#fee2e2;
+color:#991b1b;
+border-radius:12px;
+line-height:1.6;
+text-align:center
+}
+.error-box h2{margin-top:0}
+
+.footer{
+background:#0f172a;
+color:white;
+margin-top:30px
+}
+.footer-inner{
+max-width:1200px;
+margin:auto;
+padding:35px 18px;
+display:grid;
+grid-template-columns:1.5fr 1fr 1fr;
+gap:30px
+}
+.footer-brand{
+font-size:20px;
+font-weight:800;
+margin-bottom:8px
+}
+.footer p{
+color:#94a3b8;
+font-size:13px;
+line-height:1.6
+}
+.footer h3{
+margin-top:0;
+font-size:15px
+}
+.footer-contact{
+display:flex;
+flex-direction:column;
+gap:8px;
+color:#cbd5e1;
+font-size:13px
+}
+.footer-bottom{
+border-top:1px solid #1e293b;
+text-align:center;
+padding:15px;
+color:#64748b;
+font-size:11px
+}
+
+@media(max-width:1000px){
+.properties-grid{grid-template-columns:repeat(2,1fr)}
+.search-box{grid-template-columns:1fr 1fr}
+.search-button{padding:12px}
+}
+@media(max-width:700px){
+.header-inner{padding:10px 14px}
+.header-actions .header-button{display:none}
+.brand-logo{width:42px;height:42px}
+.brand-name{font-size:15px}
+.hero-inner{padding:45px 18px 55px}
+.search-box{grid-template-columns:1fr}
+.search-button{width:100%}
+.main-container{padding-top:35px}
+.section-header{
+align-items:flex-start;
+flex-direction:column
+}
+.properties-grid{grid-template-columns:1fr}
+.about-section{
+grid-template-columns:1fr;
+text-align:center
+}
+.about-logo{margin:auto}
+.company-contact{justify-content:center}
+.footer-inner{grid-template-columns:1fr}
+.modal-image{height:260px}
+.modal-contact{grid-template-columns:1fr}
+}
+@media(max-width:420px){
+.whatsapp-button{
+padding:9px 10px;
+font-size:12px
+}
+.property-image{height:210px}
+.about-section{padding:22px}
 }
-
-.footer h3 {
-    margin-top: 0;
-
-    font-size: 15px;
-}
-
-.footer-contact {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 8px;
-
-    color: #cbd5e1;
-
-    font-size: 13px;
-}
-
-.footer-bottom {
-    border-top: 1px solid #1e293b;
-
-    text-align: center;
-
-    padding: 15px;
-
-    color: #64748b;
-
-    font-size: 11px;
-}
-
-
-/* =========================================================
-   RESPONSIVE
-========================================================= */
-
-@media (max-width: 1000px) {
-
-    .properties-grid {
-        grid-template-columns:
-            repeat(2, 1fr);
-    }
-
-    .search-box {
-        grid-template-columns:
-            1fr 1fr;
-    }
-
-    .search-button {
-        padding: 12px;
-    }
-
-}
-
-@media (max-width: 700px) {
-
-    .header-inner {
-        padding: 10px 14px;
-    }
-
-    .header-actions .header-button {
-        display: none;
-    }
-
-    .brand-logo {
-        width: 42px;
-        height: 42px;
-    }
-
-    .brand-name {
-        font-size: 15px;
-    }
-
-    .hero-inner {
-        padding:
-            45px 18px
-            55px;
-    }
-
-    .search-box {
-        grid-template-columns: 1fr;
-    }
-
-    .search-button {
-        width: 100%;
-    }
-
-    .main-container {
-        padding-top: 35px;
-    }
-
-    .section-header {
-        align-items: flex-start;
-
-        flex-direction: column;
-    }
-
-    .properties-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .about-section {
-        grid-template-columns: 1fr;
-
-        text-align: center;
-    }
-
-    .about-logo {
-        margin: auto;
-    }
-
-    .company-contact {
-        justify-content: center;
-    }
-
-    .footer-inner {
-        grid-template-columns: 1fr;
-    }
-
-    .modal-image {
-        height: 260px;
-    }
-
-    .modal-contact {
-        grid-template-columns: 1fr;
-    }
-
-}
-
-@media (max-width: 420px) {
-
-    .whatsapp-button {
-        padding:
-            9px 10px;
-
-        font-size: 12px;
-    }
-
-    .property-image {
-        height: 210px;
-    }
-
-    .about-section {
-        padding: 22px;
-    }
-
-}
-
 </style>
-
 </head>
 
 <body>
 
-
-<!-- =========================================================
-     HEADER
-========================================================= -->
-
 <header class="site-header">
+<div class="header-inner">
 
-    <div class="header-inner">
+<a href="#top" class="brand">
+<div id="brandLogo" class="brand-logo">E</div>
 
-        <a
-            href="#top"
-            class="brand"
-        >
+<div class="brand-text">
+<div id="brandName" class="brand-name">Loading...</div>
+<div id="brandLocation" class="brand-location">Property Services</div>
+</div>
+</a>
 
-            <div
-                id="brandLogo"
-                class="brand-logo"
-            >
-                E
-            </div>
+<div class="header-actions">
+<button id="headerCallButton" class="header-button" type="button">Call</button>
+<button id="headerWhatsAppButton" class="whatsapp-button" type="button">WhatsApp</button>
+</div>
 
-            <div class="brand-text">
-
-                <div
-                    id="brandName"
-                    class="brand-name"
-                >
-                    Loading...
-                </div>
-
-                <div
-                    id="brandLocation"
-                    class="brand-location"
-                >
-                    Property Services
-                </div>
-
-            </div>
-
-        </a>
-
-
-        <div class="header-actions">
-
-            <button
-                id="headerCallButton"
-                class="header-button"
-                type="button"
-            >
-                Call
-            </button>
-
-            <button
-                id="headerWhatsAppButton"
-                class="whatsapp-button"
-                type="button"
-            >
-                WhatsApp
-            </button>
-
-        </div>
-
-    </div>
-
+</div>
 </header>
 
+<section id="top" class="hero">
+<div class="hero-inner">
+<div class="hero-content">
 
+<span class="hero-label" id="heroLabel">Property Listings</span>
 
-<!-- =========================================================
-     HERO
-========================================================= -->
+<h1 id="heroTitle">Find Your Perfect Property</h1>
 
-<section
-    id="top"
-    class="hero"
->
+<p id="heroDescription">
+Browse available properties and find the right place for you.
+</p>
 
-    <div class="hero-inner">
-
-        <div class="hero-content">
-
-            <span
-                class="hero-label"
-                id="heroLabel"
-            >
-                Property Listings
-            </span>
-
-            <h1 id="heroTitle">
-                Find Your Perfect Property
-            </h1>
-
-            <p id="heroDescription">
-                Browse available properties and
-                find the right place for you.
-            </p>
-
-        </div>
-
-    </div>
-
+</div>
+</div>
 </section>
-
-
-
-<!-- =========================================================
-     SEARCH
-========================================================= -->
 
 <section class="search-section">
+<div class="search-box">
 
-    <div class="search-box">
+<div class="search-control">
+<input
+id="searchInput"
+type="search"
+placeholder="Search properties..."
+autocomplete="off">
+</div>
 
-        <div class="search-control">
+<div class="search-control">
+<select id="purposeFilter">
+<option value="">All Purposes</option>
+<option value="sale">For Sale</option>
+<option value="rent">For Rent</option>
+</select>
+</div>
 
-            <input
-                id="searchInput"
-                type="search"
-                placeholder="Search properties..."
-                autocomplete="off"
-            >
+<div class="search-control">
+<select id="typeFilter">
+<option value="">All Types</option>
+</select>
+</div>
 
-        </div>
+<button id="searchButton" class="search-button" type="button">
+Search
+</button>
 
-
-        <div class="search-control">
-
-            <select id="purposeFilter">
-
-                <option value="">
-                    All Purposes
-                </option>
-
-                <option value="sale">
-                    For Sale
-                </option>
-
-                <option value="rent">
-                    For Rent
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <div class="search-control">
-
-            <select id="typeFilter">
-
-                <option value="">
-                    All Types
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <button
-            id="searchButton"
-            class="search-button"
-            type="button"
-        >
-            Search
-        </button>
-
-    </div>
-
+</div>
 </section>
-
-
-
-<!-- =========================================================
-     MAIN
-========================================================= -->
 
 <main class="main-container">
 
+<section id="propertiesSection">
 
-    <!-- PROPERTIES -->
+<div class="section-header">
+<div>
+<h2>Properties</h2>
+<p id="propertiesSubtitle">Browse available properties.</p>
+</div>
 
-    <section id="propertiesSection">
+<div id="propertyCount" class="property-count">
+0 properties
+</div>
+</div>
 
-        <div class="section-header">
+<div id="categories" class="categories">
+<button class="category-button active" data-category="" type="button">
+All
+</button>
+</div>
 
-            <div>
+<div id="propertiesGrid" class="properties-grid">
 
-                <h2>
-                    Properties
-                </h2>
+<div class="loading">
+<div class="spinner"></div>
+Loading properties...
+</div>
 
-                <p id="propertiesSubtitle">
-                    Browse available properties.
-                </p>
+</div>
+</section>
 
-            </div>
+<section id="aboutSection" class="about-section">
 
-            <div
-                id="propertyCount"
-                class="property-count"
-            >
-                0 properties
-            </div>
+<div id="aboutLogo" class="about-logo">E</div>
 
-        </div>
+<div class="about-content">
 
+<h2 id="aboutCompanyName">Company</h2>
 
-        <!-- CATEGORIES -->
+<p id="aboutDescription">
+Loading company information...
+</p>
 
-        <div
-            id="categories"
-            class="categories"
-        >
+<div id="companyContact" class="company-contact"></div>
 
-            <button
-                class="category-button active"
-                data-category=""
-                type="button"
-            >
-                All
-            </button>
-
-        </div>
-
-
-        <!-- PROPERTY LIST -->
-
-        <div
-            id="propertiesGrid"
-            class="properties-grid"
-        >
-
-            <div class="loading">
-
-                <div class="spinner"></div>
-
-                Loading properties...
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- ABOUT COMPANY -->
-
-    <section
-        id="aboutSection"
-        class="about-section"
-    >
-
-        <div
-            id="aboutLogo"
-            class="about-logo"
-        >
-            E
-        </div>
-
-
-        <div class="about-content">
-
-            <h2 id="aboutCompanyName">
-                Company
-            </h2>
-
-            <p id="aboutDescription">
-                Loading company information...
-            </p>
-
-
-            <div
-                id="companyContact"
-                class="company-contact"
-            >
-
-            </div>
-
-        </div>
-
-    </section>
-
+</div>
+</section>
 
 </main>
 
-
-
-<!-- =========================================================
-     FOOTER
-========================================================= -->
-
 <footer class="footer">
 
-    <div class="footer-inner">
+<div class="footer-inner">
 
+<div>
+<div id="footerCompanyName" class="footer-brand">Company</div>
 
-        <div>
+<p id="footerDescription">
+Property services and listings.
+</p>
+</div>
 
-            <div
-                id="footerCompanyName"
-                class="footer-brand"
-            >
-                Company
-            </div>
+<div>
+<h3>Contact</h3>
+<div id="footerContact" class="footer-contact"></div>
+</div>
 
-            <p id="footerDescription">
-                Property services and listings.
-            </p>
-
-        </div>
-
-
-        <div>
-
-            <h3>
-                Contact
-            </h3>
-
-            <div
-                id="footerContact"
-                class="footer-contact"
-            >
-
-            </div>
-
-        </div>
-
-
-        <div>
-
-            <h3>
-                Location
-            </h3>
-
-            <p id="footerAddress">
-                Loading...
-            </p>
-
-        </div>
-
-
-    </div>
-
-
-    <div class="footer-bottom">
-
-        ©
-        <span id="footerYear"></span>
-        <span id="footerCompany">
-            Company
-        </span>
-
-        — All rights reserved.
-
-    </div>
-
-</footer>
-
-
-
-<!-- =========================================================
-     PROPERTY MODAL
-========================================================= -->
-
-<div
-    id="propertyModal"
-    class="modal"
->
-
-    <div class="modal-box">
-
-        <button
-            id="modalClose"
-            class="modal-close"
-            type="button"
-            aria-label="Close"
-        >
-            ×
-        </button>
-
-
-        <div
-            id="modalImage"
-            class="modal-image"
-        >
-
-        </div>
-
-
-        <div class="modal-content">
-
-            <div
-                id="modalStatus"
-                class="status-badge"
-            >
-                AVAILABLE
-            </div>
-
-            <h2 id="modalTitle">
-                Property
-            </h2>
-
-            <div
-                id="modalLocation"
-                class="modal-location"
-            >
-                Location
-            </div>
-
-            <div
-                id="modalPrice"
-                class="modal-price"
-            >
-                Price
-            </div>
-
-
-            <div
-                id="modalMeta"
-                class="modal-meta"
-            >
-
-            </div>
-
-
-            <div
-                id="modalDescription"
-                class="modal-description"
-            >
-
-            </div>
-
-
-            <div class="modal-contact">
-
-                <a
-                    id="modalWhatsApp"
-                    href="#"
-                    target="_blank"
-                    rel="noopener"
-                >
-                    WhatsApp
-                </a>
-
-                <a
-                    id="modalPhone"
-                    href="#"
-                    class="secondary"
-                >
-                    Call Company
-                </a>
-
-            </div>
-
-        </div>
-
-    </div>
+<div>
+<h3>Location</h3>
+<p id="footerAddress">Loading...</p>
+</div>
 
 </div>
 
+<div class="footer-bottom">
+© <span id="footerYear"></span>
+<span id="footerCompany">Company</span>
+— All rights reserved.
+</div>
 
+</footer>
+
+<div id="propertyModal" class="modal">
+
+<div class="modal-box">
+
+<button id="modalClose" class="modal-close" type="button">
+×
+</button>
+
+<div id="modalImage" class="modal-image"></div>
+
+<div class="modal-content">
+
+<div id="modalStatus" class="status-badge">
+AVAILABLE
+</div>
+
+<h2 id="modalTitle">Property</h2>
+
+<div id="modalLocation" class="modal-location">
+Location
+</div>
+
+<div id="modalPrice" class="modal-price">
+Price
+</div>
+
+<div id="modalMeta" class="modal-meta"></div>
+
+<div id="modalDescription" class="modal-description"></div>
+
+<div class="modal-contact">
+
+<a id="modalWhatsApp"
+href="#"
+target="_blank"
+rel="noopener">
+WhatsApp
+</a>
+
+<a id="modalPhone"
+href="#"
+class="secondary">
+Call Company
+</a>
+
+</div>
+
+</div>
+</div>
+</div>
 
 <script type="module">
 
-
 /* =========================================================
-   FIREBASE IMPORTS
+FIREBASE
 ========================================================= */
 
 import {
-    initializeApp
+initializeApp
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 import {
-    getFirestore,
-    doc,
-    getDoc,
-    collection,
-    getDocs
+getFirestore,
+doc,
+getDoc,
+collection,
+getDocs
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
-/* =========================================================
-   FIREBASE CONFIG
-========================================================= */
-
 const firebaseConfig = {
 
-    apiKey:
-        "AIzaSyAE44DxNnqz3m8ScqaZxoSj2FdQ7aJ2NIg",
+apiKey:"AIzaSyAE44DxNnqz3m8ScqaZxoSj2FdQ7aJ2NIg",
 
-    authDomain:
-        "estate-pro-d564b.firebaseapp.com",
+authDomain:"estate-pro-d564b.firebaseapp.com",
 
-    projectId:
-        "estate-pro-d564b",
+projectId:"estate-pro-d564b",
 
-    storageBucket:
-        "estate-pro-d564b.firebasestorage.app",
+storageBucket:"estate-pro-d564b.firebasestorage.app",
 
-    messagingSenderId:
-        "600309829118",
+messagingSenderId:"600309829118",
 
-    appId:
-        "1:600309829118:web:60c61624ca8cdf05e884af",
+appId:"1:600309829118:web:60c61624ca8cdf05e884af",
 
-    measurementId:
-        "G-TG60FCJHXB"
+measurementId:"G-TG60FCJHXB"
 
 };
 
 
-/* =========================================================
-   FIREBASE INITIALIZATION
-========================================================= */
+const app = initializeApp(firebaseConfig);
 
-const app =
-    initializeApp(firebaseConfig);
-
-const db =
-    getFirestore(app);
+const db = getFirestore(app);
 
 
 /* =========================================================
-   COLLECTION NAMES
+COLLECTIONS
 ========================================================= */
 
-const COMPANIES_COLLECTION =
-    "companies";
-
-const PROPERTIES_SUBCOLLECTION =
-    "properties";
+const COMPANIES_COLLECTION = "companies";
+const PROPERTIES_SUBCOLLECTION = "properties";
 
 
 /* =========================================================
-   GET COMPANY ID FROM URL
+IMPORTANT COMPANY ROUTING
 ========================================================= */
 
-const params =
-    new URLSearchParams(
-        window.location.search
-    );
+const urlParams =
+new URLSearchParams(window.location.search);
+
+/*
+IMPORTANT:
+
+Do NOT force company_001 when companyId
+is missing.
+
+This prevents every company URL from
+accidentally falling back to company_001.
+*/
+
+const rawCompanyId =
+urlParams.get("companyId");
 
 const currentCompanyId =
-    String(
-        params.get("companyId") || "company_001"
-    ).trim();
+rawCompanyId
+? rawCompanyId.trim()
+: "";
 
 
 /* =========================================================
-   STATE
+STATE
 ========================================================= */
 
-let currentCompany =
-    null;
-
-let allProperties =
-    [];
-
-let filteredProperties =
-    [];
-
-let selectedCategory =
-    "";
+let currentCompany = null;
+let allProperties = [];
+let filteredProperties = [];
+let selectedCategory = "";
 
 
 /* =========================================================
-   DOM
+DOM
 ========================================================= */
 
 const brandLogo =
-    document.getElementById(
-        "brandLogo"
-    );
+document.getElementById("brandLogo");
 
 const brandName =
-    document.getElementById(
-        "brandName"
-    );
+document.getElementById("brandName");
 
 const brandLocation =
-    document.getElementById(
-        "brandLocation"
-    );
+document.getElementById("brandLocation");
 
 const heroLabel =
-    document.getElementById(
-        "heroLabel"
-    );
+document.getElementById("heroLabel");
 
 const heroTitle =
-    document.getElementById(
-        "heroTitle"
-    );
+document.getElementById("heroTitle");
 
 const heroDescription =
-    document.getElementById(
-        "heroDescription"
-    );
+document.getElementById("heroDescription");
 
 const propertiesGrid =
-    document.getElementById(
-        "propertiesGrid"
-    );
+document.getElementById("propertiesGrid");
 
 const propertyCount =
-    document.getElementById(
-        "propertyCount"
-    );
+document.getElementById("propertyCount");
 
 const categories =
-    document.getElementById(
-        "categories"
-    );
+document.getElementById("categories");
 
 const searchInput =
-    document.getElementById(
-        "searchInput"
-    );
+document.getElementById("searchInput");
 
 const purposeFilter =
-    document.getElementById(
-        "purposeFilter"
-    );
+document.getElementById("purposeFilter");
 
 const typeFilter =
-    document.getElementById(
-        "typeFilter"
-    );
+document.getElementById("typeFilter");
 
 const searchButton =
-    document.getElementById(
-        "searchButton"
-    );
+document.getElementById("searchButton");
 
 const propertyModal =
-    document.getElementById(
-        "propertyModal"
-    );
+document.getElementById("propertyModal");
 
 
 /* =========================================================
-   HTML ESCAPE
+ESCAPE HTML
 ========================================================= */
 
-function escapeHTML(value) {
+function escapeHTML(value){
 
-    return String(
-        value ?? ""
-    )
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
+return String(value ?? "")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 
 }
 
 
 /* =========================================================
-   NORMALIZE PHONE
+PHONE
 ========================================================= */
 
-function normalizePhone(phone) {
+function normalizePhone(phone){
 
-    if (!phone) {
-        return "";
-    }
+if(!phone)return "";
 
-    return String(phone)
-        .replace(
-            /[^0-9+]/g,
-            ""
-        );
+return String(phone).replace(/[^0-9+]/g,"");
 
 }
 
 
 /* =========================================================
-   WHATSAPP NUMBER
+WHATSAPP
 ========================================================= */
 
-function whatsappNumber(phone) {
+function whatsappNumber(phone){
 
-    if (!phone) {
-        return "";
-    }
+if(!phone)return "";
 
-    let number =
-        String(phone)
-            .replace(
-                /\D/g,
-                ""
-            );
+let number =
+String(phone).replace(/\D/g,"");
 
-    if (
-        number.startsWith("0")
-    ) {
+if(number.startsWith("0")){
 
-        number =
-            "234" +
-            number.substring(1);
+number =
+"234" +
+number.substring(1);
 
-    }
+}
 
-    return number;
+return number;
 
 }
 
 
 /* =========================================================
-   FORMAT PURPOSE
+PURPOSE
 ========================================================= */
 
-function formatPurpose(
-    purpose
-) {
+function formatPurpose(purpose){
 
-    return String(
-        purpose || "sale"
-    ).toLowerCase() === "rent"
-        ? "For Rent"
-        : "For Sale";
+return String(purpose || "sale")
+.toLowerCase() === "rent"
+? "For Rent"
+: "For Sale";
 
 }
 
 
 /* =========================================================
-   FORMAT STATUS
+STATUS
 ========================================================= */
 
-function formatStatus(
-    status
-) {
+function formatStatus(status){
 
-    const value =
-        String(
-            status || "available"
-        ).toLowerCase();
+const value =
+String(status || "available")
+.toLowerCase();
 
-    if (value === "sold") {
-        return "Sold";
-    }
+if(value === "sold")return "Sold";
 
-    if (value === "rented") {
-        return "Rented";
-    }
+if(value === "rented")return "Rented";
 
-    return "Available";
+return "Available";
 
 }
 
 
 /* =========================================================
-   COMPANY REFERENCE
+COMPANY REFERENCE
 ========================================================= */
 
-function getCompanyRef() {
+function getCompanyRef(){
 
-    return doc(
-        db,
-        COMPANIES_COLLECTION,
-        currentCompanyId
-    );
+return doc(
+db,
+COMPANIES_COLLECTION,
+currentCompanyId
+);
 
 }
 
 
 /* =========================================================
-   PROPERTIES REFERENCE
+PROPERTIES REFERENCE
 ========================================================= */
 
-function getPropertiesRef() {
+function getPropertiesRef(){
 
-    return collection(
-        db,
-        COMPANIES_COLLECTION,
-        currentCompanyId,
-        PROPERTIES_SUBCOLLECTION
-    );
+return collection(
+db,
+COMPANIES_COLLECTION,
+currentCompanyId,
+PROPERTIES_SUBCOLLECTION
+);
 
 }
 
 
 /* =========================================================
-   VALIDATE COMPANY ID
+VALIDATE COMPANY ID
 ========================================================= */
 
-function validateCompanyId() {
+function validateCompanyId(){
 
-    if (
-        !currentCompanyId
-    ) {
+if(!currentCompanyId){
 
-        throw new Error(
-            "No companyId was provided in the URL. Use ?companyId=YOUR_COMPANY_ID"
-        );
+throw new Error(
+"No companyId was provided. Open the website using ?companyId=company_001"
+);
 
-    }
+}
 
 }
 
 
 /* =========================================================
-   LOAD COMPANY
+LOAD COMPANY
 ========================================================= */
 
-async function loadCompany() {
+async function loadCompany(){
 
-    validateCompanyId();
+validateCompanyId();
 
-    const snapshot =
-        await getDoc(
-            getCompanyRef()
-        );
+console.log(
+"Loading company:",
+currentCompanyId
+);
 
-    if (
-        !snapshot.exists()
-    ) {
+const snapshot =
+await getDoc(
+getCompanyRef()
+);
 
-        throw new Error(
-            "Company profile was not found."
-        );
+if(!snapshot.exists()){
 
-    }
+throw new Error(
+"Company '" +
+currentCompanyId +
+"' was not found in Firebase."
+);
 
-    currentCompany =
-        snapshot.data();
+}
 
-    updateCompanyUI(
-        currentCompany
-    );
+currentCompany =
+snapshot.data();
+
+updateCompanyUI(currentCompany);
 
 }
 
 
 /* =========================================================
-   UPDATE COMPANY UI
+UPDATE COMPANY UI
 ========================================================= */
 
-function updateCompanyUI(
-    company
-) {
+function updateCompanyUI(company){
 
-    const name =
-        company.name ||
-        company.companyName ||
-        "Company";
+const name =
+company.name ||
+company.companyName ||
+"Company";
 
-    const logo =
-        company.logo ||
-        company.companyLogo ||
-        "";
+const logo =
+company.logo ||
+company.companyLogo ||
+"";
 
-    const phone =
-        company.phone ||
-        company.companyPhone ||
-        "";
+const phone =
+company.phone ||
+company.companyPhone ||
+"";
 
-    const whatsapp =
-        company.whatsapp ||
-        company.companyWhatsApp ||
-        phone ||
-        "";
+const whatsapp =
+company.whatsapp ||
+company.companyWhatsApp ||
+phone ||
+"";
 
-    const email =
-        company.email ||
-        company.companyEmail ||
-        "";
+const email =
+company.email ||
+company.companyEmail ||
+"";
 
-    const address =
-        company.address ||
-        company.companyAddress ||
-        "";
+const address =
+company.address ||
+company.companyAddress ||
+"";
 
-    const description =
-        company.description ||
-        company.companyDescription ||
-        "";
+const description =
+company.description ||
+company.companyDescription ||
+"";
 
 
-    /* PAGE TITLE */
+document.title =
+name +
+" | Properties";
 
-    document.title =
-        name +
-        " | Properties";
 
+document
+.getElementById("pageDescription")
+.setAttribute(
+"content",
+description ||
+"Browse properties from " +
+name
+);
 
-    /* META DESCRIPTION */
 
-    document
-        .getElementById(
-            "pageDescription"
-        )
-        .setAttribute(
-            "content",
-            description ||
-            "Browse properties from " +
-            name
-        );
+brandName.textContent = name;
 
+brandLocation.textContent =
+address ||
+"Property Services";
 
-    /* BRAND */
 
-    brandName.textContent =
-        name;
+if(logo){
 
-    brandLocation.textContent =
-        address ||
-        "Property Services";
+brandLogo.innerHTML = `
+<img
+src="${escapeHTML(logo)}"
+alt="${escapeHTML(name)}"
+>
+`;
 
+}else{
 
-    if (logo) {
+brandLogo.textContent =
+name.charAt(0).toUpperCase();
 
-        brandLogo.innerHTML =
-            `
-            <img
-                src="${escapeHTML(logo)}"
-                alt="${escapeHTML(name)}"
-            >
-            `;
+}
 
-    }
 
-    else {
+heroLabel.textContent = name;
 
-        brandLogo.textContent =
-            name
-                .charAt(0)
-                .toUpperCase();
+heroTitle.textContent =
+"Find Your Perfect Property";
 
-    }
+heroDescription.textContent =
+description ||
+"Browse available properties from " +
+name +
+" and find the right place for you.";
 
 
-    /* HERO */
+document.getElementById(
+"aboutCompanyName"
+).textContent = name;
 
-    heroLabel.textContent =
-        name;
 
-    heroTitle.textContent =
-        "Find Your Perfect Property";
+document.getElementById(
+"aboutDescription"
+).textContent =
+description ||
+"Explore our available properties and find the right property for your needs.";
 
-    heroDescription.textContent =
-        description ||
-        "Browse available properties from " +
-        name +
-        " and find the right place for you.";
 
+const aboutLogo =
+document.getElementById("aboutLogo");
 
-    /* ABOUT */
 
-    document.getElementById(
-        "aboutCompanyName"
-    ).textContent =
-        name;
+if(logo){
 
-    document.getElementById(
-        "aboutDescription"
-    ).textContent =
-        description ||
-        "Explore our available properties and find the right property for your needs.";
+aboutLogo.innerHTML = `
+<img
+src="${escapeHTML(logo)}"
+alt="${escapeHTML(name)}"
+>
+`;
 
+}else{
 
-    const aboutLogo =
-        document.getElementById(
-            "aboutLogo"
-        );
+aboutLogo.textContent =
+name.charAt(0).toUpperCase();
 
-    if (logo) {
+}
 
-        aboutLogo.innerHTML =
-            `
-            <img
-                src="${escapeHTML(logo)}"
-                alt="${escapeHTML(name)}"
-            >
-            `;
 
-    }
+const companyContact =
+document.getElementById("companyContact");
 
-    else {
+let contactHTML = "";
 
-        aboutLogo.textContent =
-            name
-                .charAt(0)
-                .toUpperCase();
 
-    }
+if(phone){
 
+contactHTML += `
+<a
+class="contact-item"
+href="tel:${escapeHTML(normalizePhone(phone))}"
+>
+📞 ${escapeHTML(phone)}
+</a>
+`;
 
-    /* COMPANY CONTACT */
+}
 
-    const companyContact =
-        document.getElementById(
-            "companyContact"
-        );
 
-    let contactHTML =
-        "";
+if(whatsapp){
 
-    if (phone) {
+contactHTML += `
+<a
+class="contact-item"
+href="https://wa.me/${escapeHTML(whatsappNumber(whatsapp))}"
+target="_blank"
+rel="noopener"
+>
+💬 WhatsApp
+</a>
+`;
 
-        contactHTML +=
-            `
-            <a
-                class="contact-item"
-                href="tel:${escapeHTML(normalizePhone(phone))}"
-            >
-                📞 ${escapeHTML(phone)}
-            </a>
-            `;
+}
 
-    }
 
-    if (whatsapp) {
+if(email){
 
-        const wa =
-            whatsappNumber(
-                whatsapp
-            );
+contactHTML += `
+<a
+class="contact-item"
+href="mailto:${escapeHTML(email)}"
+>
+✉️ ${escapeHTML(email)}
+</a>
+`;
 
-        contactHTML +=
-            `
-            <a
-                class="contact-item"
-                href="https://wa.me/${escapeHTML(wa)}"
-                target="_blank"
-                rel="noopener"
-            >
-                💬 WhatsApp
-            </a>
-            `;
+}
 
-    }
 
-    if (email) {
+if(address){
 
-        contactHTML +=
-            `
-            <a
-                class="contact-item"
-                href="mailto:${escapeHTML(email)}"
-            >
-                ✉️ ${escapeHTML(email)}
-            </a>
-            `;
+contactHTML += `
+<span class="contact-item">
+📍 ${escapeHTML(address)}
+</span>
+`;
 
-    }
+}
 
-    if (address) {
 
-        contactHTML +=
-            `
-            <span class="contact-item">
-                📍 ${escapeHTML(address)}
-            </span>
-            `;
+companyContact.innerHTML =
+contactHTML;
 
-    }
 
-    companyContact.innerHTML =
-        contactHTML;
+/* HEADER CALL */
 
+const headerCall =
+document.getElementById(
+"headerCallButton"
+);
 
-    /* HEADER BUTTONS */
 
-    const headerCall =
-        document.getElementById(
-            "headerCallButton"
-        );
+if(phone){
 
-    if (phone) {
+headerCall.classList.remove("hidden");
 
-        headerCall.onclick =
-            () => {
+headerCall.onclick = () => {
 
-                window.location.href =
-                    "tel:" +
-                    normalizePhone(
-                        phone
-                    );
+window.location.href =
+"tel:" +
+normalizePhone(phone);
 
-            };
+};
 
-    }
+}else{
 
-    else {
+headerCall.classList.add("hidden");
 
-        headerCall.classList.add(
-            "hidden"
-        );
+}
 
-    }
 
+/* HEADER WHATSAPP */
 
-    const headerWhatsApp =
-        document.getElementById(
-            "headerWhatsAppButton"
-        );
+const headerWhatsApp =
+document.getElementById(
+"headerWhatsAppButton"
+);
 
-    if (whatsapp) {
 
-        headerWhatsApp.onclick =
-            () => {
+if(whatsapp){
 
-                const wa =
-                    whatsappNumber(
-                        whatsapp
-                    );
+headerWhatsApp.classList.remove("hidden");
 
-                window.open(
-                    "https://wa.me/" +
-                    wa,
-                    "_blank"
-                );
+headerWhatsApp.onclick = () => {
 
-            };
+window.open(
+"https://wa.me/" +
+whatsappNumber(whatsapp),
+"_blank"
+);
 
-    }
+};
 
-    else {
+}else{
 
-        headerWhatsApp.classList.add(
-            "hidden"
-        );
+headerWhatsApp.classList.add("hidden");
 
-    }
+}
 
 
-    /* FOOTER */
+/* FOOTER */
 
-    document.getElementById(
-        "footerCompanyName"
-    ).textContent =
-        name;
+document.getElementById(
+"footerCompanyName"
+).textContent = name;
 
-    document.getElementById(
-        "footerDescription"
-    ).textContent =
-        description ||
-        "Property services and listings.";
 
-    document.getElementById(
-        "footerAddress"
-    ).textContent =
-        address ||
-        "Contact us for more information.";
+document.getElementById(
+"footerDescription"
+).textContent =
+description ||
+"Property services and listings.";
 
-    document.getElementById(
-        "footerCompany"
-    ).textContent =
-        name;
 
+document.getElementById(
+"footerAddress"
+).textContent =
+address ||
+"Contact us for more information.";
 
-    const footerContact =
-        document.getElementById(
-            "footerContact"
-        );
 
-    let footerHTML =
-        "";
+document.getElementById(
+"footerCompany"
+).textContent = name;
 
-    if (phone) {
 
-        footerHTML +=
-            `
-            <a href="tel:${escapeHTML(normalizePhone(phone))}">
-                📞 ${escapeHTML(phone)}
-            </a>
-            `;
+const footerContact =
+document.getElementById(
+"footerContact"
+);
 
-    }
+let footerHTML = "";
 
-    if (email) {
 
-        footerHTML +=
-            `
-            <a href="mailto:${escapeHTML(email)}">
-                ✉️ ${escapeHTML(email)}
-            </a>
-            `;
+if(phone){
 
-    }
+footerHTML += `
+<a href="tel:${escapeHTML(normalizePhone(phone))}">
+📞 ${escapeHTML(phone)}
+</a>
+`;
 
-    if (whatsapp) {
+}
 
-        footerHTML +=
-            `
-            <a
-                href="https://wa.me/${escapeHTML(whatsappNumber(whatsapp))}"
-                target="_blank"
-                rel="noopener"
-            >
-                💬 WhatsApp
-            </a>
-            `;
 
-    }
+if(email){
 
-    footerContact.innerHTML =
-        footerHTML;
+footerHTML += `
+<a href="mailto:${escapeHTML(email)}">
+✉️ ${escapeHTML(email)}
+</a>
+`;
+
+}
+
+
+if(whatsapp){
+
+footerHTML += `
+<a
+href="https://wa.me/${escapeHTML(whatsappNumber(whatsapp))}"
+target="_blank"
+rel="noopener"
+>
+💬 WhatsApp
+</a>
+`;
+
+}
+
+
+footerContact.innerHTML =
+footerHTML;
 
 }
 
 
 /* =========================================================
-   LOAD PROPERTIES
+LOAD PROPERTIES
 ========================================================= */
 
-async function loadProperties() {
+async function loadProperties(){
 
-    validateCompanyId();
+validateCompanyId();
 
-    propertiesGrid.innerHTML =
-        `
-        <div class="loading">
-
-            <div class="spinner"></div>
-
-            Loading properties...
-
-        </div>
-        `;
+propertiesGrid.innerHTML = `
+<div class="loading">
+<div class="spinner"></div>
+Loading properties...
+</div>
+`;
 
 
-    const snapshot =
-        await getDocs(
-            getPropertiesRef()
-        );
+console.log(
+"Loading properties for:",
+currentCompanyId
+);
 
 
-    allProperties = [];
+const snapshot =
+await getDocs(
+getPropertiesRef()
+);
 
 
-    snapshot.forEach(
-        propertyDoc => {
-
-            allProperties.push({
-
-                id:
-                    propertyDoc.id,
-
-                ...propertyDoc.data()
-
-            });
-
-        }
-    );
+allProperties = [];
 
 
-    /*
-       Sort featured first.
-    */
+snapshot.forEach(
+propertyDoc => {
 
-    allProperties.sort(
-        (a, b) => {
+allProperties.push({
 
-            if (
-                a.featured ===
-                true &&
-                b.featured !==
-                true
-            ) {
+id:propertyDoc.id,
 
-                return -1;
+...propertyDoc.data()
 
-            }
+});
 
-            if (
-                a.featured !==
-                true &&
-                b.featured ===
-                true
-            ) {
-
-                return 1;
-
-            }
-
-            return 0;
-
-        }
-    );
+}
+);
 
 
-    createCategories();
+allProperties.sort(
+(a,b) => {
 
-    createTypeFilter();
+if(
+a.featured === true &&
+b.featured !== true
+)return -1;
 
-    applyFilters();
+if(
+a.featured !== true &&
+b.featured === true
+)return 1;
+
+return 0;
+
+}
+);
+
+
+createCategories();
+
+createTypeFilter();
+
+applyFilters();
 
 }
 
 
 /* =========================================================
-   CREATE CATEGORIES
+CATEGORIES
 ========================================================= */
 
-function createCategories() {
+function createCategories(){
 
-    const types =
-        [
-            ...new Set(
-                allProperties
-                    .map(
-                        property =>
-                            property.propertyType ||
-                            property.type ||
-                            ""
-                    )
-                    .filter(Boolean)
-            )
-        ];
-
-
-    categories.innerHTML =
-        `
-        <button
-            class="category-button active"
-            data-category=""
-            type="button"
-        >
-            All
-        </button>
-        `;
+const types = [
+...new Set(
+allProperties
+.map(
+property =>
+property.propertyType ||
+property.type ||
+""
+)
+.filter(Boolean)
+)
+];
 
 
-    types.forEach(
-        type => {
-
-            const button =
-                document.createElement(
-                    "button"
-                );
-
-            button.type =
-                "button";
-
-            button.className =
-                "category-button";
-
-            button.dataset.category =
-                type;
-
-            button.textContent =
-                type;
-
-            categories.appendChild(
-                button
-            );
-
-        }
-    );
+categories.innerHTML = `
+<button
+class="category-button active"
+data-category=""
+type="button"
+>
+All
+</button>
+`;
 
 
-    categories
-        .querySelectorAll(
-            ".category-button"
-        )
-        .forEach(
-            button => {
+types.forEach(type => {
 
-                button.addEventListener(
-                    "click",
-                    () => {
+const button =
+document.createElement("button");
 
-                        categories
-                            .querySelectorAll(
-                                ".category-button"
-                            )
-                            .forEach(
-                                item =>
-                                    item.classList.remove(
-                                        "active"
-                                    )
-                            );
+button.type = "button";
 
-                        button.classList.add(
-                            "active"
-                        );
+button.className =
+"category-button";
 
-                        selectedCategory =
-                            button.dataset.category;
+button.dataset.category =
+type;
 
-                        applyFilters();
+button.textContent = type;
 
-                    }
-                );
+categories.appendChild(button);
 
-            }
-        );
+});
+
+
+categories
+.querySelectorAll(".category-button")
+.forEach(button => {
+
+button.addEventListener(
+"click",
+() => {
+
+categories
+.querySelectorAll(
+".category-button"
+)
+.forEach(item =>
+item.classList.remove("active")
+);
+
+button.classList.add("active");
+
+selectedCategory =
+button.dataset.category;
+
+applyFilters();
+
+}
+);
+
+});
 
 }
 
 
 /* =========================================================
-   CREATE TYPE FILTER
+TYPE FILTER
 ========================================================= */
 
-function createTypeFilter() {
+function createTypeFilter(){
 
-    const types =
-        [
-            ...new Set(
-                allProperties
-                    .map(
-                        property =>
-                            property.propertyType ||
-                            property.type ||
-                            ""
-                    )
-                    .filter(Boolean)
-            )
-        ];
-
-
-    typeFilter.innerHTML =
-        `
-        <option value="">
-            All Types
-        </option>
-        `;
+const types = [
+...new Set(
+allProperties
+.map(
+property =>
+property.propertyType ||
+property.type ||
+""
+)
+.filter(Boolean)
+)
+];
 
 
-    types.forEach(
-        type => {
+typeFilter.innerHTML = `
+<option value="">
+All Types
+</option>
+`;
 
-            const option =
-                document.createElement(
-                    "option"
-                );
 
-            option.value =
-                type;
+types.forEach(type => {
 
-            option.textContent =
-                type;
+const option =
+document.createElement("option");
 
-            typeFilter.appendChild(
-                option
-            );
+option.value = type;
 
-        }
-    );
+option.textContent = type;
+
+typeFilter.appendChild(option);
+
+});
 
 }
 
 
 /* =========================================================
-   APPLY FILTERS
+FILTER
 ========================================================= */
 
-function applyFilters() {
+function applyFilters(){
 
-    const query =
-        searchInput.value
-            .trim()
-            .toLowerCase();
+const query =
+searchInput.value
+.trim()
+.toLowerCase();
 
-    const purpose =
-        purposeFilter.value
-            .toLowerCase();
+const purpose =
+purposeFilter.value
+.toLowerCase();
 
-    const type =
-        typeFilter.value
-            .toLowerCase();
-
-
-    filteredProperties =
-        allProperties.filter(
-            property => {
-
-                const propertyType =
-                    String(
-                        property.propertyType ||
-                        property.type ||
-                        ""
-                    ).toLowerCase();
+const type =
+typeFilter.value
+.toLowerCase();
 
 
-                const propertyPurpose =
-                    String(
-                        property.purpose ||
-                        "sale"
-                    ).toLowerCase();
+filteredProperties =
+allProperties.filter(property => {
+
+const propertyType =
+String(
+property.propertyType ||
+property.type ||
+""
+).toLowerCase();
 
 
-                const searchableText =
-                    [
-
-                        property.title,
-
-                        property.propertyType,
-
-                        property.type,
-
-                        property.location,
-
-                        property.price,
-
-                        property.status,
-
-                        property.purpose,
-
-                        property.description
-
-                    ]
-                    .join(" ")
-                    .toLowerCase();
+const propertyPurpose =
+String(
+property.purpose ||
+"sale"
+).toLowerCase();
 
 
-                const matchesSearch =
-                    !query ||
-                    searchableText.includes(
-                        query
-                    );
+const searchableText = [
+
+property.title,
+
+property.propertyType,
+
+property.type,
+
+property.location,
+
+property.price,
+
+property.status,
+
+property.purpose,
+
+property.description
+
+]
+.join(" ")
+.toLowerCase();
 
 
-                const matchesPurpose =
-                    !purpose ||
-                    propertyPurpose ===
-                    purpose;
+const matchesSearch =
+!query ||
+searchableText.includes(query);
 
 
-                const matchesType =
-                    !type ||
-                    propertyType ===
-                    type;
+const matchesPurpose =
+!purpose ||
+propertyPurpose === purpose;
 
 
-                const matchesCategory =
-                    !selectedCategory ||
-                    propertyType ===
-                    selectedCategory.toLowerCase();
+const matchesType =
+!type ||
+propertyType === type;
 
 
-                return (
-                    matchesSearch &&
-                    matchesPurpose &&
-                    matchesType &&
-                    matchesCategory
-                );
-
-            }
-        );
+const matchesCategory =
+!selectedCategory ||
+propertyType ===
+selectedCategory.toLowerCase();
 
 
-    renderProperties(
-        filteredProperties
-    );
+return(
+matchesSearch &&
+matchesPurpose &&
+matchesType &&
+matchesCategory
+);
+
+});
+
+
+renderProperties(filteredProperties);
 
 }
 
 
 /* =========================================================
-   RENDER PROPERTIES
+RENDER
 ========================================================= */
 
-function renderProperties(
-    properties
-) {
+function renderProperties(properties){
 
-    propertyCount.textContent =
-        properties.length +
-        (
-            properties.length === 1
-                ? " property"
-                : " properties"
-        );
+propertyCount.textContent =
+properties.length +
+(
+properties.length === 1
+? " property"
+: " properties"
+);
 
 
-    if (
-        !properties.length
-    ) {
+if(!properties.length){
 
-        propertiesGrid.innerHTML =
-            `
-            <div class="empty-state">
+propertiesGrid.innerHTML = `
+<div class="empty-state">
 
-                <div class="empty-icon">
-                    🏠
-                </div>
+<div class="empty-icon">🏠</div>
 
-                <h3>
-                    No properties found
-                </h3>
+<h3>No properties found</h3>
 
-                <p>
-                    Try changing your search or filter.
-                </p>
+<p>
+Try changing your search or filter.
+</p>
 
-            </div>
-            `;
+</div>
+`;
 
-        return;
+return;
 
-    }
+}
 
 
-    propertiesGrid.innerHTML =
-        properties
-            .map(
-                property =>
-                    createPropertyCard(
-                        property
-                    )
-            )
-            .join("");
+propertiesGrid.innerHTML =
+properties
+.map(createPropertyCard)
+.join("");
 
 
-    propertiesGrid
-        .querySelectorAll(
-            "[data-property-id]"
-        )
-        .forEach(
-            button => {
+propertiesGrid
+.querySelectorAll("[data-property-id]")
+.forEach(button => {
 
-                button.addEventListener(
-                    "click",
-                    () => {
+button.addEventListener(
+"click",
+() => {
 
-                        openPropertyModal(
-                            button.dataset.propertyId
-                        );
+openPropertyModal(
+button.dataset.propertyId
+);
 
-                    }
-                );
+}
+);
 
-            }
-        );
+});
 
 }
 
 
 /* =========================================================
-   PROPERTY CARD
+PROPERTY CARD
 ========================================================= */
 
-function createPropertyCard(
-    property
-) {
+function createPropertyCard(property){
 
-    const id =
-        property.id;
+const id = property.id;
 
-    const title =
-        property.title ||
-        "Untitled Property";
+const title =
+property.title ||
+"Untitled Property";
 
-    const type =
-        property.propertyType ||
-        property.type ||
-        "Property";
+const type =
+property.propertyType ||
+property.type ||
+"Property";
 
-    const status =
-        String(
-            property.status ||
-            "available"
-        ).toLowerCase();
+const status =
+String(
+property.status ||
+"available"
+).toLowerCase();
 
-    const purpose =
-        property.purpose ||
-        "sale";
+const purpose =
+property.purpose ||
+"sale";
 
-    const location =
-        property.location ||
-        "Location not specified";
+const location =
+property.location ||
+"Location not specified";
 
-    const price =
-        property.price ||
-        "Price on request";
+const price =
+property.price ||
+"Price on request";
 
-    const image =
-        property.imageUrl ||
-        property.image ||
-        "";
+const image =
+property.imageUrl ||
+property.image ||
+"";
 
 
-    let statusClass =
-        "";
+let statusClass = "";
 
-    if (
-        status === "sold"
-    ) {
+if(status === "sold"){
+statusClass = "status-sold";
+}
 
-        statusClass =
-            "status-sold";
-
-    }
-
-    else if (
-        status === "rented"
-    ) {
-
-        statusClass =
-            "status-rented";
-
-    }
+else if(status === "rented"){
+statusClass = "status-rented";
+}
 
 
-    const imageHTML =
-        image
-            ?
-            `
-            <img
-                src="${escapeHTML(image)}"
-                alt="${escapeHTML(title)}"
-                loading="lazy"
-                onerror="this.parentElement.innerHTML='<div class=\\'image-placeholder\\'>No Image</div>'"
-            >
-            `
-            :
-            `
-            <div class="image-placeholder">
-                No Image
-            </div>
-            `;
+const imageHTML =
+image
+?
+`
+<img
+src="${escapeHTML(image)}"
+alt="${escapeHTML(title)}"
+loading="lazy"
+onerror="this.parentElement.innerHTML='<div class=&quot;image-placeholder&quot;>No Image</div>'"
+>
+`
+:
+`
+<div class="image-placeholder">
+No Image
+</div>
+`;
 
 
-    const bedroomHTML =
-        Number(
-            property.bedrooms || 0
-        ) > 0
-            ?
-            `
-            <span class="meta-item">
-                🛏 ${escapeHTML(property.bedrooms)}
-                Bedrooms
-            </span>
-            `
-            :
-            "";
+const bedroomHTML =
+Number(property.bedrooms || 0) > 0
+?
+`
+<span class="meta-item">
+🛏 ${escapeHTML(property.bedrooms)}
+Bedrooms
+</span>
+`
+: "";
 
 
-    const bathroomHTML =
-        Number(
-            property.bathrooms || 0
-        ) > 0
-            ?
-            `
-            <span class="meta-item">
-                🚿 ${escapeHTML(property.bathrooms)}
-                Bathrooms
-            </span>
-            `
-            :
-            "";
+const bathroomHTML =
+Number(property.bathrooms || 0) > 0
+?
+`
+<span class="meta-item">
+🚿 ${escapeHTML(property.bathrooms)}
+Bathrooms
+</span>
+`
+: "";
 
 
-    return `
+return `
 
-        <article class="property-card">
+<article class="property-card">
 
-            <div class="property-image">
+<div class="property-image">
 
-                ${imageHTML}
+${imageHTML}
 
-                ${
-                    property.featured
-                    ?
-                    `
-                    <span class="featured-label">
-                        Featured
-                    </span>
-                    `
-                    :
-                    ""
-                }
+${
+property.featured
+?
+`
+<span class="featured-label">
+Featured
+</span>
+`
+:
+""
+}
 
-                <span class="purpose-label">
-                    ${escapeHTML(
-                        formatPurpose(
-                            purpose
-                        )
-                    )}
-                </span>
+<span class="purpose-label">
+${escapeHTML(
+formatPurpose(purpose)
+)}
+</span>
 
-            </div>
+</div>
 
+<div class="property-body">
 
-            <div class="property-body">
+<div class="status-badge ${statusClass}">
+${escapeHTML(
+formatStatus(status)
+)}
+</div>
 
-                <div
-                    class="status-badge ${statusClass}"
-                >
-                    ${escapeHTML(
-                        formatStatus(
-                            status
-                        )
-                    )}
-                </div>
+<div class="property-type">
+${escapeHTML(type)}
+</div>
 
+<h3 class="property-title">
+${escapeHTML(title)}
+</h3>
 
-                <div class="property-type">
-                    ${escapeHTML(type)}
-                </div>
+<div class="property-location">
+📍 ${escapeHTML(location)}
+</div>
 
+<div class="property-price">
+${escapeHTML(price)}
+</div>
 
-                <h3 class="property-title">
-                    ${escapeHTML(title)}
-                </h3>
+<div class="property-meta">
 
+${bedroomHTML}
 
-                <div class="property-location">
-                    📍
-                    ${escapeHTML(location)}
-                </div>
+${bathroomHTML}
 
+</div>
 
-                <div class="property-price">
-                    ${escapeHTML(price)}
-                </div>
+<div class="property-description">
+${escapeHTML(
+property.description ||
+"Contact the company for more information about this property."
+)}
+</div>
 
+<button
+class="view-button"
+type="button"
+data-property-id="${escapeHTML(id)}"
+>
+View Property
+</button>
 
-                <div class="property-meta">
-
-                    ${bedroomHTML}
-
-                    ${bathroomHTML}
-
-                </div>
-
-
-                <div class="property-description">
-
-                    ${escapeHTML(
-                        property.description ||
-                        "Contact the company for more information about this property."
-                    )}
-
-                </div>
-
-
-                <button
-                    class="view-button"
-                    type="button"
-                    data-property-id="${escapeHTML(id)}"
-                >
-                    View Property
-                </button>
-
-            </div>
-
-        </article>
-
-    `;
+</div>
+</article>
+`;
 
 }
 
 
 /* =========================================================
-   OPEN PROPERTY MODAL
+MODAL
 ========================================================= */
 
-function openPropertyModal(
-    id
-) {
+function openPropertyModal(id){
 
-    const property =
-        allProperties.find(
-            item =>
-                item.id === id
-        );
+const property =
+allProperties.find(
+item => item.id === id
+);
 
+if(!property)return;
 
-    if (!property) {
-        return;
-    }
 
+const title =
+property.title ||
+"Property";
 
-    const title =
-        property.title ||
-        "Property";
+const location =
+property.location ||
+"Location not specified";
 
-    const location =
-        property.location ||
-        "Location not specified";
+const price =
+property.price ||
+"Price on request";
 
-    const price =
-        property.price ||
-        "Price on request";
+const type =
+property.propertyType ||
+property.type ||
+"Property";
 
-    const type =
-        property.propertyType ||
-        property.type ||
-        "Property";
+const status =
+String(
+property.status ||
+"available"
+).toLowerCase();
 
-    const status =
-        String(
-            property.status ||
-            "available"
-        ).toLowerCase();
+const image =
+property.imageUrl ||
+property.image ||
+"";
 
-    const image =
-        property.imageUrl ||
-        property.image ||
-        "";
 
+const phone =
+currentCompany?.phone ||
+currentCompany?.companyPhone ||
+"";
 
-    const phone =
-        currentCompany?.phone ||
-        currentCompany?.companyPhone ||
-        "";
+const whatsapp =
+currentCompany?.whatsapp ||
+currentCompany?.companyWhatsApp ||
+phone ||
+"";
 
-    const whatsapp =
-        currentCompany?.whatsapp ||
-        currentCompany?.companyWhatsApp ||
-        phone ||
-        "";
 
+const modalImage =
+document.getElementById(
+"modalImage"
+);
 
-    /* IMAGE */
 
-    const modalImage =
-        document.getElementById(
-            "modalImage"
-        );
+if(image){
 
+modalImage.innerHTML = `
+<img
+src="${escapeHTML(image)}"
+alt="${escapeHTML(title)}"
+>
+`;
 
-    if (image) {
+}else{
 
-        modalImage.innerHTML =
-            `
-            <img
-                src="${escapeHTML(image)}"
-                alt="${escapeHTML(title)}"
-            >
-            `;
+modalImage.innerHTML = `
+<div class="image-placeholder">
+No Image Available
+</div>
+`;
 
-    }
+}
 
-    else {
 
-        modalImage.innerHTML =
-            `
-            <div class="image-placeholder">
-                No Image Available
-            </div>
-            `;
+const modalStatus =
+document.getElementById(
+"modalStatus"
+);
 
-    }
+modalStatus.textContent =
+formatStatus(status).toUpperCase();
 
+modalStatus.className =
+"status-badge";
 
-    /* STATUS */
 
-    const modalStatus =
-        document.getElementById(
-            "modalStatus"
-        );
+if(status === "sold"){
+modalStatus.classList.add("status-sold");
+}
 
-    modalStatus.textContent =
-        formatStatus(
-            status
-        ).toUpperCase();
+if(status === "rented"){
+modalStatus.classList.add("status-rented");
+}
 
-    modalStatus.className =
-        "status-badge";
 
+document.getElementById(
+"modalTitle"
+).textContent = title;
 
-    if (
-        status === "sold"
-    ) {
 
-        modalStatus.classList.add(
-            "status-sold"
-        );
+document.getElementById(
+"modalLocation"
+).textContent =
+"📍 " + location;
 
-    }
 
-    if (
-        status === "rented"
-    ) {
+document.getElementById(
+"modalPrice"
+).textContent = price;
 
-        modalStatus.classList.add(
-            "status-rented"
-        );
 
-    }
+const meta =
+document.getElementById(
+"modalMeta"
+);
 
 
-    /* TEXT */
+let metaHTML = `
 
-    document.getElementById(
-        "modalTitle"
-    ).textContent =
-        title;
+<span class="meta-item">
+🏠 ${escapeHTML(type)}
+</span>
 
-    document.getElementById(
-        "modalLocation"
-    ).textContent =
-        "📍 " +
-        location;
+<span class="meta-item">
+${escapeHTML(
+formatPurpose(property.purpose)
+)}
+</span>
 
-    document.getElementById(
-        "modalPrice"
-    ).textContent =
-        price;
+`;
 
 
-    /* META */
+if(Number(property.bedrooms || 0) > 0){
 
-    const meta =
-        document.getElementById(
-            "modalMeta"
-        );
+metaHTML += `
+<span class="meta-item">
+🛏 ${escapeHTML(property.bedrooms)}
+Bedrooms
+</span>
+`;
 
-    let metaHTML =
-        `
-        <span class="meta-item">
-            🏠 ${escapeHTML(type)}
-        </span>
+}
 
-        <span class="meta-item">
-            ${escapeHTML(
-                formatPurpose(
-                    property.purpose
-                )
-            )}
-        </span>
-        `;
 
+if(Number(property.bathrooms || 0) > 0){
 
-    if (
-        Number(
-            property.bedrooms || 0
-        ) > 0
-    ) {
+metaHTML += `
+<span class="meta-item">
+🚿 ${escapeHTML(property.bathrooms)}
+Bathrooms
+</span>
+`;
 
-        metaHTML +=
-            `
-            <span class="meta-item">
-                🛏
-                ${escapeHTML(property.bedrooms)}
-                Bedrooms
-            </span>
-            `;
+}
 
-    }
 
+meta.innerHTML = metaHTML;
 
-    if (
-        Number(
-            property.bathrooms || 0
-        ) > 0
-    ) {
 
-        metaHTML +=
-            `
-            <span class="meta-item">
-                🚿
-                ${escapeHTML(property.bathrooms)}
-                Bathrooms
-            </span>
-            `;
+document.getElementById(
+"modalDescription"
+).textContent =
+property.description ||
+"No additional description provided.";
 
-    }
 
+const modalWhatsApp =
+document.getElementById(
+"modalWhatsApp"
+);
 
-    meta.innerHTML =
-        metaHTML;
 
+if(whatsapp){
 
-    /* DESCRIPTION */
+const wa =
+whatsappNumber(whatsapp);
 
-    document.getElementById(
-        "modalDescription"
-    ).textContent =
-        property.description ||
-        "No additional description provided.";
+const message =
+encodeURIComponent(
+"Hello, I am interested in this property: " +
+title
+);
 
+modalWhatsApp.href =
+"https://wa.me/" +
+wa +
+"?text=" +
+message;
 
-    /* WHATSAPP */
+modalWhatsApp.classList.remove("hidden");
 
-    const modalWhatsApp =
-        document.getElementById(
-            "modalWhatsApp"
-        );
+}else{
 
+modalWhatsApp.classList.add("hidden");
 
-    if (whatsapp) {
+}
 
-        const wa =
-            whatsappNumber(
-                whatsapp
-            );
 
-        const message =
-            encodeURIComponent(
-                "Hello, I am interested in this property: " +
-                title
-            );
+const modalPhone =
+document.getElementById(
+"modalPhone"
+);
 
-        modalWhatsApp.href =
-            "https://wa.me/" +
-            wa +
-            "?text=" +
-            message;
 
-        modalWhatsApp.classList.remove(
-            "hidden"
-        );
+if(phone){
 
-    }
+modalPhone.href =
+"tel:" +
+normalizePhone(phone);
 
-    else {
+modalPhone.classList.remove("hidden");
 
-        modalWhatsApp.classList.add(
-            "hidden"
-        );
+}else{
 
-    }
+modalPhone.classList.add("hidden");
 
+}
 
-    /* PHONE */
 
-    const modalPhone =
-        document.getElementById(
-            "modalPhone"
-        );
+propertyModal.classList.add("show");
 
-
-    if (phone) {
-
-        modalPhone.href =
-            "tel:" +
-            normalizePhone(
-                phone
-            );
-
-        modalPhone.classList.remove(
-            "hidden"
-        );
-
-    }
-
-    else {
-
-        modalPhone.classList.add(
-            "hidden"
-        );
-
-    }
-
-
-    propertyModal.classList.add(
-        "show"
-    );
-
-    document.body.style.overflow =
-        "hidden";
+document.body.style.overflow =
+"hidden";
 
 }
 
 
 /* =========================================================
-   CLOSE MODAL
+CLOSE MODAL
 ========================================================= */
 
-function closeModal() {
+function closeModal(){
 
-    propertyModal.classList.remove(
-        "show"
-    );
+propertyModal.classList.remove("show");
 
-    document.body.style.overflow =
-        "";
+document.body.style.overflow = "";
 
 }
 
 
 document.getElementById(
-    "modalClose"
+"modalClose"
 ).addEventListener(
-    "click",
-    closeModal
+"click",
+closeModal
 );
 
 
 propertyModal.addEventListener(
-    "click",
-    event => {
+"click",
+event => {
 
-        if (
-            event.target ===
-            propertyModal
-        ) {
+if(event.target === propertyModal){
+closeModal();
+}
 
-            closeModal();
-
-        }
-
-    }
+}
 );
 
 
 document.addEventListener(
-    "keydown",
-    event => {
+"keydown",
+event => {
 
-        if (
-            event.key ===
-            "Escape"
-        ) {
+if(event.key === "Escape"){
+closeModal();
+}
 
-            closeModal();
-
-        }
-
-    }
+}
 );
 
 
 /* =========================================================
-   SEARCH EVENTS
+SEARCH EVENTS
 ========================================================= */
 
 searchInput.addEventListener(
-    "input",
-    () => {
-
-        applyFilters();
-
-    }
+"input",
+applyFilters
 );
-
 
 purposeFilter.addEventListener(
-    "change",
-    () => {
-
-        applyFilters();
-
-    }
+"change",
+applyFilters
 );
 
-
 typeFilter.addEventListener(
-    "change",
-    () => {
-
-        applyFilters();
-
-    }
+"change",
+applyFilters
 );
 
 
 searchButton.addEventListener(
-    "click",
-    () => {
+"click",
+() => {
 
-        applyFilters();
+applyFilters();
 
-        document.getElementById(
-            "propertiesSection"
-        ).scrollIntoView({
-            behavior: "smooth"
-        });
+document.getElementById(
+"propertiesSection"
+).scrollIntoView({
+behavior:"smooth"
+});
 
-    }
+}
 );
 
 
 /* =========================================================
-   START APPLICATION
+START
 ========================================================= */
 
-async function startApp() {
+async function startApp(){
 
-    document.getElementById(
-        "footerYear"
-    ).textContent =
-        new Date().getFullYear();
-
-
-    try {
-
-        validateCompanyId();
-
-        await loadCompany();
-
-        await loadProperties();
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "EstatePro Index Error:",
-            error
-        );
+document.getElementById(
+"footerYear"
+).textContent =
+new Date().getFullYear();
 
 
-        propertiesGrid.innerHTML =
-            `
-            <div class="error-box">
+/*
+If companyId is missing, stop here.
+*/
 
-                <h2>
-                    Unable to Load Website
-                </h2>
+if(!currentCompanyId){
 
-                <p>
-                    ${escapeHTML(
-                        error?.message ||
-                        "Something went wrong."
-                    )}
-                </p>
+propertiesGrid.innerHTML = `
+<div class="error-box">
 
-            </div>
-            `;
+<h2>
+Company ID Required
+</h2>
 
-    }
+<p>
+This website requires a company ID.
+</p>
+
+<p>
+Use:
+<br>
+<strong>
+?companyId=company_001
+</strong>
+</p>
+
+</div>
+`;
+
+return;
+
+}
+
+
+try{
+
+await loadCompany();
+
+await loadProperties();
+
+console.log(
+"EstatePro loaded successfully:",
+currentCompanyId
+);
+
+}
+
+catch(error){
+
+console.error(
+"EstatePro Index Error:",
+error
+);
+
+
+propertiesGrid.innerHTML = `
+<div class="error-box">
+
+<h2>
+Unable to Load Website
+</h2>
+
+<p>
+${escapeHTML(
+error?.message ||
+"Something went wrong."
+)}
+</p>
+
+<p>
+Company ID:
+<strong>
+${escapeHTML(currentCompanyId)}
+</strong>
+</p>
+
+</div>
+`;
+
+}
 
 }
 
 
 /* =========================================================
-   DEBUG
+DEBUG
 ========================================================= */
 
 window.estateProWebsite = {
 
-    companyId:
-        currentCompanyId,
+companyId:currentCompanyId,
 
-    getCompany:
-        () => currentCompany,
+getCompany:() => currentCompany,
 
-    getProperties:
-        () => allProperties,
+getProperties:() => allProperties,
 
-    reload:
-        startApp
+reload:startApp
 
 };
 
