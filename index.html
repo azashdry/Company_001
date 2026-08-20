@@ -168,12 +168,84 @@
                 const company =
                     snapshot.data();
 
+    document.getElementById(
+    "companyName"
+).textContent =
+    company.name || "EstatePro";
 
-                document.getElementById(
-                    "companyName"
-                ).textContent =
-                    company.name ||
-                    "EstatePro";
+
+/* COMPANY LOGO */
+
+const logo =
+    company.logo ||
+    company.companyLogo ||
+    "";
+
+const logoElement =
+    document.getElementById(
+        "companyLogo"
+    );
+
+if (logo) {
+
+    logoElement.src =
+        logo;
+
+    logoElement.style.display =
+        "block";
+
+}
+
+
+/* COMPANY PHONE */
+
+document.getElementById(
+    "companyPhone"
+).textContent =
+    company.phone
+        ? "Phone: " + company.phone
+        : "";
+
+
+/* COMPANY WHATSAPP */
+
+document.getElementById(
+    "companyWhatsApp"
+).textContent =
+    company.whatsapp
+        ? "WhatsApp: " + company.whatsapp
+        : "";
+
+
+/* COMPANY EMAIL */
+
+document.getElementById(
+    "companyEmail"
+).textContent =
+    company.email
+        ? "Email: " + company.email
+        : "";
+
+
+/* COMPANY ADDRESS */
+
+document.getElementById(
+    "companyAddress"
+).textContent =
+    company.address
+        ? "Address: " + company.address
+        : "";
+
+
+/* COMPANY DESCRIPTION */
+
+document.getElementById(
+    "companyDescription"
+).textContent =
+    company.description
+        ? company.description
+        : "";
+                
 
 
                 console.log(
