@@ -1,87 +1,202 @@
-<meta       name="viewport"       content="width=device-width, initial-scale=1.0"   >    <meta       name="description"       content="Find houses, apartments, lands and commercial properties with EstatePro."   >    <meta       name="theme-color"       content="#0f766e"   >    <title>EstatePro | Find Your Perfect Property</title>    <!-- Google Font -->   <link       rel="preconnect"       href="https://fonts.googleapis.com"   >    <link       rel="preconnect"       href="https://fonts.gstatic.com"       crossorigin   >    <link       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"       rel="stylesheet"   >    <!-- Main CSS -->   <link       rel="stylesheet"       href="css/style.css"   >    <link rel="stylesheet" href="style.css">   <link rel="stylesheet" href="responsive.css">          <!-- =========================        HEADER   ========================== -->    <header class="site-header">        <div class="container nav-container">            <a href="index.html" class="brand" aria-label="EstatePro Home">
-    <span class="brand-mark">
-        <img
-            id="companyLogo"
-            src=""
-            alt="Company Logo"
-            style="display:none;"
-        >
-        <span id="companyLogoLetter">E</span>
-    </span>
+EstatePro — Multi-Company Index
 
-    <span class="brand-name" id="companyName">
-        EstatePro
-    </span>
-</a>
-<button               class="menu-toggle"               id="menuToggle"               type="button"               aria-label="Open navigation menu"               aria-expanded="false"           >               <span></span>               <span></span>               <span></span>           </button>             <nav               class="main-nav"               id="mainNav"               aria-label="Main navigation"           >                <a                   href="index.html"                   class="nav-link active"               >                   Home               </a>                <a                   href="properties.html"                   class="nav-link"               >                   Properties               </a>                <a                   href="about.html"                   class="nav-link"               >                   About               </a>                <a                   href="contact.html"                   class="nav-link"               >                   Contact               </a>                <a                   href="#"                   class="nav-whatsapp"                   id="navWhatsapp"               >                   WhatsApp               </a>            </nav>        </div>    </header>     <main>         <!-- =========================            HERO SECTION       ========================== -->        <section class="hero">            <div class="hero-overlay"></div>            <div class="container hero-container">                <div class="hero-content">                    <span class="hero-badge">                       FIND YOUR DREAM PROPERTY                   </span>                    <h1>                       Find a Place                       <span>You’ll Love to Call Home.</span>                   </h1>                    <p>                       Discover quality houses, apartments, lands                       and commercial properties in your preferred                       location.                   </p>                </div>                 <!-- SEARCH BOX -->                <div class="property-search">                    <div class="search-field">                        <label for="searchLocation">                           Location                       </label>                        <input                           type="text"                           id="searchLocation"                           placeholder="e.g. Kano"                       >                    </div>                     <div class="search-field">                        <label for="searchType">                           Property Type                       </label>                        <select id="searchType">                            <option value="">                               Any Type                           </option>                            <option value="house">                               House                           </option>                            <option value="apartment">                               Apartment                           </option>                            <option value="land">                               Land                           </option>                            <option value="commercial">                               Commercial                           </option>                        </select>                    </div>                     <div class="search-field">                        <label for="searchStatus">                           Purpose                       </label>                        <select id="searchStatus">                            <option value="">                               Sale or Rent                           </option>                            <option value="sale">                               For Sale                           </option>                            <option value="rent">                               For Rent                           </option>                        </select>                    </div>                     <button                       type="button"                       class="search-button"                       id="searchButton"                   >                       Search Properties                   </button>                </div>            </div>        </section>         <!-- =========================            FEATURED PROPERTIES       ========================== -->        <section class="section featured-section">            <div class="container">                <div class="section-heading">                    <div>                        <span class="section-label">                           FEATURED                       </span>                        <h2>                           Featured Properties                       </h2>                    </div>                     <a                       href="properties.html"                       class="view-all"                   >                       View All Properties →                   </a>                </div>                 <!--                   IMPORTANT:                   No demo properties are hard-coded here.                    Properties added by Admin/Firebase                   will be loaded into this container.               -->                <div                   class="property-grid"                   id="featuredProperties"               >               </div>            </div>        </section>         <!-- =========================            PROPERTY CATEGORIES       ========================== -->        <section class="section categories-section">            <div class="container">                <div class="section-heading centered">                    <span class="section-label">                       EXPLORE                   </span>                    <h2>                       Browse By Property Type                   </h2>                    <p>                       Find the right property based on what                       you are looking for.                   </p>                </div>                 <div class="category-grid">                    <a                       href="properties.html?type=house"                       class="category-card"                   >                        <div class="category-icon">                           🏠                       </div>                        <h3>                           Houses                       </h3>                        <span>                           Explore Houses →                       </span>                    </a>                     <a                       href="properties.html?type=apartment"                       class="category-card"                   >                        <div class="category-icon">                           🏢                       </div>                        <h3>                           Apartments                       </h3>                        <span>                           Explore Apartments →                       </span>                    </a>                     <a                       href="properties.html?type=land"                       class="category-card"                   >                        <div class="category-icon">                           🌳                       </div>                        <h3>                           Land                       </h3>                        <span>                           Explore Land →                       </span>                    </a>                     <a                       href="properties.html?type=commercial"                       class="category-card"                   >                        <div class="category-icon">                           🏬                       </div>                        <h3>                           Commercial                       </h3>                        <span>                           Explore Commercial →                       </span>                    </a>                </div>            </div>        </section>         <!-- =========================            WHY CHOOSE US       ========================== -->        <section class="section why-section">            <div class="container why-grid">                <div class="why-content">                    <span class="section-label">                       WHY CHOOSE US                   </span>                    <h2>                       A Simpler Way to Find Your Next Property                   </h2>                    <p>                       We make property discovery easier by                       bringing useful information together in                       one simple and convenient place.                   </p>                     <div class="benefits">                        <div class="benefit">                            <div class="benefit-icon">                               ✓                           </div>                            <div>                                <h3>                                   Quality Properties                               </h3>                                <p>                                   Browse properties with useful                                   details and clear information.                               </p>                            </div>                        </div>                         <div class="benefit">                            <div class="benefit-icon">                               ✓                           </div>                            <div>                                <h3>                                   Easy Communication                               </h3>                                <p>                                   Contact the agent directly by                                   phone or WhatsApp.                               </p>                            </div>                        </div>                         <div class="benefit">                            <div class="benefit-icon">                               ✓                           </div>                            <div>                                <h3>                                   Simple Property Search                               </h3>                                <p>                                   Find properties by type,                                   location and purpose.                               </p>                            </div>                        </div>                    </div>                </div>                 <div class="why-visual">                    <div class="visual-card">                        <span>                           PROPERTY SEARCH                       </span>                        <strong>                           Find. Compare. Contact.                       </strong>                        <p>                           Everything you need to start your                           property search in one place.                       </p>                    </div>                </div>            </div>        </section>         <!-- =========================            HOW IT WORKS       ========================== -->        <section class="section steps-section">            <div class="container">                <div class="section-heading centered">                    <span class="section-label">                       HOW IT WORKS                   </span>                    <h2>                       Find Your Property in 3 Simple Steps                   </h2>                </div>                 <div class="steps-grid">                    <div class="step">                        <span class="step-number">                           01                       </span>                        <h3>                           Search                       </h3>                        <p>                           Search for properties by location,                           type or purpose.                       </p>                    </div>                     <div class="step">                        <span class="step-number">                           02                       </span>                        <h3>                           Explore                       </h3>                        <p>                           View property details, images,                           prices and features.                       </p>                    </div>                     <div class="step">                        <span class="step-number">                           03                       </span>                        <h3>                           Contact                       </h3>                        <p>                           Contact the property agent directly                           through WhatsApp or phone.                       </p>                    </div>                </div>            </div>        </section>         <!-- =========================            CALL TO ACTION       ========================== -->        <section class="cta-section">            <div class="container cta-content">                <span class="section-label">                   START YOUR SEARCH               </span>                <h2>                   Ready to Find Your Next Property?               </h2>                <p>                   Explore available properties and find                   something that fits your needs.               </p>                <a                   href="properties.html"                   class="cta-button"               >                   Explore Properties               </a>            </div>        </section>     </main>     <!-- =========================        FOOTER   ========================== -->    <footer class="site-footer">        <div class="container footer-grid">           <div class="footer-brand">
+<!DOCTYPE html>
+<html lang="en">
 
-    <a href="index.html" class="brand footer-logo">
+<head>
 
-        <span class="brand-mark">
-            <img
-                id="footerCompanyLogo"
-                src=""
-                alt="Company Logo"
-                style="display:none;"
-            >
+    <meta charset="UTF-8">
 
-            <span id="footerCompanyLogoLetter">E</span>
-        </span>
-
-        <span
-            class="brand-name"
-            id="footerCompanyName"
-        >
-            EstatePro
-        </span>
-
-    </a>
-
-    <p id="companyDescription">
-        A simple and professional platform for
-        discovering properties.
-    </p>
-
-</div>  <div class="footer-column">                <h3>                   Quick Links               </h3>                <a href="index.html">                   Home               </a>                <a href="properties.html">                   Properties               </a>                <a href="about.html">                   About               </a>                <a href="contact.html">                   Contact               </a>            </div>             <div class="footer-column">                <h3>                   Property Types               </h3>                <a href="properties.html?type=house">                   Houses               </a>                <a href="properties.html?type=apartment">                   Apartments               </a>                <a href="properties.html?type=land">                   Land               </a>                <a href="properties.html?type=commercial">                   Commercial               </a>            </div>             <div class="footer-column">
-
-    <h3>
-        Contact
-    </h3>
-
-    <a
-        href="#"
-        id="companyPhone"
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
     >
-        +234 000 000 0000
-    </a>
 
-    <a
-        href="#"
-        id="companyEmail"
-    >
-        hello@example.com
-    </a>
+    <title>EstatePro</title>
 
-    <span id="companyAddress">
-        Nigeria
-    </span>
+</head>
 
-    <a
-        href="#"
-        id="companyWhatsApp"
-        target="_blank"
-        rel="noopener"
-    >
-        WhatsApp
-    </a>
+<body>
 
-    <a
-        href="#"
-        id="companyWebsite"
-        target="_blank"
-        rel="noopener"
-    >
-        Website
-    </a>
+    <h1 id="companyName">
+        Loading...
+    </h1>
 
-</div>     </div>         <div class="footer-bottom">            <div class="container">                <p>                   © <span id="currentYear"></span>                   EstatePro. All rights reserved.               </p>            </div>        </div>    </footer>     <!-- Main JavaScript --><script src="app.js?v=3"></script>
+
+    <script type="module">
+
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+        import {
+            getFirestore,
+            doc,
+            getDoc
+        } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+        /* ===============================
+           FIREBASE CONFIG
+        =============================== */
+
+        const firebaseConfig = {
+
+            apiKey:
+                "AIzaSyAE44DxNnqz3m8ScqaZxoSj2FdQ7aJ2NIg",
+
+            authDomain:
+                "estate-pro-d564b.firebaseapp.com",
+
+            projectId:
+                "estate-pro-d564b",
+
+            storageBucket:
+                "estate-pro-d564b.firebasestorage.app",
+
+            messagingSenderId:
+                "600309829118",
+
+            appId:
+                "1:600309829118:web:60c61624ca8cdf05e884af",
+
+            measurementId:
+                "G-TG60FCJHXB"
+        };
+
+
+        /* ===============================
+           FIREBASE
+        =============================== */
+
+        const app =
+            initializeApp(firebaseConfig);
+
+        const db =
+            getFirestore(app);
+
+
+        /* ===============================
+           GET COMPANY ID FROM URL
+           
+           Example:
+           index.html?company=Company_001
+           index.html?company=Company_002
+        =============================== */
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const companyId =
+            params.get("company");
+
+
+        /* ===============================
+           CHECK COMPANY ID
+        =============================== */
+
+        if (!companyId) {
+
+            document.getElementById(
+                "companyName"
+            ).textContent =
+                "Company ID is missing.";
+
+        }
+
+
+        /* ===============================
+           LOAD COMPANY
+        =============================== */
+
+        async function loadCompany() {
+
+            try {
+
+                if (!companyId) {
+                    return;
+                }
+
+
+                const companyRef =
+                    doc(
+                        db,
+                        "companies",
+                        companyId
+                    );
+
+
+                const snapshot =
+                    await getDoc(
+                        companyRef
+                    );
+
+
+                if (!snapshot.exists()) {
+
+                    document.getElementById(
+                        "companyName"
+                    ).textContent =
+                        "Company not found.";
+
+                    return;
+                }
+
+
+                const company =
+                    snapshot.data();
+
+
+                document.getElementById(
+                    "companyName"
+                ).textContent =
+                    company.name ||
+                    "EstatePro";
+
+
+                console.log(
+                    "EstatePro company loaded:",
+                    companyId
+                );
+
+            }
+
+
+            catch (error) {
+
+                console.error(
+                    "Company loading error:",
+                    error
+                );
+
+                alert(
+                    "CODE: " +
+                    (error?.code || "unknown") +
+                    "\nMESSAGE: " +
+                    (error?.message || "unknown")
+                );
+
+
+                document.getElementById(
+                    "companyName"
+                ).textContent =
+                    "Error loading company.";
+
+            }
+
+        }
+
+
+        /* ===============================
+           START
+        =============================== */
+
+        loadCompany();
+
+    </script>
+
+</body>
+
+</html>
