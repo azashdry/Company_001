@@ -1,0 +1,1675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0f766e">
+<title>EstatePro Subscription</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+    margin:0;
+    font-family:Inter,Arial,sans-serif;
+    background:#f4f7fb;
+    color:#17202a
+}
+button,input{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+
+.header{
+    background:#fff;
+    border-bottom:1px solid #e5e7eb;
+    position:sticky;
+    top:0;
+    z-index:100
+}
+.header-inner{
+    max-width:1100px;
+    margin:auto;
+    padding:14px 18px;
+    display:flex;
+    align-items:center;
+    gap:15px
+}
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px
+}
+.brand-icon{
+    width:44px;
+    height:44px;
+    border-radius:12px;
+    display:grid;
+    place-items:center;
+    background:#ecfdf5;
+    color:#0f766e;
+    font-weight:800;
+    font-size:20px;
+    overflow:hidden
+}
+.brand-icon img{
+    width:100%;
+    height:100%;
+    object-fit:contain
+}
+.brand-name{font-weight:800;font-size:16px}
+.brand-subtitle{font-size:11px;color:#64748b;margin-top:2px}
+
+.main{
+    max-width:1100px;
+    margin:auto;
+    padding:35px 18px 70px
+}
+.page-heading{margin-bottom:25px}
+.page-heading h1{
+    margin:0 0 7px;
+    font-size:clamp(28px,5vw,40px)
+}
+.page-heading p{
+    margin:0;
+    color:#64748b;
+    line-height:1.6;
+    font-size:14px
+}
+
+.loading{
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:18px;
+    padding:55px 20px;
+    text-align:center;
+    color:#64748b
+}
+.spinner{
+    width:35px;
+    height:35px;
+    margin:0 auto 15px;
+    border:3px solid #d1fae5;
+    border-top-color:#0f766e;
+    border-radius:50%;
+    animation:spin .8s linear infinite
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.error{
+    background:#fff;
+    border:1px solid #fecaca;
+    border-radius:18px;
+    padding:30px;
+    color:#991b1b;
+    text-align:center
+}
+.error h2{margin-top:0}
+
+.success{
+    background:#ecfdf5;
+    border:1px solid #a7f3d0;
+    border-radius:14px;
+    padding:15px;
+    margin-bottom:18px;
+    color:#065f46;
+    font-size:13px;
+    line-height:1.6
+}
+
+.subscription-card{
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 10px 35px rgba(15,23,42,.06);
+    margin-bottom:30px
+}
+.subscription-top{
+    background:linear-gradient(135deg,#0f766e,#115e59);
+    color:#fff;
+    padding:28px
+}
+.subscription-top-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:20px
+}
+.company-name{
+    font-size:14px;
+    opacity:.8;
+    margin-bottom:7px
+}
+.plan-name{font-size:28px;font-weight:800}
+.status{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:7px 11px;
+    border-radius:999px;
+    background:#dcfce7;
+    color:#166534;
+    font-size:11px;
+    font-weight:800;
+    text-transform:uppercase
+}
+.status.expired{background:#fee2e2;color:#b91c1c}
+
+.subscription-body{padding:28px}
+.price-row{
+    display:flex;
+    align-items:flex-end;
+    gap:8px;
+    margin-bottom:25px
+}
+.price{font-size:34px;font-weight:800;color:#0f766e}
+.price-period{color:#64748b;font-size:13px;margin-bottom:7px}
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin-bottom:25px
+}
+.info-box{
+    background:#f8fafc;
+    border:1px solid #e2e8f0;
+    border-radius:12px;
+    padding:15px
+}
+.info-label{color:#64748b;font-size:11px;margin-bottom:6px}
+.info-value{font-size:14px;font-weight:700}
+
+.progress-wrapper{margin-bottom:25px}
+.progress-header{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    margin-bottom:8px;
+    font-size:12px;
+    color:#64748b
+}
+.progress{
+    width:100%;
+    height:9px;
+    background:#e2e8f0;
+    border-radius:999px;
+    overflow:hidden
+}
+.progress-bar{
+    height:100%;
+    width:0;
+    background:#0f766e;
+    border-radius:999px;
+    transition:width .5s ease
+}
+.progress-bar.danger{background:#dc2626}
+
+.actions{display:flex;flex-wrap:wrap;gap:10px}
+.primary-button{
+    border:0;
+    background:#0f766e;
+    color:#fff;
+    padding:12px 18px;
+    border-radius:9px;
+    font-weight:700
+}
+.primary-button:hover{background:#115e59}
+.primary-button:disabled{
+    opacity:.6;
+    cursor:not-allowed
+}
+.secondary-button{
+    border:1px solid #d7dde3;
+    background:#fff;
+    color:#334155;
+    padding:11px 18px;
+    border-radius:9px;
+    font-weight:700
+}
+
+.section-title{margin-bottom:18px}
+.section-title h2{margin:0 0 5px;font-size:24px}
+.section-title p{margin:0;color:#64748b;font-size:13px}
+
+.plans{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px
+}
+.plan{
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:17px;
+    padding:22px;
+    position:relative;
+    transition:transform .2s ease,box-shadow .2s ease
+}
+.plan:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 30px rgba(15,23,42,.08)
+}
+.plan.current{border:2px solid #0f766e}
+.current-label{
+    position:absolute;
+    top:14px;
+    right:14px;
+    padding:5px 8px;
+    background:#ecfdf5;
+    color:#0f766e;
+    border-radius:6px;
+    font-size:9px;
+    font-weight:800;
+    text-transform:uppercase
+}
+.plan-name-small{font-size:18px;font-weight:800;margin-bottom:8px}
+.plan-price{font-size:26px;font-weight:800;color:#0f766e;margin-bottom:3px}
+.plan-period{color:#64748b;font-size:11px;margin-bottom:18px}
+.features{
+    list-style:none;
+    padding:0;
+    margin:0 0 20px
+}
+.features li{
+    font-size:12px;
+    color:#475569;
+    padding:7px 0;
+    border-bottom:1px solid #f1f5f9
+}
+.features li:last-child{border-bottom:0}
+.choose-plan{
+    width:100%;
+    border:1px solid #0f766e;
+    background:#fff;
+    color:#0f766e;
+    padding:10px;
+    border-radius:8px;
+    font-weight:700
+}
+.choose-plan:hover{background:#ecfdf5}
+.choose-plan.current-button{
+    background:#0f766e;
+    color:#fff
+}
+
+.modal{
+    position:fixed;
+    inset:0;
+    z-index:1000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:18px;
+    background:rgba(15,23,42,.7)
+}
+.modal.show{display:flex}
+.modal-box{
+    width:100%;
+    max-width:500px;
+    background:#fff;
+    border-radius:18px;
+    padding:25px;
+    position:relative
+}
+.close{
+    position:absolute;
+    right:12px;
+    top:12px;
+    width:35px;
+    height:35px;
+    border:0;
+    border-radius:50%;
+    background:#f1f5f9;
+    color:#334155;
+    font-size:20px
+}
+.modal h2{margin:0 0 8px}
+.modal p{color:#64748b;font-size:13px;line-height:1.6}
+.selected-plan{
+    background:#f8fafc;
+    border:1px solid #e2e8f0;
+    border-radius:12px;
+    padding:15px;
+    margin:18px 0
+}
+.selected-plan strong{display:block;margin-bottom:5px}
+.email-box{margin-bottom:18px}
+.email-box label{
+    display:block;
+    font-size:12px;
+    font-weight:700;
+    margin-bottom:7px
+}
+.email-box input{
+    width:100%;
+    padding:12px;
+    border:1px solid #cbd5e1;
+    border-radius:9px;
+    outline:none
+}
+.email-box input:focus{border-color:#0f766e}
+.modal-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px
+}
+
+.footer{
+    background:#0f172a;
+    color:#fff;
+    text-align:center;
+    padding:25px 18px
+}
+.footer p{margin:5px 0;color:#94a3b8;font-size:11px}
+
+@media(max-width:850px){
+    .info-grid{grid-template-columns:repeat(2,1fr)}
+    .plans{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+    .header-inner{padding:11px 14px}
+    .main{padding:28px 14px 55px}
+    .subscription-top{padding:22px}
+    .subscription-top-row{flex-direction:column}
+    .subscription-body{padding:22px}
+    .price{font-size:30px}
+    .info-grid{grid-template-columns:1fr 1fr}
+    .actions{flex-direction:column}
+    .actions button{width:100%}
+    .modal-actions{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="header-inner">
+        <div class="brand">
+            <div id="brandIcon" class="brand-icon">E</div>
+            <div>
+                <div id="brandName" class="brand-name">EstatePro</div>
+                <div class="brand-subtitle">Subscription Management</div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="main">
+
+    <div class="page-heading">
+        <h1>Subscription</h1>
+        <p>Manage your EstatePro subscription, plan and renewal information.</p>
+    </div>
+
+    <div id="message"></div>
+
+    <div id="app">
+        <div class="loading">
+            <div class="spinner"></div>
+            Loading subscription...
+        </div>
+    </div>
+
+    <section>
+        <div class="section-title">
+            <h2>Available Plans</h2>
+            <p>Choose the plan that fits your business.</p>
+        </div>
+
+        <div id="plans" class="plans"></div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <strong>EstatePro</strong>
+    <p>Professional real estate website platform.</p>
+</footer>
+
+<div id="renewModal" class="modal">
+    <div class="modal-box">
+
+        <button id="closeModal" class="close" type="button">×</button>
+
+        <h2>Subscription Payment</h2>
+
+        <p>
+            Enter the company's email address to continue with Paystack payment.
+        </p>
+
+        <div id="selectedPlan" class="selected-plan"></div>
+
+        <div class="email-box">
+            <label for="customerEmail">Email Address</label>
+            <input
+                id="customerEmail"
+                type="email"
+                placeholder="company@example.com"
+                autocomplete="email"
+            >
+        </div>
+
+        <div class="modal-actions">
+
+            <button
+                id="cancelRenew"
+                class="secondary-button"
+                type="button"
+            >
+                Cancel
+            </button>
+
+            <button
+                id="confirmRenew"
+                class="primary-button"
+                type="button"
+            >
+                Pay with Paystack
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- Paystack InlineJS V2 -->
+<script src="https://js.paystack.co/v2/inline.js"></script>
+
+<script type="module">
+
+/* ==========================================
+   FIREBASE
+========================================== */
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+    getFirestore,
+    doc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* ==========================================
+   FIREBASE CONFIG
+========================================== */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyAE44DxNnqz3m8ScqaZxoSj2FdQ7aJ2NIg",
+
+    authDomain:
+        "estate-pro-d564b.firebaseapp.com",
+
+    projectId:
+        "estate-pro-d564b",
+
+    storageBucket:
+        "estate-pro-d564b.firebasestorage.app",
+
+    messagingSenderId:
+        "600309829118",
+
+    appId:
+        "1:600309829118:web:60c61624ca8cdf05e884af",
+
+    measurementId:
+        "G-TG60FCJHXB"
+
+};
+
+
+/* ==========================================
+   PAYSTACK PUBLIC KEY
+========================================== */
+
+const PAYSTACK_PUBLIC_KEY =
+    "pk_test_ae7a4f86bef9612aa6eded06f4bd9527ccd65431";
+
+
+/* ==========================================
+   FIREBASE INIT
+========================================== */
+
+const firebaseApp =
+    initializeApp(firebaseConfig);
+
+const db =
+    getFirestore(firebaseApp);
+
+
+/* ==========================================
+   COMPANY ID
+========================================== */
+
+function getCompanyId(){
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const id =
+        params.get("companyId");
+
+    if(
+        id &&
+        id.trim()
+    ){
+        return id.trim();
+    }
+
+    return "Company_001";
+}
+
+const companyId =
+    getCompanyId();
+
+
+console.log(
+    "ESTATEPRO SUBSCRIPTION"
+);
+
+console.log(
+    "Company ID:",
+    companyId
+);
+
+
+/* ==========================================
+   DOM
+========================================== */
+
+const appContainer =
+    document.getElementById("app");
+
+const plansContainer =
+    document.getElementById("plans");
+
+const messageContainer =
+    document.getElementById("message");
+
+const renewModal =
+    document.getElementById("renewModal");
+
+const selectedPlan =
+    document.getElementById("selectedPlan");
+
+const customerEmail =
+    document.getElementById("customerEmail");
+
+const confirmRenew =
+    document.getElementById("confirmRenew");
+
+
+/* ==========================================
+   PLANS
+========================================== */
+
+const plans = [
+
+    {
+        id:"starter",
+        name:"Starter",
+        price:10000,
+        days:30,
+        features:[
+            "Professional property website",
+            "Property listings",
+            "Company information",
+            "WhatsApp contact",
+            "Basic support"
+        ]
+    },
+
+    {
+        id:"professional",
+        name:"Professional",
+        price:20000,
+        days:30,
+        features:[
+            "Everything in Starter",
+            "Unlimited properties",
+            "Advanced property management",
+            "Admin dashboard",
+            "Priority support",
+            "Professional branding"
+        ]
+    },
+
+    {
+        id:"business",
+        name:"Business",
+        price:35000,
+        days:30,
+        features:[
+            "Everything in Professional",
+            "Advanced business tools",
+            "Premium support",
+            "Priority updates",
+            "Business-level management",
+            "Future premium features"
+        ]
+    }
+
+];
+
+
+/* ==========================================
+   STATE
+========================================== */
+
+let subscription = null;
+let currentPlan = null;
+let selectedPlanData = null;
+
+
+/* ==========================================
+   MONEY
+========================================== */
+
+function formatMoney(amount){
+
+    return new Intl.NumberFormat(
+        "en-NG",
+        {
+            style:"currency",
+            currency:"NGN",
+            maximumFractionDigits:0
+        }
+    ).format(
+        Number(amount) || 0
+    );
+
+}
+
+
+/* ==========================================
+   ESCAPE HTML
+========================================== */
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* ==========================================
+   DATE
+========================================== */
+
+function getDate(value){
+
+    if(!value){
+        return null;
+    }
+
+    if(
+        typeof value === "object" &&
+        typeof value.seconds === "number"
+    ){
+        return new Date(
+            value.seconds * 1000
+        );
+    }
+
+    if(
+        typeof value === "object" &&
+        typeof value.toDate === "function"
+    ){
+        return value.toDate();
+    }
+
+    const date =
+        new Date(value);
+
+    if(
+        Number.isNaN(
+            date.getTime()
+        )
+    ){
+        return null;
+    }
+
+    return date;
+}
+
+
+function formatDate(value){
+
+    const date =
+        getDate(value);
+
+    if(!date){
+        return "Not available";
+    }
+
+    return date.toLocaleDateString(
+        "en-NG",
+        {
+            day:"numeric",
+            month:"short",
+            year:"numeric"
+        }
+    );
+}
+
+
+function daysBetween(start,end){
+
+    if(!start || !end){
+        return 0;
+    }
+
+    return Math.ceil(
+        (
+            end.getTime() -
+            start.getTime()
+        ) /
+        (
+            1000 *
+            60 *
+            60 *
+            24
+        )
+    );
+}
+
+
+/* ==========================================
+   LOAD COMPANY
+========================================== */
+
+async function loadCompany(){
+
+    try{
+
+        const companyRef =
+            doc(
+                db,
+                "companies",
+                companyId
+            );
+
+        const snapshot =
+            await getDoc(companyRef);
+
+        if(!snapshot.exists()){
+            return;
+        }
+
+        const company =
+            snapshot.data();
+
+        const name =
+            company.name ||
+            company.companyName ||
+            companyId;
+
+        document
+            .getElementById("brandName")
+            .textContent = name;
+
+        const logo =
+            company.logo ||
+            company.companyLogo ||
+            "";
+
+        const icon =
+            document.getElementById(
+                "brandIcon"
+            );
+
+        if(logo){
+
+            icon.innerHTML = "";
+
+            const img =
+                document.createElement("img");
+
+            img.src = logo;
+            img.alt = name;
+
+            icon.appendChild(img);
+
+        }else{
+
+            icon.textContent =
+                name
+                    .charAt(0)
+                    .toUpperCase();
+
+        }
+
+    }catch(error){
+
+        console.warn(
+            "Company loading warning:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ==========================================
+   LOAD SUBSCRIPTION
+========================================== */
+
+async function loadSubscription(){
+
+    const subscriptionRef =
+        doc(
+            db,
+            "subscriptions",
+            companyId
+        );
+
+    const snapshot =
+        await getDoc(
+            subscriptionRef
+        );
+
+    if(!snapshot.exists()){
+
+        throw new Error(
+            "No subscription found for " +
+            companyId
+        );
+
+    }
+
+    subscription =
+        snapshot.data();
+
+    currentPlan =
+        plans.find(
+            plan =>
+                plan.id ===
+                String(
+                    subscription.plan || ""
+                ).toLowerCase()
+        ) || null;
+
+    renderSubscription();
+    renderPlans();
+
+}
+
+
+/* ==========================================
+   ACTIVE
+========================================== */
+
+function isSubscriptionActive(){
+
+    const status =
+        String(
+            subscription?.status || ""
+        ).toLowerCase();
+
+    if(status !== "active"){
+        return false;
+    }
+
+    const expiry =
+        getDate(
+            subscription.expiryDate
+        );
+
+    if(
+        expiry &&
+        expiry.getTime() < Date.now()
+    ){
+        return false;
+    }
+
+    return true;
+}
+
+
+/* ==========================================
+   RENDER SUBSCRIPTION
+========================================== */
+
+function renderSubscription(){
+
+    const active =
+        isSubscriptionActive();
+
+    const expiryDate =
+        getDate(
+            subscription.expiryDate
+        );
+
+    let remaining =
+        daysBetween(
+            new Date(),
+            expiryDate
+        );
+
+    if(remaining < 0){
+        remaining = 0;
+    }
+
+    const totalDays =
+        currentPlan?.days || 30;
+
+    let progress =
+        (
+            remaining /
+            totalDays
+        ) * 100;
+
+    progress =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                progress
+            )
+        );
+
+    const planName =
+        currentPlan?.name ||
+        subscription.plan ||
+        "Unknown Plan";
+
+    const price =
+        currentPlan?.price ||
+        subscription.amount ||
+        0;
+
+    const companyName =
+        subscription.companyName ||
+        companyId;
+
+    appContainer.innerHTML = `
+
+        <div class="subscription-card">
+
+            <div class="subscription-top">
+
+                <div class="subscription-top-row">
+
+                    <div>
+
+                        <div class="company-name">
+                            ${escapeHTML(companyName)}
+                        </div>
+
+                        <div class="plan-name">
+                            ${escapeHTML(planName)} Plan
+                        </div>
+
+                    </div>
+
+                    <div>
+
+                        <span class="status ${
+                            active ? "" : "expired"
+                        }">
+
+                            ${active ? "● Active" : "● Expired"}
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="subscription-body">
+
+                <div class="price-row">
+
+                    <div class="price">
+                        ${formatMoney(price)}
+                    </div>
+
+                    <div class="price-period">
+                        / ${currentPlan?.days || 30} days
+                    </div>
+
+                </div>
+
+                <div class="info-grid">
+
+                    <div class="info-box">
+                        <div class="info-label">Plan</div>
+                        <div class="info-value">
+                            ${escapeHTML(planName)}
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Started</div>
+                        <div class="info-value">
+                            ${formatDate(subscription.startDate)}
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Expires</div>
+                        <div class="info-value">
+                            ${formatDate(subscription.expiryDate)}
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <div class="info-label">Remaining</div>
+                        <div class="info-value">
+                            ${remaining} days
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="progress-wrapper">
+
+                    <div class="progress-header">
+
+                        <span>
+                            Subscription period
+                        </span>
+
+                        <span>
+                            ${remaining} days remaining
+                        </span>
+
+                    </div>
+
+                    <div class="progress">
+
+                        <div
+                            class="progress-bar ${
+                                remaining <= 5 ? "danger" : ""
+                            }"
+                            style="width:${progress}%"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+                <div class="actions">
+
+                    <button
+                        class="primary-button"
+                        id="renewCurrent"
+                        type="button"
+                    >
+                        ${active
+                            ? "Renew Subscription"
+                            : "Renew Now"}
+                    </button>
+
+                    <button
+                        class="secondary-button"
+                        id="reloadSubscription"
+                        type="button"
+                    >
+                        Refresh
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+    `;
+
+    document
+        .getElementById("renewCurrent")
+        .addEventListener(
+            "click",
+            () => openRenewModal(currentPlan)
+        );
+
+    document
+        .getElementById("reloadSubscription")
+        .addEventListener(
+            "click",
+            async () => {
+
+                appContainer.innerHTML = `
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        Refreshing...
+                    </div>
+                `;
+
+                try{
+                    await loadSubscription();
+                }catch(error){
+                    showError(error);
+                }
+
+            }
+        );
+
+}
+
+
+/* ==========================================
+   RENDER PLANS
+========================================== */
+
+function renderPlans(){
+
+    plansContainer.innerHTML =
+        plans.map(plan => {
+
+            const isCurrent =
+                currentPlan &&
+                currentPlan.id === plan.id;
+
+            return `
+
+                <div class="plan ${
+                    isCurrent ? "current" : ""
+                }">
+
+                    ${
+                        isCurrent
+                        ?
+                        `
+                        <span class="current-label">
+                            Current Plan
+                        </span>
+                        `
+                        :
+                        ""
+                    }
+
+                    <div class="plan-name-small">
+                        ${escapeHTML(plan.name)}
+                    </div>
+
+                    <div class="plan-price">
+                        ${formatMoney(plan.price)}
+                    </div>
+
+                    <div class="plan-period">
+                        per ${plan.days} days
+                    </div>
+
+                    <ul class="features">
+
+                        ${
+                            plan.features
+                            .map(
+                                feature => `
+                                    <li>
+                                        ✓ ${escapeHTML(feature)}
+                                    </li>
+                                `
+                            )
+                            .join("")
+                        }
+
+                    </ul>
+
+                    <button
+                        class="choose-plan ${
+                            isCurrent
+                                ? "current-button"
+                                : ""
+                        }"
+                        type="button"
+                        data-plan="${escapeHTML(plan.id)}"
+                    >
+                        ${
+                            isCurrent
+                                ? "Renew Current Plan"
+                                : "Choose Plan"
+                        }
+                    </button>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+    plansContainer
+        .querySelectorAll("[data-plan]")
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    const plan =
+                        plans.find(
+                            item =>
+                                item.id ===
+                                button.dataset.plan
+                        );
+
+                    openRenewModal(plan);
+
+                }
+            );
+
+        });
+
+}
+
+
+/* ==========================================
+   OPEN MODAL
+========================================== */
+
+function openRenewModal(plan){
+
+    if(!plan){
+        alert("Subscription plan not found.");
+        return;
+    }
+
+    selectedPlanData =
+        plan;
+
+    selectedPlan.innerHTML = `
+
+        <strong>
+            ${escapeHTML(plan.name)} Plan
+        </strong>
+
+        <div>
+            ${formatMoney(plan.price)}
+            / ${plan.days} days
+        </div>
+
+    `;
+
+    renewModal.classList.add("show");
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+/* ==========================================
+   CLOSE MODAL
+========================================== */
+
+function closeRenewModal(){
+
+    renewModal.classList.remove("show");
+
+    document.body.style.overflow = "";
+
+    confirmRenew.disabled = false;
+
+    confirmRenew.textContent =
+        "Pay with Paystack";
+
+}
+
+
+/* ==========================================
+   MODAL EVENTS
+========================================== */
+
+document
+    .getElementById("closeModal")
+    .addEventListener(
+        "click",
+        closeRenewModal
+    );
+
+document
+    .getElementById("cancelRenew")
+    .addEventListener(
+        "click",
+        closeRenewModal
+    );
+
+renewModal.addEventListener(
+    "click",
+    event => {
+
+        if(event.target === renewModal){
+            closeRenewModal();
+        }
+
+    }
+);
+
+
+/* ==========================================
+   PAYSTACK PAYMENT
+========================================== */
+
+confirmRenew.addEventListener(
+    "click",
+    async () => {
+
+        if(!selectedPlanData){
+
+            alert(
+                "Please select a subscription plan."
+            );
+
+            return;
+        }
+
+        const email =
+            customerEmail.value.trim();
+
+        if(!email){
+
+            alert(
+                "Please enter your email address."
+            );
+
+            customerEmail.focus();
+
+            return;
+        }
+
+        if(!customerEmail.checkValidity()){
+
+            alert(
+                "Please enter a valid email address."
+            );
+
+            customerEmail.focus();
+
+            return;
+        }
+
+
+        /* Check Paystack library */
+
+        if(
+            typeof window.PaystackPop ===
+            "undefined"
+        ){
+
+            alert(
+                "Paystack could not load. Check your internet connection and refresh the page."
+            );
+
+            return;
+        }
+
+
+        const amount =
+            Number(
+                selectedPlanData.price
+            );
+
+
+        if(
+            !Number.isFinite(amount) ||
+            amount <= 0
+        ){
+
+            alert(
+                "Invalid payment amount."
+            );
+
+            return;
+        }
+
+
+        confirmRenew.disabled = true;
+
+        confirmRenew.textContent =
+            "Opening Paystack...";
+
+
+        try{
+
+            const popup =
+                new window.PaystackPop();
+
+
+            const reference =
+                "ESTATEPRO-" +
+                companyId +
+                "-" +
+                Date.now();
+
+
+            popup.newTransaction({
+
+                key:
+                    PAYSTACK_PUBLIC_KEY,
+
+                email:
+                    email,
+
+                amount:
+                    amount * 100,
+
+                currency:
+                    "NGN",
+
+                reference:
+                    reference,
+
+                metadata:{
+
+                    companyId:
+                        companyId,
+
+                    plan:
+                        selectedPlanData.id,
+
+                    planName:
+                        selectedPlanData.name,
+
+                    duration:
+                        selectedPlanData.days,
+
+                    platform:
+                        "EstatePro"
+
+                },
+
+                onLoad:
+                    response => {
+
+                        console.log(
+                            "Paystack loaded:",
+                            response
+                        );
+
+                    },
+
+                onSuccess:
+                    transaction => {
+
+                        console.log(
+                            "PAYMENT SUCCESS:",
+                            transaction
+                        );
+
+
+                        closeRenewModal();
+
+
+                        messageContainer.innerHTML = `
+
+                            <div class="success">
+
+                                <strong>
+                                    Payment successful!
+                                </strong>
+
+                                <br>
+
+                                Transaction reference:
+                                ${escapeHTML(
+                                    transaction.reference ||
+                                    reference
+                                )}
+
+                                <br><br>
+
+                                Your payment has been received.
+                                Subscription activation should be
+                                completed by the EstatePro payment
+                                verification system.
+
+                            </div>
+
+                        `;
+
+                        window.scrollTo({
+                            top:0,
+                            behavior:"smooth"
+                        });
+
+                    },
+
+                onCancel:
+                    () => {
+
+                        console.log(
+                            "Payment cancelled."
+                        );
+
+                        confirmRenew.disabled =
+                            false;
+
+                        confirmRenew.textContent =
+                            "Pay with Paystack";
+
+                    },
+
+                onError:
+                    error => {
+
+                        console.error(
+                            "Paystack error:",
+                            error
+                        );
+
+                        confirmRenew.disabled =
+                            false;
+
+                        confirmRenew.textContent =
+                            "Pay with Paystack";
+
+                        alert(
+                            "Payment could not be started. Please try again."
+                        );
+
+                    }
+
+            });
+
+        }catch(error){
+
+            console.error(
+                "Paystack initialization error:",
+                error
+            );
+
+            confirmRenew.disabled =
+                false;
+
+            confirmRenew.textContent =
+                "Pay with Paystack";
+
+            alert(
+                "Unable to open Paystack payment."
+            );
+
+        }
+
+    }
+);
+
+
+/* ==========================================
+   ERROR
+========================================== */
+
+function showError(error){
+
+    console.error(
+        "EstatePro Subscription Error:",
+        error
+    );
+
+    appContainer.innerHTML = `
+
+        <div class="error">
+
+            <h2>
+                Unable to Load Subscription
+            </h2>
+
+            <p>
+                ${escapeHTML(
+                    error?.message ||
+                    "Something went wrong."
+                )}
+            </p>
+
+            <p>
+                <strong>Company ID:</strong>
+                ${escapeHTML(companyId)}
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+/* ==========================================
+   START
+========================================== */
+
+async function startApp(){
+
+    try{
+
+        await loadCompany();
+
+        await loadSubscription();
+
+        console.log(
+            "Subscription page loaded successfully."
+        );
+
+    }catch(error){
+
+        showError(error);
+
+    }
+
+}
+
+
+startApp();
+
+</script>
+
+</body>
+</html>
