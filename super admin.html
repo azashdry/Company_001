@@ -1,0 +1,3609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>EstatePro Super Admin</title>
+
+<style>
+*{box-sizing:border-box}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f1f5f9;
+    color:#17202a
+}
+
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+
+#loginCard{
+    width:calc(100% - 30px);
+    max-width:420px;
+    margin:60px auto;
+    background:#fff;
+    padding:30px;
+    border-radius:18px;
+    box-shadow:0 10px 35px rgba(0,0,0,.08)
+}
+
+.logo{
+    width:60px;
+    height:60px;
+    margin:0 auto 15px;
+    border-radius:15px;
+    background:#0f766e;
+    color:#fff;
+    display:grid;
+    place-items:center;
+    font-size:28px;
+    font-weight:bold
+}
+
+.login-title{text-align:center}
+.login-title h1{margin:0 0 8px}
+.subtitle{color:#64748b;margin-bottom:25px}
+
+.field{margin-bottom:15px}
+
+label{
+    display:block;
+    font-weight:bold;
+    font-size:13px;
+    margin-bottom:6px
+}
+
+input,select,textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #cbd5e1;
+    border-radius:9px;
+    outline:none;
+    background:#fff
+}
+
+textarea{
+    min-height:100px;
+    resize:vertical
+}
+
+input:focus,select:focus,textarea:focus{
+    border-color:#0f766e;
+    box-shadow:0 0 0 3px rgba(15,118,110,.08)
+}
+
+.primary{
+    width:100%;
+    padding:13px;
+    border:0;
+    border-radius:9px;
+    background:#0f766e;
+    color:#fff;
+    font-weight:bold
+}
+
+.primary:disabled{
+    opacity:.6;
+    cursor:not-allowed
+}
+
+.message{
+    display:none;
+    padding:12px;
+    border-radius:9px;
+    margin-bottom:15px;
+    font-size:14px;
+    line-height:1.5
+}
+
+.message.show{display:block}
+.message.error{background:#fee2e2;color:#991b1b}
+.message.success{background:#dcfce7;color:#166534}
+
+#dashboard{
+    display:none;
+    min-height:100vh
+}
+
+.header{
+    background:#0f766e;
+    color:#fff;
+    padding:16px 20px
+}
+
+.header-inner{
+    max-width:1250px;
+    margin:auto;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px
+}
+
+.brand{
+    font-size:20px;
+    font-weight:bold
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:12px
+}
+
+.logout{
+    border:0;
+    background:#dc2626;
+    color:#fff;
+    padding:9px 15px;
+    border-radius:8px;
+    font-weight:bold
+}
+
+.container{
+    max-width:1250px;
+    margin:auto;
+    padding:25px 15px 60px
+}
+
+.page-title{margin-bottom:22px}
+.page-title h1{margin:0}
+.page-title p{
+    color:#64748b;
+    margin:6px 0 0
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:15px;
+    margin-bottom:20px
+}
+
+.stat{
+    background:#fff;
+    padding:18px;
+    border-radius:14px;
+    box-shadow:0 4px 18px rgba(0,0,0,.05)
+}
+
+.stat span{
+    color:#64748b;
+    font-size:13px
+}
+
+.stat strong{
+    display:block;
+    font-size:27px;
+    margin-top:8px
+}
+
+.tabs{
+    display:flex;
+    gap:8px;
+    margin-bottom:20px;
+    overflow:auto
+}
+
+.tab{
+    border:1px solid #cbd5e1;
+    background:#fff;
+    padding:10px 16px;
+    border-radius:9px;
+    font-weight:bold;
+    white-space:nowrap
+}
+
+.tab.active{
+    background:#0f766e;
+    color:#fff;
+    border-color:#0f766e
+}
+
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+.grid{
+    display:grid;
+    grid-template-columns:380px 1fr;
+    gap:20px
+}
+
+.card{
+    background:#fff;
+    padding:22px;
+    border-radius:15px;
+    box-shadow:0 4px 18px rgba(0,0,0,.05);
+    margin-bottom:20px
+}
+
+.card h2{
+    margin:0 0 18px;
+    font-size:20px
+}
+
+.row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px
+}
+
+.actions{
+    display:flex;
+    gap:7px;
+    flex-wrap:wrap;
+    margin-top:13px
+}
+
+.action{
+    border:0;
+    color:#fff;
+    padding:8px 12px;
+    border-radius:7px;
+    font-weight:bold
+}
+
+.edit{background:#0f766e}
+.delete{background:#dc2626}
+.view{background:#2563eb}
+.renew{background:#7c3aed}
+
+.cancel{
+    width:100%;
+    margin-top:8px;
+    padding:11px;
+    border:1px solid #cbd5e1;
+    background:#fff;
+    color:#334155;
+    border-radius:9px;
+    font-weight:bold
+}
+
+.search{
+    margin-bottom:15px
+}
+
+.company,.admin,.subscription{
+    border:1px solid #e2e8f0;
+    border-radius:13px;
+    padding:16px;
+    margin-bottom:12px
+}
+
+.company-top,.admin-top{
+    display:flex;
+    gap:15px;
+    align-items:flex-start
+}
+
+.company-logo,.admin-avatar{
+    width:65px;
+    height:65px;
+    border-radius:12px;
+    object-fit:cover;
+    background:#e2e8f0;
+    flex-shrink:0
+}
+
+.admin-avatar{
+    display:grid;
+    place-items:center;
+    background:#ccfbf1;
+    color:#0f766e;
+    font-size:25px;
+    font-weight:bold
+}
+
+.company h3,.admin h3,.subscription h3{
+    margin:0 0 6px;
+    font-size:18px
+}
+
+.company p,.admin p,.subscription p{
+    margin:5px 0;
+    color:#64748b;
+    font-size:13px
+}
+
+.badges{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-top:10px
+}
+
+.badge{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:bold;
+    background:#ecfdf5;
+    color:#047857
+}
+
+.badge.blue{
+    background:#e0f2fe;
+    color:#0369a1
+}
+
+.badge.red{
+    background:#fee2e2;
+    color:#b91c1c
+}
+
+.badge.purple{
+    background:#ede9fe;
+    color:#6d28d9
+}
+
+.property{
+    border:1px solid #e2e8f0;
+    border-radius:13px;
+    padding:15px;
+    margin-bottom:12px;
+    display:flex;
+    gap:15px
+}
+
+.property-image{
+    width:110px;
+    height:90px;
+    border-radius:10px;
+    object-fit:cover;
+    background:#e2e8f0;
+    flex-shrink:0
+}
+
+.property h3{
+    margin:0 0 6px
+}
+
+.property p{
+    margin:4px 0;
+    color:#64748b;
+    font-size:13px
+}
+
+.loading,.empty{
+    text-align:center;
+    padding:30px;
+    color:#64748b
+}
+
+.back{
+    border:0;
+    background:#334155;
+    color:#fff;
+    padding:9px 14px;
+    border-radius:8px;
+    font-weight:bold;
+    margin-bottom:15px
+}
+
+.details{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    margin:15px 0
+}
+
+.detail{
+    background:#f8fafc;
+    padding:12px;
+    border-radius:9px
+}
+
+.detail span{
+    display:block;
+    color:#64748b;
+    font-size:11px;
+    margin-bottom:4px
+}
+
+.detail strong{
+    font-size:13px;
+    word-break:break-word
+}
+
+.warning{
+    background:#fff7ed;
+    border:1px solid #fed7aa;
+    color:#9a3412;
+    padding:12px;
+    border-radius:9px;
+    font-size:13px;
+    line-height:1.5;
+    margin-bottom:15px
+}
+
+@media(max-width:1050px){
+    .stats{
+        grid-template-columns:repeat(3,1fr)
+    }
+}
+
+@media(max-width:900px){
+    .grid{
+        grid-template-columns:1fr
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr)
+    }
+}
+
+@media(max-width:600px){
+
+    .header-inner{
+        flex-direction:column;
+        align-items:flex-start
+    }
+
+    .header-right{
+        width:100%;
+        justify-content:space-between
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr
+    }
+
+    .row{
+        grid-template-columns:1fr
+    }
+
+    .details{
+        grid-template-columns:1fr
+    }
+
+    .property{
+        flex-direction:column
+    }
+
+    .property-image{
+        width:100%;
+        height:180px
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= LOGIN ================= -->
+
+<div id="loginCard">
+
+    <div class="logo">E</div>
+
+    <div class="login-title">
+        <h1>EstatePro</h1>
+        <div class="subtitle">Super Admin</div>
+    </div>
+
+    <div id="loginMessage" class="message"></div>
+
+    <form id="loginForm">
+
+        <div class="field">
+            <label>Email</label>
+            <input id="email"
+                   type="email"
+                   placeholder="Super Admin Email"
+                   required>
+        </div>
+
+        <div class="field">
+            <label>Password</label>
+            <input id="password"
+                   type="password"
+                   placeholder="Password"
+                   required>
+        </div>
+
+        <button id="loginButton"
+                class="primary"
+                type="submit">
+            Login
+        </button>
+
+    </form>
+
+</div>
+
+
+<!-- ================= DASHBOARD ================= -->
+
+<div id="dashboard">
+
+<header class="header">
+
+    <div class="header-inner">
+
+        <div class="brand">
+            EstatePro Super Admin
+        </div>
+
+        <div class="header-right">
+
+            <span id="welcome">
+                Loading...
+            </span>
+
+            <button id="logoutButton"
+                    class="logout">
+                Logout
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+    <div class="page-title">
+        <h1>Super Admin Dashboard</h1>
+        <p>
+            Manage companies, admins, properties and subscriptions.
+        </p>
+    </div>
+
+    <div id="dashboardMessage" class="message"></div>
+
+
+<!-- ================= STATS ================= -->
+
+<section class="stats">
+
+    <div class="stat">
+        <span>Total Companies</span>
+        <strong id="totalCompanies">0</strong>
+    </div>
+
+    <div class="stat">
+        <span>Total Admins</span>
+        <strong id="totalAdmins">0</strong>
+    </div>
+
+    <div class="stat">
+        <span>Total Properties</span>
+        <strong id="totalProperties">0</strong>
+    </div>
+
+    <div class="stat">
+        <span>Active Subscriptions</span>
+        <strong id="activeSubscriptions">0</strong>
+    </div>
+
+    <div class="stat">
+        <span>Expired Subscriptions</span>
+        <strong id="expiredSubscriptions">0</strong>
+    </div>
+
+</section>
+
+
+<!-- ================= TABS ================= -->
+
+<div class="tabs">
+
+    <button class="tab active"
+            data-tab="companiesTab">
+        Companies
+    </button>
+
+    <button class="tab"
+            data-tab="adminsTab">
+        Admins
+    </button>
+
+    <button class="tab"
+            data-tab="propertiesTab">
+        Properties
+    </button>
+
+    <button class="tab"
+            data-tab="subscriptionsTab">
+        Subscriptions
+    </button>
+
+</div>
+
+
+<!-- =====================================================
+     COMPANIES
+===================================================== -->
+
+<section id="companiesTab"
+         class="tab-content active">
+
+<div class="grid">
+
+<section class="card">
+
+<h2 id="companyFormTitle">
+    Add Company
+</h2>
+
+<div id="companyFormMessage"
+     class="message"></div>
+
+<form id="companyForm">
+
+<div class="field">
+<label>Company ID</label>
+<input id="companyId"
+       placeholder="Company_002"
+       required>
+</div>
+
+<div class="field">
+<label>Company Name</label>
+<input id="companyName"
+       placeholder="ABC Estate"
+       required>
+</div>
+
+<div class="field">
+<label>Email</label>
+<input id="companyEmail"
+       type="email"
+       placeholder="company@email.com">
+</div>
+
+<div class="row">
+
+<div class="field">
+<label>Phone</label>
+<input id="companyPhone"
+       placeholder="08000000000">
+</div>
+
+<div class="field">
+<label>WhatsApp</label>
+<input id="companyWhatsApp"
+       placeholder="2348000000000">
+</div>
+
+</div>
+
+<div class="field">
+<label>Logo URL</label>
+<input id="companyLogo"
+       placeholder="https://...">
+</div>
+
+<div class="field">
+<label>Address</label>
+<input id="companyAddress"
+       placeholder="Kano, Nigeria">
+</div>
+
+<div class="field">
+<label>Description</label>
+<textarea id="companyDescription"
+          placeholder="Company description..."></textarea>
+</div>
+
+<button id="companySaveButton"
+        class="primary">
+    Add Company
+</button>
+
+<button id="companyCancelButton"
+        class="cancel hidden"
+        type="button">
+    Cancel Edit
+</button>
+
+</form>
+
+</section>
+
+
+<section class="card">
+
+<h2>All Companies</h2>
+
+<input id="companySearch"
+       class="search"
+       type="search"
+       placeholder="Search company...">
+
+<div id="companiesList">
+    <div class="loading">
+        Loading companies...
+    </div>
+</div>
+
+</section>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     ADMINS
+===================================================== -->
+
+<section id="adminsTab"
+         class="tab-content">
+
+<div class="grid">
+
+<section class="card">
+
+<h2 id="adminFormTitle">
+    Add Admin
+</h2>
+
+<div class="warning">
+    <strong>Important:</strong><br>
+    UID dole ne ya zama UID ɗin wannan admin
+    daga Firebase Authentication. Wannan form
+    ba ya ƙirƙirar Authentication account.
+    Password ba ya shiga Firestore.
+</div>
+
+<div id="adminFormMessage"
+     class="message"></div>
+
+<form id="adminForm">
+
+<div class="field">
+
+<label>Admin UID</label>
+
+<input id="adminUid"
+       placeholder="Firebase Authentication UID"
+       required>
+
+</div>
+
+<div class="field">
+
+<label>Admin Name</label>
+
+<input id="adminName"
+       placeholder="Admin Name"
+       required>
+
+</div>
+
+<div class="field">
+
+<label>Email</label>
+
+<input id="adminEmail"
+       type="email"
+       placeholder="admin@email.com"
+       required>
+
+</div>
+
+<div class="field">
+
+<label>Company ID</label>
+
+<input id="adminCompanyId"
+       placeholder="Company_002"
+       required>
+
+</div>
+
+<div class="field">
+
+<label>Role</label>
+
+<select id="adminRole">
+
+<option value="companyAdmin">
+Company Admin
+</option>
+
+</select>
+
+</div>
+
+<div class="field">
+
+<label>Status</label>
+
+<select id="adminActive">
+
+<option value="true">
+Active
+</option>
+
+<option value="false">
+Inactive
+</option>
+
+</select>
+
+</div>
+
+<button id="adminSaveButton"
+        class="primary"
+        type="submit">
+    Add Admin
+</button>
+
+<button id="adminCancelButton"
+        class="cancel hidden"
+        type="button">
+    Cancel Edit
+</button>
+
+</form>
+
+</section>
+
+
+<section class="card">
+
+<h2>All Admins</h2>
+
+<input id="adminSearch"
+       class="search"
+       type="search"
+       placeholder="Search admin...">
+
+<div id="adminsList">
+
+<div class="loading">
+    Loading admins...
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     PROPERTIES
+===================================================== -->
+
+<section id="propertiesTab"
+         class="tab-content">
+
+<section class="card">
+
+<button id="backToCompanies"
+        class="back hidden"
+        type="button">
+    ← All Companies
+</button>
+
+<h2 id="propertiesTitle">
+    All Properties
+</h2>
+
+<input id="propertySearch"
+       class="search"
+       type="search"
+       placeholder="Search property...">
+
+<div id="propertiesList">
+
+<div class="loading">
+    Loading properties...
+</div>
+
+</div>
+
+</section>
+
+</section>
+
+
+<!-- =====================================================
+     SUBSCRIPTIONS
+===================================================== -->
+
+<section id="subscriptionsTab"
+         class="tab-content">
+
+<div class="grid">
+
+<section class="card">
+
+<h2 id="subscriptionFormTitle">
+    Add Subscription
+</h2>
+
+<div id="subscriptionFormMessage"
+     class="message"></div>
+
+<form id="subscriptionForm">
+
+<div class="field">
+<label>Company ID</label>
+<input id="subscriptionCompanyId"
+       placeholder="Company_002"
+       required>
+</div>
+
+<div class="field">
+
+<label>Plan</label>
+
+<select id="plan">
+
+<option value="basic">Basic</option>
+<option value="professional">Professional</option>
+<option value="premium">Premium</option>
+
+</select>
+
+</div>
+
+<div class="field">
+<label>Amount</label>
+<input id="amount"
+       type="number"
+       min="0"
+       required>
+</div>
+
+<div class="row">
+
+<div class="field">
+<label>Start Date</label>
+<input id="startDate"
+       type="date"
+       required>
+</div>
+
+<div class="field">
+<label>Expiry Date</label>
+<input id="expiryDate"
+       type="date"
+       required>
+</div>
+
+</div>
+
+<div class="field">
+
+<label>Payment Status</label>
+
+<select id="paymentStatus">
+
+<option value="paid">Paid</option>
+<option value="pending">Pending</option>
+<option value="failed">Failed</option>
+
+</select>
+
+</div>
+
+<div class="field">
+
+<label>Status</label>
+
+<select id="subscriptionStatus">
+
+<option value="active">Active</option>
+<option value="expired">Expired</option>
+<option value="cancelled">Cancelled</option>
+
+</select>
+
+</div>
+
+<div style="margin:15px 0">
+
+<label>
+
+<input id="autoRenew"
+       type="checkbox"
+       style="width:auto">
+
+Auto Renew
+
+</label>
+
+</div>
+
+<button id="subscriptionSaveButton"
+        class="primary">
+    Add Subscription
+</button>
+
+<button id="subscriptionCancelButton"
+        class="cancel hidden"
+        type="button">
+    Cancel Edit
+</button>
+
+</form>
+
+</section>
+
+
+<section class="card">
+
+<h2>All Subscriptions</h2>
+
+<input id="subscriptionSearch"
+       class="search"
+       type="search"
+       placeholder="Search company...">
+
+<div id="subscriptionsList">
+
+<div class="loading">
+    Loading subscriptions...
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+</section>
+
+</main>
+</div>
+
+
+<script type="module">
+
+/* =====================================================
+   FIREBASE
+===================================================== */
+
+import {
+    initializeApp
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+    getFirestore,
+    collection,
+    collectionGroup,
+    doc,
+    getDoc,
+    getDocs,
+    setDoc,
+    deleteDoc,
+    serverTimestamp,
+    Timestamp
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* =====================================================
+   CONFIG
+===================================================== */
+
+const firebaseConfig = {
+
+apiKey:
+"AIzaSyAE44DxNnqz3m8ScqaZxoSj2FdQ7aJ2NIg",
+
+authDomain:
+"estate-pro-d564b.firebaseapp.com",
+
+projectId:
+"estate-pro-d564b",
+
+storageBucket:
+"estate-pro-d564b.firebasestorage.app",
+
+messagingSenderId:
+"600309829118",
+
+appId:
+"1:600309829118:web:60c61624ca8cdf05e884af",
+
+measurementId:
+"G-TG60FCJHXB"
+
+};
+
+
+const app =
+initializeApp(firebaseConfig);
+
+const auth =
+getAuth(app);
+
+const db =
+getFirestore(app);
+
+
+/* =====================================================
+   HELPER
+===================================================== */
+
+const $ =
+id => document.getElementById(id);
+
+
+function escapeHTML(value){
+
+return String(value ?? "")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+
+function message(element,text,type){
+
+element.textContent = text;
+
+element.className =
+"message show " + type;
+
+}
+
+
+function clearMessage(element){
+
+element.textContent = "";
+
+element.className =
+"message";
+
+}
+
+
+function errorText(error){
+
+const code =
+error?.code || "";
+
+if(code === "auth/invalid-credential")
+return "Email or password is incorrect.";
+
+if(code === "auth/user-not-found")
+return "Super Admin account was not found.";
+
+if(code === "auth/wrong-password")
+return "Incorrect password.";
+
+if(
+code === "permission-denied" ||
+code === "firestore/permission-denied"
+)
+return "Firestore permission denied. Check your rules.";
+
+return error?.message ||
+"Something went wrong.";
+
+}
+
+
+function dateTimestamp(value){
+
+if(!value)
+return null;
+
+return Timestamp.fromDate(
+new Date(value + "T00:00:00")
+);
+
+}
+
+
+function dateInput(value){
+
+if(!value)
+return "";
+
+let date;
+
+if(typeof value.toDate === "function")
+date = value.toDate();
+else
+date = new Date(value);
+
+if(Number.isNaN(date.getTime()))
+return "";
+
+return [
+
+date.getFullYear(),
+
+String(date.getMonth()+1)
+.padStart(2,"0"),
+
+String(date.getDate())
+.padStart(2,"0")
+
+].join("-");
+
+}
+
+
+function formatDate(value){
+
+const d =
+dateInput(value);
+
+if(!d)
+return "Not set";
+
+const [
+y,m,day
+] =
+d.split("-");
+
+return `${day}/${m}/${y}`;
+
+}
+
+
+/* =====================================================
+   DATA
+===================================================== */
+
+let companies = [];
+let admins = [];
+let properties = [];
+let subscriptions = [];
+
+let editingCompanyId = null;
+let editingAdminUid = null;
+let editingSubscriptionId = null;
+
+let selectedCompanyId = null;
+let currentSuperAdmin = null;
+
+
+/* =====================================================
+   SUPER ADMIN CHECK
+===================================================== */
+
+async function checkSuperAdmin(user){
+
+const ref =
+doc(
+db,
+"superAdmins",
+user.uid
+);
+
+const snap =
+await getDoc(ref);
+
+if(!snap.exists()){
+
+throw new Error(
+"This account is not registered as a Super Admin."
+);
+
+}
+
+const data =
+snap.data();
+
+if(
+data.active !== true ||
+data.role !== "superAdmin"
+){
+
+throw new Error(
+"Super Admin access is disabled."
+);
+
+}
+
+return data;
+
+}
+
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+$("loginForm").addEventListener(
+"submit",
+async e => {
+
+e.preventDefault();
+
+clearMessage(
+$("loginMessage")
+);
+
+$("loginButton").disabled = true;
+
+$("loginButton").textContent =
+"Checking...";
+
+try{
+
+await signInWithEmailAndPassword(
+auth,
+$("email").value.trim(),
+$("password").value
+);
+
+}catch(error){
+
+message(
+$("loginMessage"),
+errorText(error),
+"error"
+);
+
+}finally{
+
+$("loginButton").disabled = false;
+
+$("loginButton").textContent =
+"Login";
+
+}
+
+});
+
+
+/* =====================================================
+   AUTH
+===================================================== */
+
+onAuthStateChanged(
+auth,
+async user => {
+
+if(!user){
+
+$("loginCard").style.display =
+"block";
+
+$("dashboard").style.display =
+"none";
+
+return;
+
+}
+
+try{
+
+const admin =
+await checkSuperAdmin(user);
+
+currentSuperAdmin = {
+uid:user.uid,
+email:user.email || admin.email || ""
+};
+
+$("loginCard").style.display =
+"none";
+
+$("dashboard").style.display =
+"block";
+
+$("welcome").textContent =
+admin.email ||
+user.email ||
+"Super Admin";
+
+await loadEverything();
+
+}catch(error){
+
+message(
+$("loginMessage"),
+error.message,
+"error"
+);
+
+await signOut(auth);
+
+}
+
+});
+
+
+/* =====================================================
+   LOAD EVERYTHING
+===================================================== */
+
+async function loadEverything(){
+
+await loadCompanies();
+
+await loadAdmins();
+
+await loadAllProperties();
+
+await loadSubscriptions();
+
+updateStats();
+
+}
+
+
+/* =====================================================
+   COMPANIES
+===================================================== */
+
+async function loadCompanies(){
+
+try{
+
+const snap =
+await getDocs(
+collection(db,"companies")
+);
+
+companies = [];
+
+snap.forEach(item => {
+
+companies.push({
+id:item.id,
+...item.data()
+});
+
+});
+
+renderCompanies(companies);
+
+}catch(error){
+
+$("companiesList").innerHTML =
+`
+<div class="empty">
+Unable to load companies.
+</div>
+`;
+
+message(
+$("dashboardMessage"),
+errorText(error),
+"error"
+);
+
+}
+
+}
+
+
+function renderCompanies(list){
+
+if(!list.length){
+
+$("companiesList").innerHTML =
+`
+<div class="empty">
+No companies found.
+</div>
+`;
+
+return;
+
+}
+
+$("companiesList").innerHTML =
+
+list.map(company => {
+
+const id =
+company.id;
+
+const name =
+company.companyName ||
+company.name ||
+id;
+
+const logo =
+company.companyLogo ||
+company.logo ||
+"";
+
+const count =
+properties.filter(
+p => p.companyId === id
+).length;
+
+return `
+
+<article class="company">
+
+<div class="company-top">
+
+${
+logo
+?
+`
+<img
+class="company-logo"
+src="${escapeHTML(logo)}"
+alt=""
+>
+`
+:
+`
+<div class="company-logo"></div>
+`
+}
+
+<div style="flex:1">
+
+<h3>
+${escapeHTML(name)}
+</h3>
+
+<p>
+ID: ${escapeHTML(id)}
+</p>
+
+<p>
+Email:
+${escapeHTML(
+company.companyEmail ||
+company.email ||
+"Not set"
+)}
+</p>
+
+<p>
+Phone:
+${escapeHTML(
+company.companyPhone ||
+company.phone ||
+"Not set"
+)}
+</p>
+
+<div class="badges">
+
+<span class="badge blue">
+${count}
+${count === 1 ? " Property":" Properties"}
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="details">
+
+<div class="detail">
+<span>WhatsApp</span>
+<strong>
+${escapeHTML(
+company.companyWhatsApp ||
+company.whatsapp ||
+"Not set"
+)}
+</strong>
+</div>
+
+<div class="detail">
+<span>Address</span>
+<strong>
+${escapeHTML(
+company.companyAddress ||
+company.address ||
+"Not set"
+)}
+</strong>
+</div>
+
+</div>
+
+<p>
+${escapeHTML(
+company.companyDescription ||
+company.description ||
+"No description"
+)}
+</p>
+
+<div class="actions">
+
+<button class="action view"
+data-view-company="${escapeHTML(id)}">
+Properties
+</button>
+
+<button class="action edit"
+data-edit-company="${escapeHTML(id)}">
+Edit
+</button>
+
+<button class="action delete"
+data-delete-company="${escapeHTML(id)}">
+Delete
+</button>
+
+</div>
+
+</article>
+
+`;
+
+}).join("");
+
+
+document.querySelectorAll(
+"[data-view-company]"
+).forEach(btn => {
+
+btn.onclick = () =>
+showCompanyProperties(
+btn.dataset.viewCompany
+);
+
+});
+
+
+document.querySelectorAll(
+"[data-edit-company]"
+).forEach(btn => {
+
+btn.onclick = () =>
+editCompany(
+btn.dataset.editCompany
+);
+
+});
+
+
+document.querySelectorAll(
+"[data-delete-company]"
+).forEach(btn => {
+
+btn.onclick = () =>
+deleteCompany(
+btn.dataset.deleteCompany
+);
+
+});
+
+}
+
+
+/* =====================================================
+   SAVE COMPANY
+===================================================== */
+
+$("companyForm").addEventListener(
+"submit",
+async e => {
+
+e.preventDefault();
+
+const id =
+$("companyId").value.trim();
+
+const data = {
+
+companyName:
+$("companyName").value.trim(),
+
+companyEmail:
+$("companyEmail").value.trim(),
+
+companyPhone:
+$("companyPhone").value.trim(),
+
+companyWhatsApp:
+$("companyWhatsApp").value.trim(),
+
+companyLogo:
+$("companyLogo").value.trim(),
+
+companyAddress:
+$("companyAddress").value.trim(),
+
+companyDescription:
+$("companyDescription").value.trim(),
+
+updatedAt:
+serverTimestamp(),
+
+updatedBy:
+currentSuperAdmin.uid
+
+};
+
+$("companySaveButton").disabled =
+true;
+
+try{
+
+if(!editingCompanyId)
+data.createdAt =
+serverTimestamp();
+
+await setDoc(
+doc(db,"companies",id),
+data,
+{merge:true}
+);
+
+message(
+$("companyFormMessage"),
+editingCompanyId
+? "Company updated successfully."
+: "Company created successfully.",
+"success"
+);
+
+resetCompanyForm();
+
+await loadCompanies();
+
+updateStats();
+
+}catch(error){
+
+message(
+$("companyFormMessage"),
+errorText(error),
+"error"
+);
+
+}finally{
+
+$("companySaveButton").disabled =
+false;
+
+}
+
+});
+
+
+function editCompany(id){
+
+const c =
+companies.find(
+x => x.id === id
+);
+
+if(!c)return;
+
+editingCompanyId = id;
+
+$("companyId").value = id;
+$("companyId").readOnly = true;
+
+$("companyName").value =
+c.companyName || "";
+
+$("companyEmail").value =
+c.companyEmail || "";
+
+$("companyPhone").value =
+c.companyPhone || "";
+
+$("companyWhatsApp").value =
+c.companyWhatsApp || "";
+
+$("companyLogo").value =
+c.companyLogo || "";
+
+$("companyAddress").value =
+c.companyAddress || "";
+
+$("companyDescription").value =
+c.companyDescription || "";
+
+$("companyFormTitle").textContent =
+"Edit Company";
+
+$("companySaveButton").textContent =
+"Update Company";
+
+$("companyCancelButton")
+.classList.remove("hidden");
+
+}
+
+
+function resetCompanyForm(){
+
+editingCompanyId = null;
+
+$("companyForm").reset();
+
+$("companyId").readOnly = false;
+
+$("companyFormTitle").textContent =
+"Add Company";
+
+$("companySaveButton").textContent =
+"Add Company";
+
+$("companyCancelButton")
+.classList.add("hidden");
+
+}
+
+
+$("companyCancelButton").onclick =
+resetCompanyForm;
+
+
+async function deleteCompany(id){
+
+if(!confirm(
+`Delete company ${id}?\n\nThis deletes only the company document.`
+))
+return;
+
+try{
+
+await deleteDoc(
+doc(db,"companies",id)
+);
+
+await loadCompanies();
+
+updateStats();
+
+message(
+$("dashboardMessage"),
+"Company deleted successfully.",
+"success"
+);
+
+}catch(error){
+
+message(
+$("dashboardMessage"),
+errorText(error),
+"error"
+);
+
+}
+
+}
+
+
+/* =====================================================
+   ADMINS
+===================================================== */
+
+async function loadAdmins(){
+
+try{
+
+const snap =
+await getDocs(
+collection(db,"admins")
+);
+
+admins = [];
+
+snap.forEach(item => {
+
+admins.push({
+
+uid:item.id,
+...item.data()
+
+});
+
+});
+
+renderAdmins(admins);
+
+updateStats();
+
+}catch(error){
+
+$("adminsList").innerHTML =
+`
+<div class="empty">
+Unable to load admins.
+</div>
+`;
+
+message(
+$("dashboardMessage"),
+errorText(error),
+"error"
+);
+
+}
+
+}
+
+
+/* =====================================================
+   RENDER ADMINS
+===================================================== */
+
+function renderAdmins(list){
+
+if(!list.length){
+
+$("adminsList").innerHTML =
+`
+<div class="empty">
+No admins found.
+</div>
+`;
+
+return;
+
+}
+
+$("adminsList").innerHTML =
+
+list.map(admin => {
+
+const name =
+admin.name ||
+admin.adminName ||
+"Unnamed Admin";
+
+const active =
+admin.active === true;
+
+const company =
+admin.companyId ||
+"Not assigned";
+
+const first =
+escapeHTML(
+name.charAt(0).toUpperCase()
+);
+
+return `
+
+<article class="admin">
+
+<div class="admin-top">
+
+<div class="admin-avatar">
+${first}
+</div>
+
+<div style="flex:1">
+
+<h3>
+${escapeHTML(name)}
+</h3>
+
+<p>
+UID:
+${escapeHTML(admin.uid)}
+</p>
+
+<p>
+Email:
+${escapeHTML(
+admin.email || "Not set"
+)}
+</p>
+
+<p>
+Company:
+${escapeHTML(company)}
+</p>
+
+<div class="badges">
+
+<span class="badge ${
+active ? "" : "red"
+}">
+${active ? "Active" : "Inactive"}
+</span>
+
+<span class="badge blue">
+${escapeHTML(
+admin.role || "companyAdmin"
+)}
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="actions">
+
+<button
+class="action edit"
+data-edit-admin="${escapeHTML(admin.uid)}">
+Edit
+</button>
+
+<button
+class="action delete"
+data-delete-admin="${escapeHTML(admin.uid)}">
+Delete
+</button>
+
+</div>
+
+</article>
+
+`;
+
+}).join("");
+
+
+document.querySelectorAll(
+"[data-edit-admin]"
+).forEach(btn => {
+
+btn.onclick = () =>
+editAdmin(
+btn.dataset.editAdmin
+);
+
+});
+
+
+document.querySelectorAll(
+"[data-delete-admin]"
+).forEach(btn => {
+
+btn.onclick = () =>
+deleteAdmin(
+btn.dataset.deleteAdmin
+);
+
+});
+
+}
+
+
+/* =====================================================
+   ADD / EDIT ADMIN
+===================================================== */
+
+$("adminForm").addEventListener(
+"submit",
+async e => {
+
+e.preventDefault();
+
+const newUid =
+$("adminUid").value.trim();
+
+const oldUid =
+editingAdminUid;
+
+if(!newUid){
+
+message(
+$("adminFormMessage"),
+"UID is required.",
+"error"
+);
+
+return;
+
+}
+
+const companyId =
+$("adminCompanyId")
+.value
+.trim();
+
+const existsCompany =
+companies.some(
+c => c.id === companyId
+);
+
+if(!existsCompany){
+
+message(
+$("adminFormMessage"),
+`Company "${companyId}" does not exist.`,
+"error"
+);
+
+return;
+
+}
+
+
+const adminData = {
+
+name:
+$("adminName").value.trim(),
+
+adminName:
+$("adminName").value.trim(),
+
+email:
+$("adminEmail").value.trim(),
+
+companyId,
+
+role:
+$("adminRole").value,
+
+active:
+$("adminActive").value === "true",
+
+updatedAt:
+serverTimestamp(),
+
+updatedBy:
+currentSuperAdmin.uid
+
+};
+
+
+$("adminSaveButton").disabled =
+true;
+
+$("adminSaveButton").textContent =
+oldUid
+? "Updating..."
+: "Saving...";
+
+
+try{
+
+/* ==========================================
+   NEW ADMIN
+========================================== */
+
+if(!oldUid){
+
+adminData.createdAt =
+serverTimestamp();
+
+adminData.createdBy =
+currentSuperAdmin.uid;
+
+await setDoc(
+doc(db,"admins",newUid),
+adminData
+);
+
+message(
+$("adminFormMessage"),
+"Admin created successfully.",
+"success"
+);
+
+}
+
+
+/* ==========================================
+   SAME UID
+========================================== */
+
+else if(oldUid === newUid){
+
+await setDoc(
+doc(db,"admins",newUid),
+adminData,
+{merge:true}
+);
+
+message(
+$("adminFormMessage"),
+"Admin updated successfully.",
+"success"
+);
+
+}
+
+
+/* ==========================================
+   UID CHANGED
+========================================== */
+
+else{
+
+const oldRef =
+doc(db,"admins",oldUid);
+
+const newRef =
+doc(db,"admins",newUid);
+
+
+/*
+   Check whether NEW UID already
+   has an admin document.
+*/
+
+const newSnap =
+await getDoc(newRef);
+
+if(newSnap.exists()){
+
+throw new Error(
+`Admin document for UID "${newUid}" already exists.`
+);
+
+}
+
+
+/*
+   Create new document first.
+*/
+
+await setDoc(
+newRef,
+{
+...adminData,
+createdAt:
+serverTimestamp(),
+createdBy:
+currentSuperAdmin.uid,
+previousUid:
+oldUid
+}
+);
+
+
+/*
+   Delete old document.
+*/
+
+await deleteDoc(oldRef);
+
+
+message(
+$("adminFormMessage"),
+"Admin UID changed successfully.",
+"success"
+);
+
+}
+
+
+/*
+   Reset and reload.
+*/
+
+resetAdminForm();
+
+await loadAdmins();
+
+updateStats();
+
+
+}catch(error){
+
+console.error(
+"Admin save:",
+error
+);
+
+message(
+$("adminFormMessage"),
+errorText(error),
+"error"
+);
+
+}finally{
+
+$("adminSaveButton").disabled =
+false;
+
+$("adminSaveButton").textContent =
+"Add Admin";
+
+}
+
+});
+
+
+/* =====================================================
+   EDIT ADMIN
+===================================================== */
+
+function editAdmin(uid){
+
+const admin =
+admins.find(
+a => a.uid === uid
+);
+
+if(!admin)
+return;
+
+
+/*
+   IMPORTANT:
+   UID IS NOT READ ONLY.
+*/
+
+editingAdminUid =
+uid;
+
+$("adminUid").value =
+admin.uid;
+
+$("adminUid").readOnly =
+false;
+
+
+$("adminName").value =
+admin.name ||
+admin.adminName ||
+"";
+
+$("adminEmail").value =
+admin.email ||
+"";
+
+$("adminCompanyId").value =
+admin.companyId ||
+"";
+
+$("adminRole").value =
+admin.role ||
+"companyAdmin";
+
+$("adminActive").value =
+admin.active === true
+? "true"
+: "false";
+
+
+$("adminFormTitle").textContent =
+"Edit Admin";
+
+$("adminSaveButton").textContent =
+"Update Admin";
+
+$("adminCancelButton")
+.classList.remove("hidden");
+
+
+document.querySelector(
+'[data-tab="adminsTab"]'
+).click();
+
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+
+/* =====================================================
+   RESET ADMIN
+===================================================== */
+
+function resetAdminForm(){
+
+editingAdminUid = null;
+
+$("adminForm").reset();
+
+$("adminUid").readOnly =
+false;
+
+$("adminRole").value =
+"companyAdmin";
+
+$("adminActive").value =
+"true";
+
+$("adminFormTitle").textContent =
+"Add Admin";
+
+$("adminSaveButton").textContent =
+"Add Admin";
+
+$("adminCancelButton")
+.classList.add("hidden");
+
+}
+
+
+$("adminCancelButton").onclick =
+() => {
+
+resetAdminForm();
+
+clearMessage(
+$("adminFormMessage")
+);
+
+};
+
+
+/* =====================================================
+   DELETE ADMIN
+===================================================== */
+
+async function deleteAdmin(uid){
+
+const admin =
+admins.find(
+a => a.uid === uid
+);
+
+const name =
+admin?.name ||
+admin?.adminName ||
+uid;
+
+if(!confirm(
+`Delete admin "${name}"?\n\nUID: ${uid}\n\nThis deletes the Firestore admin document only.`
+))
+return;
+
+try{
+
+await deleteDoc(
+doc(db,"admins",uid)
+);
+
+message(
+$("dashboardMessage"),
+"Admin deleted successfully.",
+"success"
+);
+
+await loadAdmins();
+
+updateStats();
+
+}catch(error){
+
+message(
+$("dashboardMessage"),
+errorText(error),
+"error"
+);
+
+}
+
+}
+
+
+/* =====================================================
+   ADMIN SEARCH
+===================================================== */
+
+$("adminSearch").addEventListener(
+"input",
+e => {
+
+const q =
+e.target.value
+.trim()
+.toLowerCase();
+
+if(!q){
+
+renderAdmins(admins);
+return;
+
+}
+
+const filtered =
+admins.filter(a => [
+
+a.uid,
+a.name,
+a.adminName,
+a.email,
+a.companyId,
+a.role
+
+]
+.join(" ")
+.toLowerCase()
+.includes(q)
+);
+
+renderAdmins(filtered);
+
+});
+
+
+/* =====================================================
+   PROPERTIES
+===================================================== */
+
+async function loadAllProperties(){
+
+try{
+
+const snap =
+await getDocs(
+collectionGroup(
+db,
+"properties"
+)
+);
+
+properties = [];
+
+snap.forEach(item => {
+
+const parent =
+item.ref.parent.parent;
+
+properties.push({
+
+id:item.id,
+
+companyId:
+parent ? parent.id : "",
+
+...item.data()
+
+});
+
+});
+
+renderProperties(properties);
+
+renderCompanies(companies);
+
+updateStats();
+
+}catch(error){
+
+properties = [];
+
+$("propertiesList").innerHTML =
+`
+<div class="empty">
+Unable to load properties.
+</div>
+`;
+
+message(
+$("dashboardMessage"),
+errorText(error),
+"error"
+);
+
+}
+
+}
+
+
+function renderProperties(list){
+
+if(!list.length){
+
+$("propertiesList").innerHTML =
+`
+<div class="empty">
+No properties found.
+</div>
+`;
+
+return;
+
+}
+
+$("propertiesList").innerHTML =
+
+list.map(p => {
+
+const image =
+p.imageUrl ||
+p.image ||
+p.photo ||
+"";
+
+return `
+
+<article class="property">
+
+${
+image
+?
+`
+<img
+class="property-image"
+src="${escapeHTML(image)}"
+alt=""
+>
+`
+:
+`
+<div class="property-image"></div>
+`
+}
+
+<div style="flex:1">
+
+<h3>
+${escapeHTML(
+p.title ||
+"Untitled Property"
+)}
+</h3>
+
+<p>
+Company:
+${escapeHTML(
+p.companyId || ""
+)}
+</p>
+
+<p>
+Location:
+${escapeHTML(
+p.location || "Not set"
+)}
+</p>
+
+<p>
+Price:
+₦${Number(
+p.price || 0
+).toLocaleString()}
+</p>
+
+<p>
+Type:
+${escapeHTML(
+p.propertyType ||
+p.type ||
+"Not set"
+)}
+</p>
+
+<p>
+Purpose:
+${escapeHTML(
+p.purpose || "Not set"
+)}
+</p>
+
+<p>
+Status:
+${escapeHTML(
+p.status || "Not set"
+)}
+</p>
+
+<div class="badges">
+
+${
+p.featured
+?
+`
+<span class="badge purple">
+Featured
+</span>
+`
+:""
+}
+
+${
+p.bedrooms != null
+?
+`
+<span class="badge blue">
+${escapeHTML(p.bedrooms)}
+Bedrooms
+</span>
+`
+:""
+}
+
+${
+p.bathrooms != null
+?
+`
+<span class="badge">
+${escapeHTML(p.bathrooms)}
+Bathrooms
+</span>
+`
+:""
+}
+
+</div>
+
+</div>
+
+</article>
+
+`;
+
+}).join("");
+
+}
+
+
+function showCompanyProperties(companyId){
+
+selectedCompanyId =
+companyId;
+
+const company =
+companies.find(
+c => c.id === companyId
+);
+
+$("propertiesTitle").textContent =
+`${company?.companyName || companyId} Properties`;
+
+$("backToCompanies")
+.classList.remove("hidden");
+
+renderProperties(
+properties.filter(
+p => p.companyId === companyId
+)
+);
+
+document.querySelector(
+'[data-tab="propertiesTab"]'
+).click();
+
+}
+
+
+$("backToCompanies").onclick =
+() => {
+
+selectedCompanyId = null;
+
+$("propertiesTitle").textContent =
+"All Properties";
+
+$("backToCompanies")
+.classList.add("hidden");
+
+renderProperties(properties);
+
+document.querySelector(
+'[data-tab="companiesTab"]'
+).click();
+
+};
+
+
+$("propertySearch").addEventListener(
+"input",
+e => {
+
+const q =
+e.target.value
+.trim()
+.toLowerCase();
+
+let list =
+selectedCompanyId
+?
+properties.filter(
+p => p.companyId === selectedCompanyId
+)
+:
+properties;
+
+if(q){
+
+list =
+list.filter(
+p => [
+
+p.title,
+p.location,
+p.propertyType,
+p.type,
+p.purpose,
+p.status,
+p.companyId,
+p.price
+
+]
+.join(" ")
+.toLowerCase()
+.includes(q)
+);
+
+}
+
+renderProperties(list);
+
+});
+
+
+$("companySearch").addEventListener(
+"input",
+e => {
+
+const q =
+e.target.value
+.trim()
+.toLowerCase();
+
+if(!q){
+
+renderCompanies(companies);
+return;
+
+}
+
+renderCompanies(
+companies.filter(
+c => [
+
+c.id,
+c.companyName,
+c.companyEmail,
+c.companyPhone,
+c.companyWhatsApp,
+c.companyAddress
+
+]
+.join(" ")
+.toLowerCase()
+.includes(q)
+)
+);
+
+});
+
+
+/* =====================================================
+   SUBSCRIPTIONS
+===================================================== */
+
+async function loadSubscriptions(){
+
+try{
+
+const snap =
+await getDocs(
+collection(
+db,
+"subscriptions"
+)
+);
+
+subscriptions = [];
+
+snap.forEach(item => {
+
+subscriptions.push({
+
+id:item.id,
+...item.data()
+
+});
+
+});
+
+renderSubscriptions(
+subscriptions
+);
+
+updateStats();
+
+}catch(error){
+
+$("subscriptionsList").innerHTML =
+`
+<div class="empty">
+Unable to load subscriptions.
+</div>
+`;
+
+message(
+$("dashboardMessage"),
+errorText(error),
+"error"
+);
+
+}
+
+}
+
+
+function subscriptionStatus(item){
+
+if(item.status === "cancelled")
+return "cancelled";
+
+if(item.status === "expired")
+return "expired";
+
+if(!item.expiryDate)
+return item.status || "active";
+
+const expiry =
+typeof item.expiryDate.toDate === "function"
+?
+item.expiryDate.toDate()
+:
+new Date(item.expiryDate);
+
+if(
+!Number.isNaN(expiry.getTime()) &&
+expiry.getTime() < Date.now()
+)
+return "expired";
+
+return item.status || "active";
+
+}
+
+
+function renderSubscriptions(list){
+
+if(!list.length){
+
+$("subscriptionsList").innerHTML =
+`
+<div class="empty">
+No subscriptions found.
+</div>
+`;
+
+return;
+
+}
+
+$("subscriptionsList").innerHTML =
+
+list.map(item => {
+
+const status =
+subscriptionStatus(item);
+
+return `
+
+<article class="subscription">
+
+<h3>
+${escapeHTML(
+item.companyId ||
+item.id
+)}
+</h3>
+
+<p>
+Plan:
+${escapeHTML(
+item.plan || "professional"
+)}
+</p>
+
+<p>
+Amount:
+₦${Number(
+item.amount || 0
+).toLocaleString()}
+</p>
+
+<p>
+Start:
+${formatDate(item.startDate)}
+</p>
+
+<p>
+Expiry:
+${formatDate(item.expiryDate)}
+</p>
+
+<div class="badges">
+
+<span class="badge ${
+status === "expired" ||
+status === "cancelled"
+? "red" : ""
+}">
+${escapeHTML(status)}
+</span>
+
+<span class="badge blue">
+Payment:
+${escapeHTML(
+item.paymentStatus || "pending"
+)}
+</span>
+
+<span class="badge purple">
+${
+item.autoRenew
+? "Auto Renew ON"
+: "Auto Renew OFF"
+}
+</span>
+
+</div>
+
+<div class="actions">
+
+<button
+class="action edit"
+data-edit-sub="${escapeHTML(item.id)}">
+Edit
+</button>
+
+<button
+class="action renew"
+data-renew-sub="${escapeHTML(item.id)}">
+Renew 1 Month
+</button>
+
+<button
+class="action delete"
+data-delete-sub="${escapeHTML(item.id)}">
+Delete
+</button>
+
+</div>
+
+</article>
+
+`;
+
+}).join("");
+
+
+document.querySelectorAll(
+"[data-edit-sub]"
+).forEach(btn => {
+
+btn.onclick = () =>
+editSubscription(
+btn.dataset.editSub
+);
+
+});
+
+
+document.querySelectorAll(
+"[data-renew-sub]"
+).forEach(btn => {
+
+btn.onclick = () =>
+renewSubscription(
+btn.dataset.renewSub
+);
+
+});
+
+
+document.querySelectorAll(
+"[data-delete-sub]"
+).forEach(btn => {
+
+btn.onclick = () =>
+deleteSubscription(
+btn.dataset.deleteSub
+);
+
+});
+
+}
+
+
+/* =====================================================
+   SAVE SUBSCRIPTION
+===================================================== */
+
+$("subscriptionForm").addEventListener(
+"submit",
+async e => {
+
+e.preventDefault();
+
+const companyId =
+$("subscriptionCompanyId")
+.value.trim();
+
+const start =
+$("startDate").value;
+
+const expiry =
+$("expiryDate").value;
+
+if(!companyId || !start || !expiry){
+
+message(
+$("subscriptionFormMessage"),
+"Please complete all required fields.",
+"error"
+);
+
+return;
+
+}
+
+if(
+new Date(expiry) <=
+new Date(start)
+){
+
+message(
+$("subscriptionFormMessage"),
+"Expiry date must be after start date.",
+"error"
+);
+
+return;
+
+}
+
+const data = {
+
+companyId,
+
+plan:
+$("plan").value,
+
+amount:
+Number(
+$("amount").value
+),
+
+startDate:
+dateTimestamp(start),
+
+expiryDate:
+dateTimestamp(expiry),
+
+paymentStatus:
+$("paymentStatus").value,
+
+status:
+$("subscriptionStatus").value,
+
+autoRenew:
+$("autoRenew").checked,
+
+updatedAt:
+serverTimestamp(),
+
+updatedBy:
+currentSuperAdmin.uid
+
+};
+
+try{
+
+if(!editingSubscriptionId){
+
+data.createdAt =
+serverTimestamp();
+
+data.createdBy =
+currentSuperAdmin.uid;
+
+}
+
+await setDoc(
+doc(
+db,
+"subscriptions",
+companyId
+),
+data,
+{merge:true}
+);
+
+message(
+$("subscriptionFormMessage"),
+editingSubscriptionId
+? "Subscription updated successfully."
+: "Subscription created successfully.",
+"success"
+);
+
+resetSubscriptionForm();
+
+await loadSubscriptions();
+
+updateStats();
+
+}catch(error){
+
+message(
+$("subscriptionFormMessage"),
+errorText(error),
+"error"
+);
+
+}
+
+});
+
+
+function editSubscription(id){
+
+const item =
+subscriptions.find(
+s => s.id === id
+);
+
+if(!item)return;
+
+editingSubscriptionId = id;
+
+$("subscriptionCompanyId").value =
+item.companyId || id;
+
+$("subscriptionCompanyId").readOnly =
+true;
+
+$("plan").value =
+item.plan || "professional";
+
+$("amount").value =
+item.amount || 0;
+
+$("startDate").value =
+dateInput(item.startDate);
+
+$("expiryDate").value =
+dateInput(item.expiryDate);
+
+$("paymentStatus").value =
+item.paymentStatus || "paid";
+
+$("subscriptionStatus").value =
+subscriptionStatus(item);
+
+$("autoRenew").checked =
+item.autoRenew === true;
+
+$("subscriptionFormTitle").textContent =
+"Edit Subscription";
+
+$("subscriptionSaveButton").textContent =
+"Update Subscription";
+
+$("subscriptionCancelButton")
+.classList.remove("hidden");
+
+document.querySelector(
+'[data-tab="subscriptionsTab"]'
+).click();
+
+}
+
+
+function resetSubscriptionForm(){
+
+editingSubscriptionId = null;
+
+$("subscriptionForm").reset();
+
+$("subscriptionCompanyId").readOnly =
+false;
+
+$("plan").value =
+"professional";
+
+$("paymentStatus").value =
+"paid";
+
+$("subscriptionStatus").value =
+"active";
+
+$("subscriptionFormTitle").textContent =
+"Add Subscription";
+
+$("subscriptionSaveButton").textContent =
+"Add Subscription";
+
+$("subscriptionCancelButton")
+.classList.add("hidden");
+
+}
+
+
+$("subscriptionCancelButton").onclick =
+resetSubscriptionForm;
+
+
+async function renewSubscription(id){
+
+const item =
+subscriptions.find(
+s => s.id === id
+);
+
+if(!item)return;
+
+let base =
+new Date();
+
+if(item.expiryDate){
+
+const expiry =
+typeof item.expiryDate.toDate === "function"
+?
+item.expiryDate.toDate()
+:
+new Date(item.expiryDate);
+
+if(
+!Number.isNaN(expiry.getTime()) &&
+expiry > base
+)
+base = expiry;
+
+}
+
+const newExpiry =
+new Date(base);
+
+newExpiry.setMonth(
+newExpiry.getMonth()+1
+);
+
+try{
+
+await setDoc(
+
+doc(
+db,
+"subscriptions",
+id
+),
+
+{
+
+expiryDate:
+Timestamp.fromDate(
+newExpiry
+),
+
+status:"active",
+
+paymentStatus:"paid",
+
+updatedAt:
+serverTimestamp(),
+
+updatedBy:
+currentSuperAdmin.uid
+
+},
+
+{merge:true}
+
+);
+
+await loadSubscriptions();
+
+updateStats();
+
+message(
+$("dashboardMessage"),
+`${id} renewed for 1 month.`,
+"success"
+);
+
+}catch(error){
+
+message(
+$("dashboardMessage"),
+errorText(error),
+"error"
+);
+
+}
+
+}
+
+
+async function deleteSubscription(id){
+
+if(!confirm(
+`Delete subscription for ${id}?`
+))
+return;
+
+try{
+
+await deleteDoc(
+doc(
+db,
+"subscriptions",
+id
+)
+);
+
+await loadSubscriptions();
+
+updateStats();
+
+message(
+$("dashboardMessage"),
+"Subscription deleted.",
+"success"
+);
+
+}catch(error){
+
+message(
+$("dashboardMessage"),
+errorText(error),
+"error"
+);
+
+}
+
+}
+
+
+$("subscriptionSearch").addEventListener(
+"input",
+e => {
+
+const q =
+e.target.value
+.trim()
+.toLowerCase();
+
+if(!q){
+
+renderSubscriptions(
+subscriptions
+);
+
+return;
+
+}
+
+renderSubscriptions(
+subscriptions.filter(
+s => [
+
+s.companyId,
+s.plan,
+s.status,
+subscriptionStatus(s),
+s.paymentStatus,
+s.amount
+
+]
+.join(" ")
+.toLowerCase()
+.includes(q)
+)
+);
+
+});
+
+
+/* =====================================================
+   STATS
+===================================================== */
+
+function updateStats(){
+
+$("totalCompanies").textContent =
+companies.length;
+
+$("totalAdmins").textContent =
+admins.length;
+
+$("totalProperties").textContent =
+properties.length;
+
+$("activeSubscriptions").textContent =
+
+subscriptions.filter(
+s =>
+subscriptionStatus(s) === "active"
+).length;
+
+$("expiredSubscriptions").textContent =
+
+subscriptions.filter(
+s =>
+subscriptionStatus(s) === "expired"
+).length;
+
+}
+
+
+/* =====================================================
+   TABS
+===================================================== */
+
+document.querySelectorAll(
+".tab"
+).forEach(tab => {
+
+tab.addEventListener(
+"click",
+() => {
+
+document.querySelectorAll(
+".tab"
+).forEach(
+t => t.classList.remove("active")
+);
+
+document.querySelectorAll(
+".tab-content"
+).forEach(
+c => c.classList.remove("active")
+);
+
+tab.classList.add("active");
+
+$(tab.dataset.tab)
+.classList.add("active");
+
+}
+);
+
+});
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+$("logoutButton").onclick =
+async () => {
+
+await signOut(auth);
+
+};
+
+
+/* =====================================================
+   DEBUG
+===================================================== */
+
+window.estateProSuperAdmin = {
+
+auth,
+
+db,
+
+reload:
+loadEverything,
+
+getCompanies:
+() => companies,
+
+getAdmins:
+() => admins,
+
+getProperties:
+() => properties,
+
+getSubscriptions:
+() => subscriptions
+
+};
+
+</script>
+
+</body>
+</html>

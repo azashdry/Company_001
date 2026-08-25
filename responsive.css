@@ -1,904 +1,390 @@
 /* =========================================================
    ESTATEPRO V1
-   RESPONSIVE STYLES
+   Responsive Stylesheet
    ========================================================= */
 
 
-/* =========================================================
-   LARGE TABLETS / SMALL LAPTOPS
-   1100px and below
-   ========================================================= */
+/* =========================
+   TABLET
+========================= */
 
-@media (max-width: 1100px) {
+@media (max-width: 1024px) {
 
     .container {
-
-        width:
-            min(
-                100% - 40px,
-                var(--container)
-            );
-
+        width: min(100% - 28px, var(--container));
     }
-
 
     .main-nav {
-
         gap: 20px;
-
     }
-
 
     .property-search {
-
-        grid-template-columns:
-            1fr
-            1fr;
-
-        padding: 14px;
-
+        grid-template-columns: 1fr 1fr;
     }
-
 
     .search-button {
-
-        min-height: 50px;
-
+        min-height: 52px;
     }
-
 
     .property-grid {
-
-        grid-template-columns:
-            repeat(
-                2,
-                minmax(0, 1fr)
-            );
-
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-
 
     .category-grid {
-
-        grid-template-columns:
-            repeat(
-                2,
-                minmax(0, 1fr)
-            );
-
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-
 
     .why-grid {
-
-        gap: 45px;
-
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
     }
 
-
-    .footer-grid {
-
-        grid-template-columns:
-            1.4fr
-            1fr
-            1fr;
-
+    .steps-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
     }
 
-
-    .footer-column:last-child {
-
-        grid-column:
-            2 / -1;
-
+    .step {
+        padding: 24px;
     }
 
 }
 
 
-/* =========================================================
-   TABLETS
-   850px and below
-   ========================================================= */
+/* =========================
+   MOBILE NAVIGATION
+========================= */
 
-@media (max-width: 850px) {
-
+@media (max-width: 768px) {
 
     .nav-container {
-
-        min-height: 70px;
-
+        min-height: 68px;
     }
-
-
-    /* =========================
-       MOBILE MENU BUTTON
-    ========================== */
 
     .menu-toggle {
-
         display: block;
-
         position: relative;
-
-        z-index: 1101;
-
-        flex-shrink: 0;
-
-        cursor: pointer;
-
-        pointer-events: auto;
-
-        -webkit-tap-highlight-color:
-            transparent;
-
+        z-index: 1002;
     }
-
-
-    .menu-toggle span {
-
-        pointer-events: none;
-
-    }
-
-
-    /* =========================
-       MOBILE NAVIGATION
-    ========================== */
 
     .main-nav {
-
         position: absolute;
 
-        top:
-            calc(
-                100% + 1px
-            );
-
-        left: 0;
-
-        right: 0;
-
-        width: 100%;
+        top: 68px;
+        left: 14px;
+        right: 14px;
 
         display: none;
 
         flex-direction: column;
-
         align-items: stretch;
 
         gap: 0;
 
-        padding:
-            12px
-            20px
-            20px;
+        padding: 12px;
 
-        background:
-            var(--white);
+        background: var(--white);
 
-        border-bottom:
-            1px solid
-            var(--border);
+        border: 1px solid var(--border);
 
-        box-shadow:
-            var(--shadow-md);
+        border-radius: var(--radius-md);
 
-        z-index: 1100;
-
+        box-shadow: var(--shadow-lg);
     }
-
-
-    /*
-       IMPORTANT:
-       app.js adds "open".
-    */
 
     .main-nav.open {
-
-        display: flex !important;
-
+        display: flex;
     }
-
 
     .nav-link {
+        display: block;
 
-        width: 100%;
+        padding: 13px 12px;
 
-        padding:
-            14px
-            5px;
-
-        border-bottom:
-            1px solid
-            var(--border);
-
+        border-radius: 8px;
     }
 
+    .nav-link:hover,
+    .nav-link.active {
+        background: var(--primary-light);
+    }
 
     .nav-link.active::after {
-
         display: none;
-
     }
-
 
     .nav-whatsapp {
+        display: block;
 
-        width: 100%;
-
-        margin-top: 12px;
-
-        padding:
-            13px
-            16px;
+        margin-top: 6px;
 
         text-align: center;
-
     }
 
 
-    /* =========================
-       HERO
-    ========================== */
+    /* HERO */
 
     .hero {
-
-        min-height: 610px;
-
+        min-height: auto;
     }
-
 
     .hero-container {
-
-        padding-top: 75px;
-
-        padding-bottom: 75px;
-
+        padding-top: 70px;
+        padding-bottom: 70px;
     }
-
 
     .hero-content {
-
         margin-bottom: 35px;
-
     }
-
 
     .hero h1 {
+        font-size: clamp(38px, 11vw, 56px);
+        letter-spacing: -1.8px;
+    }
 
-        letter-spacing:
-            -1.8px;
-
+    .hero p {
+        font-size: 15px;
     }
 
 
-    /* =========================
-       WHY SECTION
-    ========================== */
+    /* SEARCH */
 
-    .why-grid {
-
+    .property-search {
         grid-template-columns: 1fr;
 
-        gap: 45px;
+        gap: 6px;
 
+        padding: 10px;
+    }
+
+    .search-field {
+        padding: 10px 12px;
+
+        border-bottom: 1px solid var(--border);
+    }
+
+    .search-button {
+        min-height: 52px;
+
+        margin-top: 5px;
     }
 
 
-    .why-visual {
+    /* SECTIONS */
 
-        min-height: 380px;
+    .section {
+        padding: 70px 0;
+    }
 
+    .section-heading {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 14px;
+
+        margin-bottom: 30px;
+    }
+
+    .section-heading.centered {
+        align-items: center;
     }
 
 
-    /* =========================
-       STEPS
-    ========================== */
+    /* PROPERTY GRID */
 
-    .steps-grid {
-
+    .property-grid {
         grid-template-columns: 1fr;
 
         gap: 18px;
+    }
 
+    .property-image {
+        height: 220px;
     }
 
 
-    .step {
+    /* CATEGORIES */
 
-        padding: 25px;
+    .category-grid {
+        grid-template-columns: 1fr 1fr;
 
+        gap: 14px;
+
+        margin-top: 30px;
+    }
+
+    .category-card {
+        min-height: 170px;
+
+        padding: 20px;
     }
 
 
-    /* =========================
-       FOOTER
-    ========================== */
+    /* WHY */
 
-    .footer-grid {
-
-        grid-template-columns:
-            repeat(
-                2,
-                minmax(0, 1fr)
-            );
+    .why-grid {
+        grid-template-columns: 1fr;
 
         gap: 40px;
+    }
 
+    .why-visual {
+        min-height: 380px;
+
+        padding: 25px;
     }
 
 
-    .footer-brand {
+    /* STEPS */
 
-        grid-column:
-            1 / -1;
+    .steps-grid {
+        grid-template-columns: 1fr;
 
+        gap: 16px;
+
+        margin-top: 30px;
+    }
+
+    .step {
+        padding: 24px;
     }
 
 
-    .footer-column:last-child {
+    /* CTA */
 
-        grid-column: auto;
-
+    .cta-section {
+        padding: 70px 0;
     }
 
 }
 
 
-/* =========================================================
-   MOBILE
-   650px and below
-   ========================================================= */
+/* =========================
+   SMALL MOBILE
+========================= */
 
-@media (max-width: 650px) {
-
+@media (max-width: 480px) {
 
     .container {
-
-        width:
-            min(
-                100% - 28px,
-                var(--container)
-            );
-
+        width: min(100% - 22px, var(--container));
     }
-
-
-    .nav-container {
-
-        min-height: 64px;
-
-    }
-
-
-    /* =========================
-       BRAND
-    ========================== */
 
     .brand-mark {
-
         width: 36px;
-
         height: 36px;
 
-        border-radius: 9px;
-
         font-size: 18px;
-
     }
-
 
     .brand-name {
-
         font-size: 18px;
-
     }
-
-
-    /* =========================
-       HERO
-    ========================== */
-
-    .hero {
-
-        min-height: auto;
-
-    }
-
 
     .hero-container {
-
-        padding-top: 65px;
-
-        padding-bottom: 60px;
-
+        padding-top: 55px;
+        padding-bottom: 55px;
     }
-
-
-    .hero-content {
-
-        margin-bottom: 30px;
-
-    }
-
 
     .hero-badge {
-
         font-size: 9px;
 
         letter-spacing: 1px;
 
+        padding: 6px 9px;
     }
-
 
     .hero h1 {
+        font-size: 39px;
 
-        font-size: 43px;
-
-        line-height: 1.08;
-
-        letter-spacing:
-            -1.8px;
-
+        letter-spacing: -1.5px;
     }
-
 
     .hero p {
-
         font-size: 14px;
-
-        line-height: 1.7;
-
     }
-
-
-    /* =========================
-       SEARCH
-    ========================== */
-
-    .property-search {
-
-        grid-template-columns: 1fr;
-
-        gap: 4px;
-
-        padding: 12px;
-
-        border-radius: 15px;
-
-    }
-
-
-    .search-field {
-
-        padding:
-            11px
-            10px;
-
-        border-bottom:
-            1px solid
-            var(--border);
-
-    }
-
-
-    .search-field:last-of-type {
-
-        border-bottom: none;
-
-    }
-
-
-    .search-button {
-
-        width: 100%;
-
-        min-height: 52px;
-
-        margin-top: 5px;
-
-    }
-
-
-    /* =========================
-       SECTIONS
-    ========================== */
 
     .section {
-
-        padding: 70px 0;
-
+        padding: 55px 0;
     }
-
-
-    .section-heading {
-
-        display: block;
-
-        margin-bottom: 30px;
-
-    }
-
 
     .section-heading h2 {
-
-        font-size: 31px;
-
+        font-size: 30px;
     }
-
-
-    .view-all {
-
-        display: inline-block;
-
-        margin-top: 13px;
-
-    }
-
-
-    /* =========================
-       PROPERTY GRID
-    ========================== */
-
-    .property-grid {
-
-        grid-template-columns: 1fr;
-
-        gap: 20px;
-
-    }
-
-
-    .property-image {
-
-        height: 235px;
-
-    }
-
-
-    .property-content {
-
-        padding: 18px;
-
-    }
-
-
-    .property-bottom strong {
-
-        font-size: 16px;
-
-    }
-
-
-    /* =========================
-       CATEGORIES
-    ========================== */
 
     .category-grid {
-
         grid-template-columns: 1fr;
-
-        gap: 14px;
-
-        margin-top: 35px;
-
     }
-
 
     .category-card {
-
-        min-height: 150px;
-
-        padding: 22px;
-
+        min-height: 145px;
     }
-
-
-    /* =========================
-       WHY
-    ========================== */
 
     .why-content h2 {
-
         font-size: 32px;
-
-        letter-spacing:
-            -0.8px;
-
     }
-
 
     .why-visual {
+        min-height: 320px;
 
-        min-height: 330px;
-
-        padding: 20px;
-
-        border-radius: 20px;
-
+        padding: 18px;
     }
-
 
     .visual-card {
-
-        padding: 27px;
-
-        border-radius: 16px;
-
+        padding: 25px;
     }
-
 
     .visual-card strong {
-
         font-size: 25px;
-
     }
-
-
-    /* =========================
-       STEPS
-    ========================== */
-
-    .steps-grid {
-
-        margin-top: 35px;
-
-    }
-
-
-    /* =========================
-       CTA
-    ========================== */
-
-    .cta-section {
-
-        padding: 75px 0;
-
-    }
-
-
-    .cta-section h2 {
-
-        font-size: 34px;
-
-    }
-
-
-    .cta-section p {
-
-        font-size: 14px;
-
-    }
-
-
-    /* =========================
-       FOOTER
-    ========================== */
-
-    .footer-grid {
-
-        grid-template-columns: 1fr;
-
-        gap: 35px;
-
-        padding:
-            55px
-            0;
-
-    }
-
-
-    .footer-brand,
-    .footer-column,
-    .footer-column:last-child {
-
-        grid-column: auto;
-
-    }
-
-
-    .footer-bottom .container {
-
-        min-height: 60px;
-
-    }
-
-
-    .footer-bottom p {
-
-        font-size: 11px;
-
-    }
-
-}
-
-
-/* =========================================================
-   SMALL PHONES
-   420px and below
-   ========================================================= */
-
-@media (max-width: 420px) {
-
-
-    .container {
-
-        width:
-            min(
-                100% - 22px,
-                var(--container)
-            );
-
-    }
-
-
-    .hero-container {
-
-        padding-top: 55px;
-
-        padding-bottom: 50px;
-
-    }
-
-
-    .hero h1 {
-
-        font-size: 37px;
-
-    }
-
-
-    .hero p {
-
-        font-size: 13px;
-
-    }
-
-
-    .hero-badge {
-
-        padding:
-            6px
-            9px;
-
-        font-size: 8px;
-
-    }
-
 
     .property-image {
-
-        height: 210px;
-
+        height: 200px;
     }
 
-
-    .property-meta {
-
-        gap: 8px;
-
-        font-size: 11px;
-
+    .property-content {
+        padding: 17px;
     }
-
 
     .property-bottom {
+        align-items: flex-start;
+
+        flex-direction: column;
 
         gap: 8px;
-
     }
 
-
-    .property-bottom strong {
-
-        font-size: 14px;
-
+    .cta-section {
+        padding: 60px 0;
     }
 
+}
 
-    .property-bottom a {
 
-        font-size: 12px;
+/* =========================
+   VERY SMALL DEVICES
+========================= */
 
+@media (max-width: 360px) {
+
+    .brand-name {
+        font-size: 16px;
     }
 
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .hero-badge {
+        font-size: 8px;
+    }
 
     .section-heading h2 {
-
-        font-size: 28px;
-
+        font-size: 27px;
     }
-
-
-    .why-content h2 {
-
-        font-size: 29px;
-
-    }
-
 
     .visual-card strong {
-
-        font-size: 23px;
-
-    }
-
-
-    .cta-section h2 {
-
-        font-size: 30px;
-
-    }
-
-}
-
-
-/* =========================================================
-   REDUCED MOTION
-   ACCESSIBILITY
-   ========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-
-    html {
-
-        scroll-behavior: auto;
-
-    }
-
-
-    *,
-    *::before,
-    *::after {
-
-        transition-duration:
-            0.01ms !important;
-
-        animation-duration:
-            0.01ms !important;
-
-        animation-iteration-count:
-            1 !important;
-
-    }
-
-}
-
-
-/* =========================================================
-   FINAL MOBILE MENU OVERRIDE
-   ========================================================= */
-
-@media (max-width: 850px) {
-
-    .main-nav.open {
-
-        display:
-            flex !important;
-
-        visibility:
-            visible !important;
-
-        opacity:
-            1 !important;
-
-        pointer-events:
-            auto !important;
-
-    }
-
-
-    .menu-toggle {
-
-        pointer-events:
-            auto !important;
-
-        z-index:
-            1102 !important;
-
+        font-size: 22px;
     }
 
 }

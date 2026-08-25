@@ -1,131 +1,90 @@
 /* =========================================================
-   ESTATEPRO - MAIN APP.JS
-   ========================================================= */
+   ESTATEPRO V1
+   MAIN APPLICATION
+   NO ES MODULE
+========================================================= */
 
 
 /* =========================================================
    FIREBASE CONFIG
-   ========================================================= */
+========================================================= */
 
 const firebaseConfig = {
 
-    apiKey:
-        "AIzaSyAE44DxNnqz3m8ScqaZxoSj2FdQ7aJ2NIg",
+    apiKey: "AIzaSyAE44DxNnqz3m8ScqaZxoSj2FdQ7aJ2NIg",
 
-    authDomain:
-        "estate-pro-d564b.firebaseapp.com",
+    authDomain: "estate-pro-d564b.firebaseapp.com",
 
-    projectId:
-        "estate-pro-d564b",
+    projectId: "estate-pro-d564b",
 
-    storageBucket:
-        "estate-pro-d564b.firebasestorage.app",
+    storageBucket: "estate-pro-d564b.firebasestorage.app",
 
-    messagingSenderId:
-        "600309829118",
+    messagingSenderId: "600309829118",
 
-    appId:
-        "1:600309829118:web:60c61624ca8cdf05e884af",
+    appId: "1:600309829118:web:60c61624ca8cdf05e884af",
 
-    measurementId:
-        "G-TG60FCJHXB"
+    measurementId: "G-TG60FCJHXB"
+
 };
 
 
 /* =========================================================
-   FIREBASE VARIABLES
-   ========================================================= */
-
-let firebaseApp = null;
-let db = null;
-let firebaseFirestore = null;
-
-
-/* =========================================================
    INITIALIZE FIREBASE
-   ========================================================= */
+========================================================= */
 
-async function initFirebase() {
+let db = null;
 
-    if (db) {
-        return db;
-    }
+try {
 
-    try {
+    firebase.initializeApp(firebaseConfig);
 
-        const firebase =
-            await import(
-                "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js"
-            );
+    db = firebase.firestore();
 
-        firebaseFirestore =
-            await import(
-                "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js"
-            );
+    console.log("EstatePro: Firebase connected successfully.");
 
+} catch (error) {
 
-        const existingApps =
-            firebase.getApps();
-
-
-        if (existingApps.length > 0) {
-
-            firebaseApp =
-                existingApps[0];
-
-        } else {
-
-            firebaseApp =
-                firebase.initializeApp(
-                    firebaseConfig
-                );
-
-        }
-
-
-        db =
-            firebaseFirestore.getFirestore(
-                firebaseApp
-            );
-
-
-        console.log(
-            "EstatePro: Firebase initialized."
-        );
-
-
-        return db;
-
-
-    } catch (error) {
-
-        console.error(
-            "EstatePro Firebase initialization error:",
-            error
-        );
-
-        return null;
-
-    }
+    console.error(
+        "EstatePro: Firebase initialization error:",
+        error
+    );
 
 }
 
 
 /* =========================================================
-   MOBILE MENU
-   ========================================================= */
+   DOM READY
+========================================================= */
 
-function initMobileMenu() {
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        setupMobileMenu();
+
+        setupSearch();
+
+        setupCurrentYear();
+
+        loadCompanySettings();
+
+        loadFeaturedProperties();
+
+    }
+);
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+function setupMobileMenu() {
 
     const menuToggle =
-        document.getElementById(
-            "menuToggle"
-        );
+        document.getElementById("menuToggle");
 
     const mainNav =
-        document.getElementById(
-            "mainNav"
-        );
+        document.getElementById("mainNav");
 
 
     if (!menuToggle || !mainNav) {
@@ -135,12 +94,10 @@ function initMobileMenu() {
 
     menuToggle.addEventListener(
         "click",
-        () => {
+        function () {
 
-const isOpen =
-    mainNav.classList.toggle(
-        "open"
-    );
+            const isOpen =
+                mainNav.classList.toggle("open");
 
 
             menuToggle.setAttribute(
@@ -152,22 +109,20 @@ const isOpen =
     );
 
 
-    const navLinks =
-        mainNav.querySelectorAll(
-            "a"
-        );
+    const links =
+        mainNav.querySelectorAll("a");
 
 
-    navLinks.forEach(
-        (link) => {
+    links.forEach(
+        function (link) {
 
             link.addEventListener(
                 "click",
-                () => {
+                function () {
 
-mainNav.classList.remove(
-    "open"
-);
+                    mainNav.classList.remove(
+                        "open"
+                    );
 
                     menuToggle.setAttribute(
                         "aria-expanded",
@@ -184,198 +139,63 @@ mainNav.classList.remove(
 
 
 /* =========================================================
-   NAVIGATION
-   ========================================================= */
-
-function initNavigation() {
-
-    const currentPage =
-        window.location.pathname
-            .split("/")
-            .pop()
-            .toLowerCase();
-
-
-    const navLinks =
-        document.querySelectorAll(
-            ".nav-link"
-        );
-
-
-    navLinks.forEach(
-        (link) => {
-
-            const href =
-                link.getAttribute(
-                    "href"
-                );
-
-
-            if (!href) {
-                return;
-            }
-
-
-            const linkPage =
-                href
-                    .split("?")[0]
-                    .split("/")
-                    .pop()
-                    .toLowerCase();
-
-
-            if (
-                linkPage === currentPage ||
-                (
-                    currentPage === "" &&
-                    linkPage === "index.html"
-                )
-            ) {
-
-                link.classList.add(
-                    "active"
-                );
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   WHATSAPP
-   ========================================================= */
-
-async function initWhatsApp() {
-
-    const navWhatsapp =
-        document.getElementById(
-            "navWhatsapp"
-        );
-
-
-    if (!navWhatsapp) {
-        return;
-    }
-
-
-    try {
-
-        const database =
-            await initFirebase();
-
-
-        if (!database) {
-            return;
-        }
-
-
-        const companyRef =
-            firebaseFirestore.doc(
-                database,
-                "CompanySettings",
-                "main"
-            );
-
-
-        const snapshot =
-            await firebaseFirestore.getDoc(
-                companyRef
-            );
-
-
-        if (!snapshot.exists()) {
-            return;
-        }
-
-
-        const data =
-            snapshot.data();
-
-
-        if (!data.companyWhatsApp) {
-            return;
-        }
-
-
-        const number =
-            String(
-                data.companyWhatsApp
-            ).replace(
-                /\D/g,
-                ""
-            );
-
-
-        if (!number) {
-            return;
-        }
-
-
-        navWhatsapp.href =
-            "https://wa.me/" +
-            number;
-
-
-        navWhatsapp.target =
-            "_blank";
-
-
-        navWhatsapp.rel =
-            "noopener";
-
-
-    } catch (error) {
-
-        console.error(
-            "EstatePro WhatsApp error:",
-            error
-        );
-
-    }
-
-}
-
-
-/* =========================================================
    SEARCH
-   ========================================================= */
+========================================================= */
 
-function initSearch() {
+function setupSearch() {
 
-    const searchButton =
+    const form =
         document.getElementById(
-            "searchButton"
+            "homeSearchForm"
         );
 
 
-    if (!searchButton) {
+    if (!form) {
         return;
     }
 
 
-    searchButton.addEventListener(
-        "click",
-        () => {
+    form.addEventListener(
+        "submit",
+        function (event) {
 
-            const location =
+            event.preventDefault();
+
+
+            const locationElement =
                 document.getElementById(
                     "searchLocation"
-                )?.value.trim();
+                );
+
+
+            const typeElement =
+                document.getElementById(
+                    "searchType"
+                );
+
+
+            const purposeElement =
+                document.getElementById(
+                    "searchPurpose"
+                );
+
+
+            const location =
+                locationElement
+                    ? locationElement.value.trim()
+                    : "";
 
 
             const type =
-                document.getElementById(
-                    "searchType"
-                )?.value;
+                typeElement
+                    ? typeElement.value
+                    : "";
 
 
             const purpose =
-                document.getElementById(
-                    "searchStatus"
-                )?.value;
+                purposeElement
+                    ? purposeElement.value
+                    : "";
 
 
             const params =
@@ -412,17 +232,17 @@ function initSearch() {
             }
 
 
-            const query =
+            const queryString =
                 params.toString();
 
 
-            window.location.href =
-                "properties.html" +
-                (
-                    query
-                        ? "?" + query
-                        : ""
-                );
+            const url =
+                queryString
+                    ? "properties.html?" + queryString
+                    : "properties.html";
+
+
+            window.location.href = url;
 
         }
     );
@@ -432,9 +252,9 @@ function initSearch() {
 
 /* =========================================================
    CURRENT YEAR
-   ========================================================= */
+========================================================= */
 
-function initCurrentYear() {
+function setupCurrentYear() {
 
     const year =
         document.getElementById(
@@ -453,8 +273,140 @@ function initCurrentYear() {
 
 
 /* =========================================================
-   LOAD FEATURED PROPERTIES
-   ========================================================= */
+   COMPANY SETTINGS
+========================================================= */
+
+async function loadCompanySettings() {
+
+    if (!db) {
+        return;
+    }
+
+
+    try {
+
+        const snapshot =
+            await db
+                .collection("settings")
+                .limit(1)
+                .get();
+
+
+        if (snapshot.empty) {
+
+            console.warn(
+                "EstatePro: settings collection is empty."
+            );
+
+            return;
+
+        }
+
+
+        const data =
+            snapshot.docs[0].data();
+
+
+        /* COMPANY */
+
+        setText(
+            "companyName",
+            data.companyName
+        );
+
+
+        setText(
+            "footerCompanyName",
+            data.companyName
+        );
+
+
+        setText(
+            "copyrightCompany",
+            data.companyName
+        );
+
+
+        /* DESCRIPTION */
+
+        setText(
+            "heroDescription",
+            data.heroDescription
+        );
+
+
+        setText(
+            "whyDescription",
+            data.aboutShort
+        );
+
+
+        setText(
+            "footerDescription",
+            data.description
+        );
+
+
+        setText(
+            "footerAddress",
+            data.address
+        );
+
+
+        /* CONTACT */
+
+        setupPhone(
+            data.phone
+        );
+
+
+        setupWhatsApp(
+            data.whatsapp
+        );
+
+
+        setupEmail(
+            data.email
+        );
+
+
+        /* LOGO */
+
+        updateBrand(
+            data.companyName,
+            data.logo
+        );
+
+
+        /* SEO */
+
+        updateSEO(
+            data.companyName,
+            data.description,
+            data.logo
+        );
+
+
+        console.log(
+            "EstatePro: Company settings loaded."
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "EstatePro: Company settings error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   FEATURED PROPERTIES
+========================================================= */
 
 async function loadFeaturedProperties() {
 
@@ -469,22 +421,10 @@ async function loadFeaturedProperties() {
     }
 
 
-    container.innerHTML = `
-        <div class="property-loading">
-            Loading properties...
-        </div>
-    `;
+    if (!db) {
 
-
-    const database =
-        await initFirebase();
-
-
-    if (!database) {
-
-        showPropertyMessage(
-            container,
-            "Unable to connect to the property database."
+        console.error(
+            "EstatePro: Firestore is not available."
         );
 
         return;
@@ -494,24 +434,22 @@ async function loadFeaturedProperties() {
 
     try {
 
-        const propertiesRef =
-            firebaseFirestore.collection(
-                database,
-                "Properties"
-            );
-
-
         const snapshot =
-            await firebaseFirestore.getDocs(
-                propertiesRef
-            );
+            await db
+                .collection("properties")
+                .where(
+                    "featured",
+                    "==",
+                    true
+                )
+                .limit(6)
+                .get();
 
 
         if (snapshot.empty) {
 
-            showPropertyMessage(
-                container,
-                "No properties available yet."
+            showNoFeaturedProperties(
+                container
             );
 
             return;
@@ -522,29 +460,16 @@ async function loadFeaturedProperties() {
         container.innerHTML = "";
 
 
-        let count = 0;
-
-
         snapshot.forEach(
-            (propertyDoc) => {
+            function (doc) {
 
-                const property = {
+                const property =
+                    doc.data();
 
-                    id:
-                        propertyDoc.id,
-
-                    ...propertyDoc.data()
-
-                };
-
-
-                /*
-                 * Show properties added
-                 * from Admin/Firebase.
-                 */
 
                 const card =
                     createPropertyCard(
+                        doc.id,
                         property
                     );
 
@@ -553,34 +478,25 @@ async function loadFeaturedProperties() {
                     card
                 );
 
-
-                count++;
-
             }
         );
 
 
-        if (count === 0) {
-
-            showPropertyMessage(
-                container,
-                "No properties available yet."
-            );
-
-        }
+        console.log(
+            "EstatePro: Featured properties loaded."
+        );
 
 
     } catch (error) {
 
         console.error(
-            "EstatePro: Error loading properties:",
+            "EstatePro: Properties error:",
             error
         );
 
 
-        showPropertyMessage(
-            container,
-            "Unable to load properties."
+        showPropertiesError(
+            container
         );
 
     }
@@ -589,10 +505,11 @@ async function loadFeaturedProperties() {
 
 
 /* =========================================================
-   CREATE PROPERTY CARD
-   ========================================================= */
+   PROPERTY CARD
+========================================================= */
 
 function createPropertyCard(
+    id,
     property
 ) {
 
@@ -607,205 +524,75 @@ function createPropertyCard(
 
 
     const image =
-        getPropertyValue(
-            property,
-            [
-                "imageUrl",
-                "imageURL",
-                "image",
-                "propertyImage",
-                "propertyImageUrl"
-            ],
-            ""
-        );
+        property.image ||
+        property.imageUrl ||
+        property.photo ||
+        "";
 
 
     const title =
-        getPropertyValue(
-            property,
-            [
-                "title",
-                "name",
-                "propertyName"
-            ],
-            "Property"
-        );
+        property.title ||
+        property.name ||
+        "Property";
 
 
     const location =
-        getPropertyValue(
-            property,
-            [
-                "location",
-                "address",
-                "city"
-            ],
-            "Location not specified"
-        );
-
-
-    const price =
-        getPropertyValue(
-            property,
-            [
-                "price",
-                "propertyPrice"
-            ],
-            ""
-        );
-
-
-    const status =
-        getPropertyValue(
-            property,
-            [
-                "status",
-                "purpose"
-            ],
-            "For Sale"
-        );
+        property.location ||
+        property.address ||
+        "Location not specified";
 
 
     const type =
-        getPropertyValue(
-            property,
-            [
-                "type",
-                "propertyType"
-            ],
-            ""
-        );
+        property.type ||
+        "Property";
 
 
-    const bedrooms =
-        getPropertyValue(
-            property,
-            [
-                "bedrooms",
-                "beds",
-                "bed"
-            ],
-            ""
-        );
+    const purpose =
+        property.purpose ||
+        "";
 
 
-    const bathrooms =
-        getPropertyValue(
-            property,
-            [
-                "bathrooms",
-                "baths",
-                "bath"
-            ],
-            ""
-        );
+    const price =
+        property.price ||
+        "Contact for price";
 
 
-    const area =
-        getPropertyValue(
-            property,
-            [
-                "area",
-                "size",
-                "squareMeters"
-            ],
-            ""
-        );
-
-
-    let imageHTML = "";
+    let imageHTML;
 
 
     if (image) {
 
         imageHTML = `
+
             <img
                 src="${escapeHTML(image)}"
                 alt="${escapeHTML(title)}"
                 loading="lazy"
-                onerror="this.style.display='none';"
             >
+
         `;
 
     } else {
 
         imageHTML = `
+
             <div class="image-placeholder">
-                Property Image
+                Property image
             </div>
+
         `;
 
     }
 
 
-    const metaItems = [];
-
-
-    if (bedrooms !== "") {
-
-        metaItems.push(
+    const purposeHTML =
+        purpose
+            ? `
+                <span>
+                    ${escapeHTML(purpose)}
+                </span>
             `
-            <span>
-                🛏 ${escapeHTML(
-                    String(bedrooms)
-                )} Beds
-            </span>
-            `
-        );
-
-    }
-
-
-    if (bathrooms !== "") {
-
-        metaItems.push(
-            `
-            <span>
-                🛁 ${escapeHTML(
-                    String(bathrooms)
-                )} Baths
-            </span>
-            `
-        );
-
-    }
-
-
-    if (area !== "") {
-
-        metaItems.push(
-            `
-            <span>
-                📐 ${escapeHTML(
-                    String(area)
-                )}
-            </span>
-            `
-        );
-
-    }
-
-
-    if (type !== "") {
-
-        metaItems.push(
-            `
-            <span>
-                🏠 ${escapeHTML(
-                    String(type)
-                )}
-            </span>
-            `
-        );
-
-    }
-
-
-    const detailsURL =
-        "properties.html?id=" +
-        encodeURIComponent(
-            property.id
-        );
+            : "";
 
 
     article.innerHTML = `
@@ -815,9 +602,7 @@ function createPropertyCard(
             ${imageHTML}
 
             <span class="property-status">
-                ${escapeHTML(
-                    String(status)
-                )}
+                Featured
             </span>
 
         </div>
@@ -826,42 +611,39 @@ function createPropertyCard(
         <div class="property-content">
 
             <h3>
-                ${escapeHTML(
-                    String(title)
-                )}
+                ${escapeHTML(title)}
             </h3>
 
 
             <p class="property-location">
-                📍 ${escapeHTML(
-                    String(location)
-                )}
+                ${escapeHTML(location)}
             </p>
 
 
-            ${
-                metaItems.length
-                    ? `
-                    <div class="property-meta">
-                        ${metaItems.join("")}
-                    </div>
-                    `
-                    : ""
-            }
+            <div class="property-meta">
+
+                <span>
+                    ${escapeHTML(type)}
+                </span>
+
+                ${purposeHTML}
+
+            </div>
 
 
             <div class="property-bottom">
 
                 <strong>
-                    ${formatPrice(price)}
+                    ${escapeHTML(
+                        formatPrice(price)
+                    )}
                 </strong>
 
 
                 <a
-                    href="${detailsURL}"
-                    class="property-view"
+                    href="property-details.html?id=${encodeURIComponent(id)}"
                 >
-                    View Details
+                    View Property
                 </a>
 
             </div>
@@ -877,127 +659,87 @@ function createPropertyCard(
 
 
 /* =========================================================
-   GET PROPERTY VALUE
-   ========================================================= */
-
-function getPropertyValue(
-    property,
-    possibleNames,
-    fallback = ""
-) {
-
-    for (
-        const name of possibleNames
-    ) {
-
-        if (
-            property[name] !== undefined &&
-            property[name] !== null &&
-            property[name] !== ""
-        ) {
-
-            return property[name];
-
-        }
-
-    }
-
-
-    return fallback;
-
-}
-
-
-/* =========================================================
    FORMAT PRICE
-   ========================================================= */
+========================================================= */
 
-function formatPrice(
-    price
-) {
+function formatPrice(price) {
 
     if (
         price === null ||
         price === undefined ||
-        price === ""
+        String(price).trim() === ""
     ) {
 
-        return "Price on request";
+        return "Contact for price";
 
     }
 
 
     if (
-        typeof price === "number"
+        typeof price === "number" &&
+        Number.isFinite(price)
     ) {
 
         return (
             "₦" +
-            price.toLocaleString(
-                "en-NG"
-            )
+            price.toLocaleString("en-NG")
         );
 
     }
 
 
-    const numericPrice =
-        Number(
-            String(price).replace(
-                /,/g,
-                ""
-            )
-        );
-
-
-    if (
-        !Number.isNaN(
-            numericPrice
-        )
-    ) {
-
-        return (
-            "₦" +
-            numericPrice.toLocaleString(
-                "en-NG"
-            )
-        );
-
-    }
-
-
-    return escapeHTML(
-        String(price)
-    );
+    return String(price);
 
 }
 
 
 /* =========================================================
-   PROPERTY MESSAGE
-   ========================================================= */
+   NO FEATURED PROPERTIES
+========================================================= */
 
-function showPropertyMessage(
-    container,
-    message
+function showNoFeaturedProperties(
+    container
 ) {
 
     container.innerHTML = `
 
-        <div
-            class="property-empty"
-            style="
-                width:100%;
-                text-align:center;
-                padding:40px 20px;
-            "
-        >
+        <article class="property-card">
 
-            <p>
-                ${escapeHTML(message)}
-            </p>
+            <div class="property-image">
 
-        </div>
+                <div class="image-placeholder">
+                    No featured properties yet
+                </div>
+
+            </div>
+
+
+            <div class="property-content">
+
+                <h3>
+                    No Featured Properties
+                </h3>
+
+                <p class="property-location">
+                    Featured listings will appear here.
+                </p>
+
+
+                <div class="property-bottom">
+
+                    <strong>
+                        Explore
+                    </strong>
+
+                    <a href="properties.html">
+                        View Properties
+                    </a>
+
+                </div>
+
+            </div>
+
+        </article>
 
     `;
 
@@ -1005,435 +747,434 @@ function showPropertyMessage(
 
 
 /* =========================================================
-   ESCAPE HTML
-   ========================================================= */
+   PROPERTY ERROR
+========================================================= */
 
-function escapeHTML(
-    value
+function showPropertiesError(
+    container
 ) {
 
-    return String(value)
+    container.innerHTML = `
 
-        .replaceAll(
-            "&",
-            "&amp;"
-        )
+        <article class="property-card">
 
-        .replaceAll(
-            "<",
-            "&lt;"
-        )
+            <div class="property-image">
 
-        .replaceAll(
-            ">",
-            "&gt;"
-        )
+                <div class="image-placeholder">
+                    Unable to load properties
+                </div>
 
-        .replaceAll(
-            '"',
-            "&quot;"
-        )
+            </div>
 
-        .replaceAll(
-            "'",
-            "&#039;"
-        );
+
+            <div class="property-content">
+
+                <h3>
+                    Properties Unavailable
+                </h3>
+
+                <p class="property-location">
+                    Please try again later.
+                </p>
+
+
+                <div class="property-bottom">
+
+                    <a href="properties.html">
+                        View Properties
+                    </a>
+
+                </div>
+
+            </div>
+
+        </article>
+
+    `;
 
 }
 
 
 /* =========================================================
-   IMAGE FALLBACKS
-   ========================================================= */
+   SET TEXT
+========================================================= */
 
-function setupImageFallbacks() {
+function setText(
+    id,
+    value
+) {
 
-    const images =
-        document.querySelectorAll(
+    const element =
+        document.getElementById(id);
+
+
+    if (!element) {
+        return;
+    }
+
+
+    if (
+        value === undefined ||
+        value === null ||
+        String(value).trim() === ""
+    ) {
+
+        return;
+
+    }
+
+
+    element.textContent =
+        String(value);
+
+}
+
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+function updateBrand(
+    name,
+    logo
+) {
+
+    if (name) {
+
+        setText(
+            "companyName",
+            name
+        );
+
+
+        setText(
+            "footerCompanyName",
+            name
+        );
+
+
+        setText(
+            "copyrightCompany",
+            name
+        );
+
+    }
+
+
+    if (logo) {
+
+        setBrandLogo(
+            "brandMark",
+            logo
+        );
+
+
+        setBrandLogo(
+            "footerBrandMark",
+            logo
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+function setBrandLogo(
+    id,
+    logo
+) {
+
+    const element =
+        document.getElementById(id);
+
+
+    if (!element) {
+        return;
+    }
+
+
+    element.innerHTML = "";
+
+
+    const image =
+        document.createElement(
             "img"
         );
 
 
-    images.forEach(
-        (image) => {
-
-            image.addEventListener(
-                "error",
-                () => {
-
-                    /*
-                     * Don't hide company logos
-                     * if they have not loaded yet.
-                     */
-
-                    if (
-                        image.id ===
-                            "companyLogo" ||
-                        image.id ===
-                            "footerCompanyLogo"
-                    ) {
-
-                        return;
-
-                    }
+    image.src =
+        logo;
 
 
-                    image.style.display =
-                        "none";
+    image.alt =
+        "Company Logo";
 
-                }
-            );
 
-        }
+    image.style.width =
+        "100%";
+
+
+    image.style.height =
+        "100%";
+
+
+    image.style.objectFit =
+        "contain";
+
+
+    image.style.borderRadius =
+        "inherit";
+
+
+    image.onerror =
+        function () {
+
+            element.textContent =
+                "E";
+
+        };
+
+
+    element.appendChild(
+        image
     );
 
 }
 
 
 /* =========================================================
-   LOAD COMPANY SETTINGS
-   ========================================================= */
+   PHONE
+========================================================= */
 
-async function loadCompanySettings() {
+function setupPhone(phone) {
 
-    try {
-
-        const database =
-            await initFirebase();
-
-
-        if (!database) {
-
-            console.error(
-                "EstatePro: Firebase database not initialized."
-            );
-
-            return;
-
-        }
+    if (!phone) {
+        return;
+    }
 
 
-        const companyRef =
-            firebaseFirestore.doc(
-                database,
-                "CompanySettings",
-                "main"
-            );
-
-
-        const snapshot =
-            await firebaseFirestore.getDoc(
-                companyRef
-            );
-
-
-        if (!snapshot.exists()) {
-
-            console.warn(
-                "EstatePro: CompanySettings/main does not exist."
-            );
-
-            return;
-
-        }
-
-
-        const data =
-            snapshot.data();
-
-
-        console.log(
-            "EstatePro: Company settings loaded."
+    const link =
+        document.getElementById(
+            "footerPhone"
         );
 
 
-        /* =================================================
-           COMPANY NAME
-        ================================================= */
+    if (!link) {
+        return;
+    }
 
-        const companyName =
-            document.getElementById(
-                "companyName"
-            );
 
+    const value =
+        String(phone).trim();
 
-        if (companyName) {
 
-            companyName.textContent =
-                data.companyName ||
-                "EstatePro";
+    link.href =
+        "tel:" + value;
 
-        }
 
+    link.textContent =
+        value;
 
-        const footerCompanyName =
-            document.getElementById(
-                "footerCompanyName"
-            );
+}
 
 
-        if (footerCompanyName) {
+/* =========================================================
+   WHATSAPP
+========================================================= */
 
-            footerCompanyName.textContent =
-                data.companyName ||
-                "EstatePro";
+function setupWhatsApp(number) {
 
-        }
+    if (!number) {
+        return;
+    }
 
 
-        /* =================================================
-           LOGO
-        ================================================= */
+    let cleanNumber =
+        String(number)
+            .replace(/\D/g, "");
 
-        const logo =
-            document.getElementById(
-                "companyLogo"
-            );
 
+    if (
+        cleanNumber.startsWith("0") &&
+        cleanNumber.length === 11
+    ) {
 
-        const logoLetter =
-            document.getElementById(
-                "companyLogoLetter"
-            );
+        cleanNumber =
+            "234" +
+            cleanNumber.substring(1);
 
+    }
 
-        const footerLogo =
-            document.getElementById(
-                "footerCompanyLogo"
-            );
 
+    if (!cleanNumber) {
+        return;
+    }
 
-        const footerLogoLetter =
-            document.getElementById(
-                "footerCompanyLogoLetter"
-            );
 
+    const url =
+        "https://wa.me/" +
+        cleanNumber;
 
-        if (data.companyLogo) {
 
-            if (logo) {
-
-                logo.src =
-                    data.companyLogo;
-
-                logo.style.display =
-                    "block";
-
-            }
-
-
-            if (logoLetter) {
-
-                logoLetter.style.display =
-                    "none";
-
-            }
-
-
-            if (footerLogo) {
-
-                footerLogo.src =
-                    data.companyLogo;
-
-                footerLogo.style.display =
-                    "block";
-
-            }
-
-
-            if (footerLogoLetter) {
-
-                footerLogoLetter.style.display =
-                    "none";
-
-            }
-
-        }
-
-
-        /* =================================================
-           DESCRIPTION
-        ================================================= */
-
-        const description =
-            document.getElementById(
-                "companyDescription"
-            );
-
-
-        if (description) {
-
-            description.textContent =
-                data.companyDescription ||
-                "";
-
-        }
-
-
-        /* =================================================
-           PHONE
-        ================================================= */
-
-        const phone =
-            document.getElementById(
-                "companyPhone"
-            );
-
-
-        if (
-            phone &&
-            data.companyPhone
-        ) {
-
-            phone.textContent =
-                data.companyPhone;
-
-
-            phone.href =
-                "tel:" +
-                String(
-                    data.companyPhone
-                );
-
-        }
-
-
-        /* =================================================
-           EMAIL
-        ================================================= */
-
-        const email =
-            document.getElementById(
-                "companyEmail"
-            );
-
-
-        if (
-            email &&
-            data.companyEmail
-        ) {
-
-            email.textContent =
-                data.companyEmail;
-
-
-            email.href =
-                "mailto:" +
-                String(
-                    data.companyEmail
-                );
-
-        }
-
-
-        /* =================================================
-           ADDRESS
-        ================================================= */
-
-        const address =
-            document.getElementById(
-                "companyAddress"
-            );
-
-
-        if (
-            address &&
-            data.companyAddress
-        ) {
-
-            address.textContent =
-                data.companyAddress;
-
-        }
-
-
-        /* =================================================
-           WHATSAPP
-        ================================================= */
-
-        const whatsapp =
-            document.getElementById(
-                "companyWhatsApp"
-            );
-
-
-        if (
-            whatsapp &&
-            data.companyWhatsApp
-        ) {
-
-            const number =
-                String(
-                    data.companyWhatsApp
-                ).replace(
-                    /\D/g,
-                    ""
-                );
-
-
-            if (number) {
-
-                whatsapp.href =
-                    "https://wa.me/" +
-                    number;
-
-
-                whatsapp.target =
-                    "_blank";
-
-
-                whatsapp.rel =
-                    "noopener";
-
-            }
-
-        }
-
-
-        /* =================================================
-           WEBSITE
-        ================================================= */
-
-        const website =
-            document.getElementById(
-                "companyWebsite"
-            );
-
-
-        if (
-            website &&
-            data.website
-        ) {
-
-            website.href =
-                data.website;
-
-
-            website.target =
-                "_blank";
-
-
-            website.rel =
-                "noopener";
-
-        }
-
-
-        /* =================================================
-           SOCIAL MEDIA
-           
-           Intentionally NOT displayed.
-           Your current index.html does not contain
-           social-media elements.
-        ================================================= */
-
-
-    } catch (error) {
-
-        console.error(
-            "EstatePro: Failed to load company settings:",
-            error
+    const nav =
+        document.getElementById(
+            "navWhatsApp"
         );
+
+
+    const footer =
+        document.getElementById(
+            "footerWhatsApp"
+        );
+
+
+    const floating =
+        document.getElementById(
+            "floatingWhatsApp"
+        );
+
+
+    if (nav) {
+        nav.href = url;
+    }
+
+
+    if (footer) {
+        footer.href = url;
+    }
+
+
+    if (floating) {
+        floating.href = url;
+    }
+
+}
+
+
+/* =========================================================
+   EMAIL
+========================================================= */
+
+function setupEmail(email) {
+
+    if (!email) {
+        return;
+    }
+
+
+    const link =
+        document.getElementById(
+            "footerEmail"
+        );
+
+
+    if (!link) {
+        return;
+    }
+
+
+    const value =
+        String(email).trim();
+
+
+    link.href =
+        "mailto:" + value;
+
+
+    link.textContent =
+        value;
+
+}
+
+
+/* =========================================================
+   SEO
+========================================================= */
+
+function updateSEO(
+    companyName,
+    description,
+    logo
+) {
+
+    const name =
+        companyName ||
+        "EstatePro";
+
+
+    const desc =
+        description ||
+        "Find houses, apartments, lands and commercial properties.";
+
+
+    const title =
+        name +
+        " | Find Your Next Property";
+
+
+    document.title =
+        title;
+
+
+    const pageDescription =
+        document.getElementById(
+            "pageDescription"
+        );
+
+
+    if (pageDescription) {
+
+        pageDescription.content =
+            desc;
+
+    }
+
+
+    const ogTitle =
+        document.getElementById(
+            "ogTitle"
+        );
+
+
+    if (ogTitle) {
+
+        ogTitle.content =
+            title;
+
+    }
+
+
+    const ogDescription =
+        document.getElementById(
+            "ogDescription"
+        );
+
+
+    if (ogDescription) {
+
+        ogDescription.content =
+            desc;
+
+    }
+
+
+    const ogImage =
+        document.getElementById(
+            "ogImage"
+        );
+
+
+    if (
+        ogImage &&
+        logo
+    ) {
+
+        ogImage.content =
+            logo;
 
     }
 
@@ -1441,44 +1182,36 @@ async function loadCompanySettings() {
 
 
 /* =========================================================
-   START APPLICATION
-   ========================================================= */
+   HTML ESCAPE
+========================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    async () => {
+function escapeHTML(value) {
 
-        console.log(
-            "EstatePro: Application starting..."
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
         );
 
-
-        initMobileMenu();
-
-        initNavigation();
-
-        initSearch();
-
-        initCurrentYear();
-
-        setupImageFallbacks();
-
-
-        /*
-         * These are async, but we call them
-         * from an async DOMContentLoaded callback.
-         */
-
-        await loadCompanySettings();
-
-        await initWhatsApp();
-
-        await loadFeaturedProperties();
-
-
-        console.log(
-            "EstatePro: Application ready."
-        );
-
-    }
-);
+}

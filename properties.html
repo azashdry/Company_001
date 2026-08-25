@@ -1,78 +1,1237 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+<meta charset="UTF-8">
 
-    <meta
-        name="description"
-        content="Browse available houses, apartments, lands and commercial properties."
-    >
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-    <meta
-        name="theme-color"
-        content="#0f766e"
-    >
+<meta
+    name="description"
+    id="pageDescription"
+    content="Property details."
+>
 
-    <title>Properties | EstatePro</title>
+<meta
+    name="theme-color"
+    content="#0f766e"
+>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+<title id="pageTitle">
+    Property Details
+</title>
 
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="responsive.css">
 
-    <style>
+<style>
 
-        .property-loading,
-        .property-empty,
-        .property-error {
-            width: 100%;
-            text-align: center;
-            padding: 45px 20px;
-            color: #64748b;
-        }
+/* =========================================================
+   RESET
+========================================================= */
 
-        .property-error {
-            color: #b91c1c;
-        }
+*{
+    box-sizing:border-box;
+}
 
-        .dynamic-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+html{
+    scroll-behavior:smooth;
+}
 
-        .image-placeholder {
-            min-height: 220px;
-            display: grid;
-            place-items: center;
-        }
+body{
+    margin:0;
+    font-family:Inter,Arial,sans-serif;
+    background:#f5f7f9;
+    color:#17202a;
+}
 
-        .category-active {
-            display: inline-block;
-            margin-top: 10px;
-            font-weight: 700;
-            color: #0f766e;
-        }
+button,
+input,
+select{
+    font:inherit;
+}
 
-    </style>
+button{
+    cursor:pointer;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+.hidden{
+    display:none!important;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.site-header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    background:#fff;
+
+    border-bottom:1px solid #e5e7eb;
+}
+
+.header-inner{
+    max-width:1200px;
+    margin:auto;
+
+    min-height:70px;
+
+    padding:10px 18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+}
+
+.brand{
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+    min-width:0;
+}
+
+.brand-logo{
+    width:45px;
+    height:45px;
+
+    border-radius:11px;
+
+    background:#ecfdf5;
+
+    color:#0f766e;
+
+    display:grid;
+
+    place-items:center;
+
+    overflow:hidden;
+
+    flex-shrink:0;
+
+    font-weight:800;
+
+    font-size:20px;
+}
+
+.brand-logo img{
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+}
+
+.brand-text{
+    min-width:0;
+}
+
+.brand-name{
+    font-size:16px;
+
+    font-weight:800;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+}
+
+.brand-location{
+    color:#64748b;
+
+    font-size:11px;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+}
+
+.menu{
+    display:flex;
+
+    align-items:center;
+
+    gap:5px;
+}
+
+.menu a{
+    padding:9px 11px;
+
+    border-radius:8px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    color:#475569;
+}
+
+.menu a:hover{
+    background:#f1f5f9;
+
+    color:#0f766e;
+}
+
+.header-actions{
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+}
+
+.header-button{
+    border:1px solid #d7dde3;
+
+    background:#fff;
+
+    color:#334155;
+
+    padding:9px 12px;
+
+    border-radius:8px;
+
+    font-weight:600;
+}
+
+.whatsapp-button{
+    border:0;
+
+    background:#0f766e;
+
+    color:#fff;
+
+    padding:10px 13px;
+
+    border-radius:8px;
+
+    font-weight:700;
+}
+
+.mobile-menu-button{
+    display:none;
+
+    border:1px solid #d7dde3;
+
+    background:#fff;
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:9px;
+
+    font-size:20px;
+}
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+.mobile-menu{
+    display:none;
+
+    background:#fff;
+
+    border-top:1px solid #e5e7eb;
+
+    padding:10px 15px 15px;
+}
+
+.mobile-menu.show{
+    display:block;
+}
+
+.mobile-menu a{
+    display:block;
+
+    padding:12px;
+
+    border-radius:8px;
+
+    font-size:14px;
+
+    font-weight:600;
+}
+
+.mobile-menu a:hover{
+    background:#f1f5f9;
+}
+
+
+/* =========================================================
+   PAGE HERO
+========================================================= */
+
+.page-hero{
+    background:
+        linear-gradient(
+            135deg,
+            #0f766e,
+            #115e59
+        );
+
+    color:#fff;
+}
+
+.page-hero-inner{
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:38px 18px;
+}
+
+.back-button{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    border:1px solid
+        rgba(255,255,255,.25);
+
+    background:
+        rgba(255,255,255,.10);
+
+    color:#fff;
+
+    padding:9px 13px;
+
+    border-radius:8px;
+
+    font-weight:700;
+
+    font-size:13px;
+}
+
+.back-button:hover{
+    background:
+        rgba(255,255,255,.18);
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main-container{
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:35px 18px 70px;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading{
+    background:#fff;
+
+    border-radius:16px;
+
+    padding:60px 20px;
+
+    text-align:center;
+
+    color:#64748b;
+
+    border:1px solid #e5e7eb;
+}
+
+.spinner{
+    width:38px;
+    height:38px;
+
+    border:3px solid #d1fae5;
+
+    border-top-color:#0f766e;
+
+    border-radius:50%;
+
+    animation:spin .8s linear infinite;
+
+    margin:0 auto 15px;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+.error-box{
+    max-width:700px;
+
+    margin:30px auto;
+
+    padding:30px;
+
+    background:#fee2e2;
+
+    color:#991b1b;
+
+    border-radius:14px;
+
+    text-align:center;
+
+    line-height:1.7;
+}
+
+.error-box h2{
+    margin-top:0;
+}
+
+
+/* =========================================================
+   PROPERTY LAYOUT
+========================================================= */
+
+.property-layout{
+    display:grid;
+
+    grid-template-columns:
+        minmax(0,1.45fr)
+        minmax(320px,.85fr);
+
+    gap:28px;
+
+    align-items:start;
+}
+
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+.gallery-card{
+    background:#fff;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 5px 25px rgba(0,0,0,.05);
+}
+
+.main-image{
+    position:relative;
+
+    width:100%;
+
+    height:520px;
+
+    background:#e2e8f0;
+
+    overflow:hidden;
+}
+
+.main-image img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+}
+
+.main-image-placeholder{
+    width:100%;
+    height:100%;
+
+    display:grid;
+
+    place-items:center;
+
+    color:#94a3b8;
+
+    font-size:15px;
+}
+
+.gallery-counter{
+    position:absolute;
+
+    left:15px;
+    bottom:15px;
+
+    background:
+        rgba(15,23,42,.75);
+
+    color:#fff;
+
+    padding:7px 10px;
+
+    border-radius:8px;
+
+    font-size:12px;
+
+    font-weight:700;
+}
+
+.gallery-arrow{
+    position:absolute;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    width:42px;
+    height:42px;
+
+    border:0;
+
+    border-radius:50%;
+
+    background:
+        rgba(15,23,42,.70);
+
+    color:#fff;
+
+    display:grid;
+
+    place-items:center;
+
+    font-size:20px;
+
+    z-index:5;
+}
+
+.gallery-arrow:hover{
+    background:#0f766e;
+}
+
+.gallery-prev{
+    left:15px;
+}
+
+.gallery-next{
+    right:15px;
+}
+
+.thumbnails{
+    display:flex;
+
+    gap:10px;
+
+    padding:13px;
+
+    overflow-x:auto;
+
+    background:#fff;
+}
+
+.thumbnail{
+    flex:0 0 85px;
+
+    height:65px;
+
+    padding:0;
+
+    border:2px solid transparent;
+
+    border-radius:8px;
+
+    overflow:hidden;
+
+    background:#e2e8f0;
+}
+
+.thumbnail img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+}
+
+.thumbnail.active{
+    border-color:#0f766e;
+}
+
+.thumbnail:hover{
+    border-color:#5eead4;
+}
+
+
+/* =========================================================
+   PROPERTY INFO
+========================================================= */
+
+.property-info{
+    background:#fff;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:18px;
+
+    padding:26px;
+
+    box-shadow:
+        0 5px 25px rgba(0,0,0,.05);
+}
+
+.property-status{
+    display:inline-block;
+
+    padding:6px 10px;
+
+    border-radius:999px;
+
+    background:#dcfce7;
+
+    color:#166534;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    text-transform:uppercase;
+
+    margin-bottom:10px;
+}
+
+.property-status.sold{
+    background:#fee2e2;
+
+    color:#b91c1c;
+}
+
+.property-status.rented{
+    background:#fef3c7;
+
+    color:#92400e;
+}
+
+.property-type{
+    color:#0f766e;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    text-transform:uppercase;
+
+    margin-bottom:7px;
+}
+
+.property-title{
+    margin:0 0 10px;
+
+    font-size:clamp(25px,4vw,36px);
+
+    line-height:1.2;
+}
+
+.property-location{
+    color:#64748b;
+
+    font-size:14px;
+
+    line-height:1.6;
+
+    margin-bottom:18px;
+}
+
+.property-price{
+    color:#0f766e;
+
+    font-size:28px;
+
+    font-weight:800;
+
+    margin-bottom:20px;
+}
+
+
+/* =========================================================
+   META
+========================================================= */
+
+.property-meta{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:9px;
+
+    margin-bottom:22px;
+}
+
+.meta-item{
+    background:#f8fafc;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:9px;
+
+    padding:11px;
+
+    color:#475569;
+
+    font-size:12px;
+
+    font-weight:700;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.info-section{
+    border-top:1px solid #e5e7eb;
+
+    padding-top:20px;
+
+    margin-top:20px;
+}
+
+.info-section h3{
+    margin:0 0 10px;
+
+    font-size:17px;
+}
+
+.description{
+    color:#64748b;
+
+    font-size:14px;
+
+    line-height:1.8;
+
+    white-space:pre-line;
+}
+
+
+/* =========================================================
+   CONTACT BUTTONS
+========================================================= */
+
+.contact-buttons{
+    display:grid;
+
+    grid-template-columns:1fr;
+
+    gap:9px;
+
+    margin-top:22px;
+}
+
+.contact-button{
+    width:100%;
+
+    border:0;
+
+    padding:13px;
+
+    border-radius:9px;
+
+    font-weight:700;
+
+    text-align:center;
+}
+
+.contact-call{
+    background:#0f766e;
+
+    color:#fff;
+}
+
+.contact-whatsapp{
+    background:#16a34a;
+
+    color:#fff;
+}
+
+.contact-email{
+    background:#f1f5f9;
+
+    color:#334155;
+}
+
+
+/* =========================================================
+   DETAILS
+========================================================= */
+
+.details-card{
+    background:#fff;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:16px;
+
+    padding:25px;
+
+    margin-top:25px;
+}
+
+.details-card h2{
+    margin:0 0 18px;
+
+    font-size:22px;
+}
+
+.details-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:12px;
+}
+
+.detail-box{
+    padding:15px;
+
+    background:#f8fafc;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:10px;
+}
+
+.detail-label{
+    display:block;
+
+    color:#94a3b8;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    margin-bottom:5px;
+
+    text-transform:uppercase;
+}
+
+.detail-value{
+    color:#334155;
+
+    font-size:14px;
+
+    font-weight:700;
+}
+
+
+/* =========================================================
+   COMPANY
+========================================================= */
+
+.company-card{
+    margin-top:25px;
+
+    background:#fff;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:16px;
+
+    padding:25px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+}
+
+.company-logo{
+    width:75px;
+    height:75px;
+
+    flex-shrink:0;
+
+    border-radius:14px;
+
+    background:#ecfdf5;
+
+    color:#0f766e;
+
+    display:grid;
+
+    place-items:center;
+
+    overflow:hidden;
+
+    font-size:30px;
+
+    font-weight:800;
+}
+
+.company-logo img{
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+}
+
+.company-info h3{
+    margin:0 0 5px;
+
+    font-size:19px;
+}
+
+.company-info p{
+    margin:0;
+
+    color:#64748b;
+
+    font-size:13px;
+
+    line-height:1.6;
+}
+
+
+/* =========================================================
+   SUBSCRIPTION LOCK
+========================================================= */
+
+.subscription-lock{
+    position:fixed;
+
+    inset:0;
+
+    z-index:99999;
+
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(15,118,110,.12),
+            transparent 45%
+        ),
+        #f8fafc;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+}
+
+.subscription-lock-card{
+    width:100%;
+
+    max-width:520px;
+
+    background:#fff;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:22px;
+
+    padding:40px 28px;
+
+    text-align:center;
+
+    box-shadow:
+        0 20px 60px rgba(15,23,42,.12);
+}
+
+.subscription-lock-icon{
+    width:75px;
+    height:75px;
+
+    margin:0 auto 20px;
+
+    border-radius:50%;
+
+    display:grid;
+
+    place-items:center;
+
+    background:#fee2e2;
+
+    color:#b91c1c;
+
+    font-size:34px;
+}
+
+.subscription-lock-card h1{
+    margin:0 0 12px;
+
+    color:#0f172a;
+
+    font-size:28px;
+}
+
+.subscription-lock-card p{
+    margin:0 auto 12px;
+
+    max-width:440px;
+
+    color:#64748b;
+
+    font-size:14px;
+
+    line-height:1.7;
+}
+
+.subscription-company{
+    margin-top:20px;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    background:#f8fafc;
+
+    color:#334155;
+
+    font-weight:700;
+}
+
+.subscription-reload{
+    margin-top:22px;
+
+    border:0;
+
+    background:#0f766e;
+
+    color:#fff;
+
+    padding:12px 20px;
+
+    border-radius:9px;
+
+    font-weight:700;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+    background:#0f172a;
+
+    color:#fff;
+
+    margin-top:35px;
+}
+
+.footer-inner{
+    max-width:1200px;
+
+    margin:auto;
+
+    padding:35px 18px;
+
+    display:grid;
+
+    grid-template-columns:
+        1.5fr 1fr 1fr;
+
+    gap:30px;
+}
+
+.footer-brand{
+    font-size:20px;
+
+    font-weight:800;
+
+    margin-bottom:8px;
+}
+
+.footer p{
+    color:#94a3b8;
+
+    font-size:13px;
+
+    line-height:1.6;
+}
+
+.footer h3{
+    margin-top:0;
+
+    font-size:15px;
+}
+
+.footer-contact{
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+    color:#cbd5e1;
+
+    font-size:13px;
+}
+
+.footer-bottom{
+    border-top:1px solid #1e293b;
+
+    text-align:center;
+
+    padding:15px;
+
+    color:#64748b;
+
+    font-size:11px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1000px){
+
+    .property-layout{
+        grid-template-columns:1fr;
+    }
+
+    .main-image{
+        height:460px;
+    }
+
+    .menu{
+        display:none;
+    }
+
+    .mobile-menu-button{
+        display:block;
+    }
+
+}
+
+
+@media(max-width:700px){
+
+    .header-inner{
+        padding:10px 14px;
+    }
+
+    .header-button{
+        display:none;
+    }
+
+    .brand-logo{
+        width:42px;
+        height:42px;
+    }
+
+    .brand-name{
+        font-size:15px;
+    }
+
+    .page-hero-inner{
+        padding:28px 14px;
+    }
+
+    .main-container{
+        padding:25px 14px 50px;
+    }
+
+    .main-image{
+        height:330px;
+    }
+
+    .property-info{
+        padding:20px;
+    }
+
+    .property-meta{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .details-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .company-card{
+        align-items:flex-start;
+    }
+
+    .footer-inner{
+        grid-template-columns:1fr;
+    }
+
+}
+
+
+@media(max-width:500px){
+
+    .header-actions{
+        gap:5px;
+    }
+
+    .whatsapp-button{
+        padding:9px 10px;
+
+        font-size:12px;
+    }
+
+    .main-image{
+        height:280px;
+    }
+
+    .property-title{
+        font-size:25px;
+    }
+
+    .property-price{
+        font-size:24px;
+    }
+
+    .details-grid{
+        grid-template-columns:1fr;
+    }
+
+    .thumbnail{
+        flex-basis:75px;
+
+        height:58px;
+    }
+
+}
+
+</style>
 
 </head>
 
@@ -80,327 +1239,191 @@
 <body>
 
 
+<!-- =========================================================
+     SUBSCRIPTION LOCK
+========================================================= -->
+
+<div
+    id="subscriptionLock"
+    class="subscription-lock hidden"
+>
+
+    <div class="subscription-lock-card">
+
+        <div class="subscription-lock-icon">
+            🔒
+        </div>
+
+        <h1 id="subscriptionLockTitle">
+            Subscription Expired
+        </h1>
+
+        <p id="subscriptionLockMessage">
+            This company's website subscription has expired.
+        </p>
+
+        <div
+            id="subscriptionCompanyName"
+            class="subscription-company"
+        >
+            Company
+        </div>
+
+        <button
+            id="subscriptionReload"
+            class="subscription-reload"
+            type="button"
+        >
+            Try Again
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     WEBSITE
+========================================================= -->
+
+<div id="websiteContent">
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
 <header class="site-header">
 
-    <div class="container nav-container">
+    <div class="header-inner">
 
         <a
             href="index.html"
+            id="homeBrand"
             class="brand"
-            aria-label="EstatePro Home"
         >
 
-           <span class="brand-mark">
+            <div
+                id="brandLogo"
+                class="brand-logo"
+            >
+                E
+            </div>
 
-    <img
-        id="companyLogo"
-        src=""
-        alt="Company Logo"
-        style="display:none;"
-    >
+            <div class="brand-text">
 
-    <span id="companyLogoLetter">E</span>
+                <div
+                    id="brandName"
+                    class="brand-name"
+                >
+                    Loading...
+                </div>
 
-</span>
+                <div
+                    id="brandLocation"
+                    class="brand-location"
+                >
+                    Property Services
+                </div>
 
-<span
-    class="brand-name"
-    id="companyName"
->
-    EstatePro
-</span> 
+            </div>
 
         </a>
 
 
-        <button
-            class="menu-toggle"
-            id="menuToggle"
-            type="button"
-            aria-label="Open navigation menu"
-            aria-expanded="false"
-        >
+        <nav class="menu">
 
-            <span></span>
-            <span></span>
-            <span></span>
-
-        </button>
-
-
-        <nav
-            class="main-nav"
-            id="mainNav"
-            aria-label="Main navigation"
-        >
-
-            <a href="index.html" class="nav-link">
+            <a id="homeLink" href="#">
                 Home
             </a>
 
-            <a
-                href="properties.html"
-                class="nav-link active"
-            >
+            <a id="propertiesLink" href="#">
                 Properties
             </a>
 
-            <a href="about.html" class="nav-link">
-                About
+            <a href="#propertyDetails">
+                Details
             </a>
 
-            <a href="contact.html" class="nav-link">
+            <a href="#contactSection">
                 Contact
             </a>
 
-            <a
-                href="#"
-                class="nav-whatsapp"
-                id="navWhatsapp"
+        </nav>
+
+
+        <div class="header-actions">
+
+            <button
+                id="headerCallButton"
+                class="header-button"
+                type="button"
+            >
+                Call
+            </button>
+
+            <button
+                id="headerWhatsAppButton"
+                class="whatsapp-button"
+                type="button"
             >
                 WhatsApp
-            </a>
+            </button>
 
-        </nav>
+            <button
+                id="mobileMenuButton"
+                class="mobile-menu-button"
+                type="button"
+                aria-label="Menu"
+            >
+                ☰
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="mobileMenu"
+        class="mobile-menu"
+    >
+
+        <a id="mobileHomeLink" href="#">
+            🏠 Home
+        </a>
+
+        <a id="mobilePropertiesLink" href="#">
+            🏘 Properties
+        </a>
+
+        <a href="#propertyDetails">
+            ℹ️ Details
+        </a>
+
+        <a href="#contactSection">
+            📞 Contact
+        </a>
 
     </div>
 
 </header>
 
 
+<!-- =========================================================
+     HERO
+========================================================= -->
 
-<main>
+<section class="page-hero">
 
-
-<section class="property-page-hero">
-
-    <div class="container">
-
-        <span class="section-label">
-            OUR PROPERTIES
-        </span>
-
-        <h1 id="pageTitle">
-            Find Your Perfect Property
-        </h1>
-
-        <p>
-            Browse houses, apartments, lands and
-            commercial properties available for sale
-            or rent.
-        </p>
-
-        <span
-            id="categoryActive"
-            class="category-active"
-        ></span>
-
-    </div>
-
-</section>
-
-
-
-<section class="section property-listing-section">
-
-    <div class="container">
-
-
-        <div class="property-filter">
-
-            <div class="filter-heading">
-
-                <div>
-
-                    <span class="section-label">
-                        SEARCH
-                    </span>
-
-                    <h2>
-                        Find a Property
-                    </h2>
-
-                </div>
-
-            </div>
-
-
-            <div class="filter-grid">
-
-
-                <div class="filter-field">
-
-                    <label for="propertyLocation">
-                        Location
-                    </label>
-
-                    <input
-                        type="text"
-                        id="propertyLocation"
-                        placeholder="e.g. Kano"
-                    >
-
-                </div>
-
-
-                <div class="filter-field">
-
-                    <label for="propertyType">
-                        Property Type
-                    </label>
-
-                    <select id="propertyType">
-
-                        <option value="">
-                            Any Type
-                        </option>
-
-                        <option value="house">
-                            House
-                        </option>
-
-                        <option value="apartment">
-                            Apartment
-                        </option>
-
-                        <option value="land">
-                            Land
-                        </option>
-
-                        <option value="commercial">
-                            Commercial
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="filter-field">
-
-                    <label for="propertyPurpose">
-                        Purpose
-                    </label>
-
-                    <select id="propertyPurpose">
-
-                        <option value="">
-                            Sale or Rent
-                        </option>
-
-                        <option value="sale">
-                            For Sale
-                        </option>
-
-                        <option value="rent">
-                            For Rent
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <button
-                    type="button"
-                    class="search-button"
-                    id="propertyFilterButton"
-                >
-                    Search
-                </button>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="listing-heading">
-
-            <div>
-
-                <span class="section-label">
-                    AVAILABLE
-                </span>
-
-                <h2>
-                    Property Listings
-                </h2>
-
-            </div>
-
-
-            <span
-                class="property-count"
-                id="propertyCount"
-            >
-                0 Properties
-            </span>
-
-        </div>
-
-
-
-        <div
-            class="property-grid"
-            id="propertyListings"
-        >
-
-            <div class="property-loading">
-                Loading properties...
-            </div>
-
-        </div>
-
-
-
-        <div
-            class="no-properties"
-            id="noProperties"
-            hidden
-        >
-
-            <h3>
-                No Properties Found
-            </h3>
-
-            <p>
-                There are currently no properties
-                available in this category.
-            </p>
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-
-<section class="cta-section">
-
-    <div class="container cta-content">
-
-        <span class="section-label">
-            NEED HELP?
-        </span>
-
-        <h2>
-            Can't Find What You're Looking For?
-        </h2>
-
-        <p>
-            Contact us directly and let us know
-            what type of property you need.
-        </p>
+    <div class="page-hero-inner">
 
         <a
+            id="backButton"
             href="#"
-            class="cta-button"
-            id="propertyWhatsapp"
+            class="back-button"
         >
-            Contact Us on WhatsApp
+            ← Back to Properties
         </a>
 
     </div>
@@ -408,159 +1431,343 @@
 </section>
 
 
-</main>
+<!-- =========================================================
+     MAIN
+========================================================= -->
 
+<main class="main-container">
 
+    <div id="loadingBox" class="loading">
 
-<footer class="site-footer">
+        <div class="spinner"></div>
 
-    <div class="container footer-grid">
-
-
-        <div class="footer-brand">
-
-            <a
-                href="index.html"
-                class="brand footer-logo"
-            >
-
-               <span class="brand-mark">
-
-    <img
-        id="footerCompanyLogo"
-        src=""
-        alt="Company Logo"
-        style="display:none;"
-    >
-
-    <span id="footerCompanyLogoLetter">E</span>
-
-</span>
-
-<span
-    class="brand-name"
-    id="footerCompanyName"
->
-    EstatePro
-</span> 
-
-            </a>
-
-  <p id="companyDescription">
-    A simple and professional platform for
-    discovering properties.
-</p>
-
-        </div>
-
-
-
-        <div class="footer-column">
-
-            <h3>
-                Quick Links
-            </h3>
-
-            <a href="index.html">
-                Home
-            </a>
-
-            <a href="properties.html">
-                Properties
-            </a>
-
-            <a href="about.html">
-                About
-            </a>
-
-            <a href="contact.html">
-                Contact
-            </a>
-
-        </div>
-
-
-
-        <div class="footer-column">
-
-            <h3>
-                Property Types
-            </h3>
-
-            <a href="properties.html?type=house">
-                Houses
-            </a>
-
-            <a href="properties.html?type=apartment">
-                Apartments
-            </a>
-
-            <a href="properties.html?type=land">
-                Land
-            </a>
-
-            <a href="properties.html?type=commercial">
-                Commercial
-            </a>
-
-        </div>
-
-
-
-        <div class="footer-column">
-
-            <h3>
-                Contact
-            </h3>
-
-            <a
-                href="tel:+2340000000000"
-                id="footerPhone"
-            >
-                +234 000 000 0000
-            </a>
-
-            <a
-                href="mailto:hello@example.com"
-                id="footerEmail"
-            >
-                hello@example.com
-            </a>
-
-            <span id="footerAddress">
-                Nigeria
-            </span>
-
-        </div>
-
+        Loading property...
 
     </div>
 
 
+    <div
+        id="propertyContent"
+        class="hidden"
+    >
 
-    <div class="footer-bottom">
+        <!-- =================================================
+             PROPERTY
+        ================================================= -->
 
-        <div class="container">
+        <div class="property-layout">
 
-            <p>
-                ©
-                <span id="currentYear"></span>
-                EstatePro. All rights reserved.
+
+            <!-- =================================================
+                 GALLERY
+            ================================================= -->
+
+            <div class="gallery-card">
+
+                <div
+                    id="mainImage"
+                    class="main-image"
+                >
+
+                    <div
+                        id="mainImagePlaceholder"
+                        class="main-image-placeholder"
+                    >
+                        No Image
+                    </div>
+
+                    <img
+                        id="mainPropertyImage"
+                        class="hidden"
+                        src=""
+                        alt="Property"
+                    >
+
+
+                    <button
+                        id="previousImageButton"
+                        class="gallery-arrow gallery-prev hidden"
+                        type="button"
+                        aria-label="Previous image"
+                    >
+                        ‹
+                    </button>
+
+
+                    <button
+                        id="nextImageButton"
+                        class="gallery-arrow gallery-next hidden"
+                        type="button"
+                        aria-label="Next image"
+                    >
+                        ›
+                    </button>
+
+
+                    <div
+                        id="galleryCounter"
+                        class="gallery-counter hidden"
+                    >
+                        1 / 1
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="thumbnails"
+                    class="thumbnails"
+                >
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 PROPERTY INFORMATION
+            ================================================= -->
+
+            <div class="property-info">
+
+                <div
+                    id="propertyStatus"
+                    class="property-status"
+                >
+                    Available
+                </div>
+
+
+                <div
+                    id="propertyType"
+                    class="property-type"
+                >
+                    PROPERTY
+                </div>
+
+
+                <h1
+                    id="propertyTitle"
+                    class="property-title"
+                >
+                    Property
+                </h1>
+
+
+                <div
+                    id="propertyLocation"
+                    class="property-location"
+                >
+                    📍 Location
+                </div>
+
+
+                <div
+                    id="propertyPrice"
+                    class="property-price"
+                >
+                    Price on request
+                </div>
+
+
+                <div
+                    id="propertyMeta"
+                    class="property-meta"
+                >
+                </div>
+
+
+                <div class="info-section">
+
+                    <h3>
+                        Description
+                    </h3>
+
+                    <div
+                        id="propertyDescription"
+                        class="description"
+                    >
+                        No description available.
+                    </div>
+
+                </div>
+
+
+                <div class="contact-buttons">
+
+                    <a
+                        id="propertyCallButton"
+                        class="contact-button contact-call"
+                        href="#"
+                    >
+                        📞 Call Agent
+                    </a>
+
+
+                    <a
+                        id="propertyWhatsAppButton"
+                        class="contact-button contact-whatsapp"
+                        href="#"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        💬 WhatsApp
+                    </a>
+
+
+                    <a
+                        id="propertyEmailButton"
+                        class="contact-button contact-email"
+                        href="#"
+                    >
+                        ✉️ Email
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             DETAILS
+        ================================================= -->
+
+        <section
+            id="propertyDetails"
+            class="details-card"
+        >
+
+            <h2>
+                Property Details
+            </h2>
+
+            <div
+                id="detailsGrid"
+                class="details-grid"
+            >
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             COMPANY
+        ================================================= -->
+
+        <section class="company-card">
+
+            <div
+                id="companyLogo"
+                class="company-logo"
+            >
+                E
+            </div>
+
+            <div class="company-info">
+
+                <h3 id="companyName">
+                    Company
+                </h3>
+
+                <p id="companyDescription">
+                    Property services and listings.
+                </p>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer
+    id="contactSection"
+    class="footer"
+>
+
+    <div class="footer-inner">
+
+        <div>
+
+            <div
+                id="footerCompanyName"
+                class="footer-brand"
+            >
+                Company
+            </div>
+
+            <p id="footerDescription">
+                Property services and listings.
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h3>
+                Contact
+            </h3>
+
+            <div
+                id="footerContact"
+                class="footer-contact"
+            >
+            </div>
+
+        </div>
+
+
+        <div>
+
+            <h3>
+                Location
+            </h3>
+
+            <p id="footerAddress">
+                Loading...
             </p>
 
         </div>
 
     </div>
 
+
+    <div class="footer-bottom">
+
+        ©
+
+        <span id="footerYear"></span>
+
+        <span id="footerCompany">
+            Company
+        </span>
+
+        — All rights reserved.
+
+    </div>
+
 </footer>
 
+</div>
 
 
 <script type="module">
 
+
+/* =========================================================
+   FIREBASE
+========================================================= */
+
 import {
-    initializeApp,
-    getApps
+    initializeApp
 }
 from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
@@ -568,18 +1775,16 @@ from
 
 import {
     getFirestore,
+    doc,
+    getDoc,
     collection,
     getDocs,
-    doc,
-    getDoc
+    query,
+    where
 }
 from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-
-/* =====================================================
-   FIREBASE
-===================================================== */
 
 const firebaseConfig = {
 
@@ -608,805 +1813,2117 @@ const firebaseConfig = {
 
 
 const app =
-    getApps().length
-        ? getApps()[0]
-        : initializeApp(firebaseConfig);
-
+    initializeApp(firebaseConfig);
 
 const db =
     getFirestore(app);
 
 
-/* =====================================================
-   ELEMENTS
-===================================================== */
+/* =========================================================
+   COLLECTIONS
+========================================================= */
 
-const listings =
-    document.getElementById(
-        "propertyListings"
+const COMPANIES_COLLECTION =
+    "companies";
+
+const PROPERTIES_SUBCOLLECTION =
+    "properties";
+
+const SUBSCRIPTIONS_COLLECTION =
+    "subscriptions";
+
+
+/* =========================================================
+   URL PARAMETERS
+========================================================= */
+
+const params =
+    new URLSearchParams(
+        window.location.search
     );
 
 
-const count =
+const currentCompanyId =
+    (
+        params.get("companyId") ||
+        "Company_002"
+    ).trim();
+
+
+const currentPropertyId =
+    (
+        params.get("propertyId") ||
+        ""
+    ).trim();
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+let currentCompany = null;
+
+let currentProperty = null;
+
+let currentSubscription = null;
+
+let propertyImages = [];
+
+let currentImageIndex = 0;
+
+
+/* =========================================================
+   DOM
+========================================================= */
+
+const websiteContent =
     document.getElementById(
-        "propertyCount"
+        "websiteContent"
     );
 
 
-const noProperties =
+const subscriptionLock =
     document.getElementById(
-        "noProperties"
+        "subscriptionLock"
     );
 
 
-const typeSelect =
+const loadingBox =
     document.getElementById(
-        "propertyType"
+        "loadingBox"
     );
 
 
-const locationInput =
+const propertyContent =
     document.getElementById(
-        "propertyLocation"
+        "propertyContent"
     );
 
 
-const purposeSelect =
+const mainPropertyImage =
     document.getElementById(
-        "propertyPurpose"
+        "mainPropertyImage"
     );
 
 
-let allProperties = [];
+const mainImagePlaceholder =
+    document.getElementById(
+        "mainImagePlaceholder"
+    );
 
 
-/* =====================================================
+const thumbnails =
+    document.getElementById(
+        "thumbnails"
+    );
+
+
+const previousImageButton =
+    document.getElementById(
+        "previousImageButton"
+    );
+
+
+const nextImageButton =
+    document.getElementById(
+        "nextImageButton"
+    );
+
+
+const galleryCounter =
+    document.getElementById(
+        "galleryCounter"
+    );
+
+
+/* =========================================================
    ESCAPE HTML
-===================================================== */
+========================================================= */
 
-function escapeHTML(value) {
+function escapeHTML(value){
 
     return String(value ?? "")
-
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 
 }
 
 
-/* =====================================================
-   FORMAT PRICE
-===================================================== */
+/* =========================================================
+   PHONE
+========================================================= */
 
-function formatPrice(
-    price,
-    purpose
-) {
+function normalizePhone(phone){
 
-    if (
-        price === undefined ||
-        price === null ||
-        price === ""
-    ) {
+    return String(phone || "")
+        .replace(/[^0-9+]/g,"");
 
-        return "Price on request";
+}
+
+
+function whatsappNumber(phone){
+
+    let number =
+        String(phone || "")
+        .replace(/\D/g,"");
+
+
+    if(number.startsWith("0")){
+
+        number =
+            "234" +
+            number.substring(1);
 
     }
 
 
-    const number =
-        Number(price);
+    return number;
+
+}
 
 
-    if (!Number.isFinite(number)) {
+/* =========================================================
+   REFERENCES
+========================================================= */
 
-        return escapeHTML(
-            String(price)
+function getCompanyRef(){
+
+    return doc(
+        db,
+        COMPANIES_COLLECTION,
+        currentCompanyId
+    );
+
+}
+
+
+function getPropertyRef(){
+
+    return doc(
+        db,
+        COMPANIES_COLLECTION,
+        currentCompanyId,
+        PROPERTIES_SUBCOLLECTION,
+        currentPropertyId
+    );
+
+}
+
+
+function getSubscriptionsRef(){
+
+    return collection(
+        db,
+        SUBSCRIPTIONS_COLLECTION
+    );
+
+}
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+function timestampToDate(value){
+
+    if(!value){
+        return null;
+    }
+
+
+    if(
+        typeof value.toDate === "function"
+    ){
+
+        return value.toDate();
+
+    }
+
+
+    if(value instanceof Date){
+
+        return value;
+
+    }
+
+
+    if(typeof value === "number"){
+
+        const date =
+            new Date(value);
+
+        return isNaN(
+            date.getTime()
+        )
+        ? null
+        : date;
+
+    }
+
+
+    if(typeof value === "string"){
+
+        const date =
+            new Date(value);
+
+        return isNaN(
+            date.getTime()
+        )
+        ? null
+        : date;
+
+    }
+
+
+    if(
+        typeof value === "object" &&
+        typeof value.seconds === "number"
+    ){
+
+        return new Date(
+            value.seconds * 1000
         );
 
     }
 
 
-    const formatted =
-        new Intl.NumberFormat(
-            "en-NG"
-        ).format(number);
-
-
-    if (
-        String(purpose)
-            .toLowerCase() === "rent"
-    ) {
-
-        return `₦${formatted} / year`;
-
-    }
-
-
-    return `₦${formatted}`;
+    return null;
 
 }
 
 
-/* =====================================================
-   GET URL CATEGORY
-===================================================== */
+/* =========================================================
+   SUBSCRIPTION CHECK
+========================================================= */
 
-function getCategoryFromURL() {
+function checkSubscription(subscription){
 
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
+    if(!subscription){
+
+        return {
+            active:false,
+            reason:"not-found"
+        };
+
+    }
 
 
-    return String(
-        params.get("type") || ""
-    )
+    const status =
+        String(
+            subscription.status || ""
+        )
         .trim()
         .toLowerCase();
 
+
+    const expiry =
+        timestampToDate(
+            subscription.expiryDate
+        );
+
+
+    if(status !== "active"){
+
+        if(status === "expired"){
+
+            return {
+                active:false,
+                reason:"expired"
+            };
+
+        }
+
+
+        return {
+            active:false,
+            reason:"inactive"
+        };
+
+    }
+
+
+    if(!expiry){
+
+        return {
+            active:false,
+            reason:"no-expiry"
+        };
+
+    }
+
+
+    if(
+        expiry.getTime()
+        <=
+        Date.now()
+    ){
+
+        return {
+            active:false,
+            reason:"expired"
+        };
+
+    }
+
+
+    return {
+        active:true,
+        reason:"active"
+    };
+
 }
 
 
-const urlCategory =
-    getCategoryFromURL();
+/* =========================================================
+   LOAD SUBSCRIPTION
+========================================================= */
+
+async function loadSubscription(){
+
+    const ref =
+        getSubscriptionsRef();
 
 
-/* =====================================================
-   SET CATEGORY FROM URL
-===================================================== */
-
-function setupCategory() {
-
-    const validCategories = [
-        "house",
-        "apartment",
-        "land",
-        "commercial"
-    ];
+    const q =
+        query(
+            ref,
+            where(
+                "companyId",
+                "==",
+                currentCompanyId
+            )
+        );
 
 
-    if (
-        validCategories.includes(
-            urlCategory
-        )
-    ) {
-
-        typeSelect.value =
-            urlCategory;
+    const snapshot =
+        await getDocs(q);
 
 
-        const names = {
+    if(snapshot.empty){
 
-            house:
-                "Houses",
+        currentSubscription =
+            null;
 
-            apartment:
-                "Apartments",
-
-            land:
-                "Land",
-
-            commercial:
-                "Commercial"
-
+        return {
+            active:false,
+            reason:"not-found"
         };
 
-
-        document
-            .getElementById(
-                "pageTitle"
-            )
-            .textContent =
-            `${names[urlCategory]} Properties`;
+    }
 
 
-        document
-            .getElementById(
-                "categoryActive"
-            )
-            .textContent =
-            `Showing ${names[urlCategory]} only`;
+    const subscriptions = [];
+
+
+    snapshot.forEach(item => {
+
+        subscriptions.push({
+
+            id:item.id,
+
+            ...item.data()
+
+        });
+
+    });
+
+
+    const valid =
+        subscriptions
+        .filter(item => {
+
+            const status =
+                String(
+                    item.status || ""
+                )
+                .toLowerCase();
+
+
+            const expiry =
+                timestampToDate(
+                    item.expiryDate
+                );
+
+
+            return (
+                status === "active" &&
+                expiry &&
+                expiry.getTime() > Date.now()
+            );
+
+        })
+        .sort((a,b) => {
+
+            const aDate =
+                timestampToDate(
+                    a.expiryDate
+                );
+
+
+            const bDate =
+                timestampToDate(
+                    b.expiryDate
+                );
+
+
+            return (
+                bDate.getTime()
+                -
+                aDate.getTime()
+            );
+
+        });
+
+
+    if(valid.length){
+
+        currentSubscription =
+            valid[0];
+
+        return checkSubscription(
+            currentSubscription
+        );
+
+    }
+
+
+    currentSubscription =
+        subscriptions[0];
+
+
+    return checkSubscription(
+        currentSubscription
+    );
+
+}
+
+
+/* =========================================================
+   SHOW SUBSCRIPTION LOCK
+========================================================= */
+
+function showSubscriptionLock(
+    reason,
+    companyName
+){
+
+    websiteContent.classList.add(
+        "hidden"
+    );
+
+
+    subscriptionLock.classList.remove(
+        "hidden"
+    );
+
+
+    document
+        .getElementById(
+            "subscriptionCompanyName"
+        )
+        .textContent =
+        companyName ||
+        currentCompanyId;
+
+
+    const title =
+        document.getElementById(
+            "subscriptionLockTitle"
+        );
+
+
+    const message =
+        document.getElementById(
+            "subscriptionLockMessage"
+        );
+
+
+    if(reason === "expired"){
+
+        title.textContent =
+            "Subscription Expired";
+
+
+        message.textContent =
+            "This company's website subscription has expired. Please renew the subscription to continue.";
+
+    }
+
+    else if(reason === "not-found"){
+
+        title.textContent =
+            "Subscription Not Found";
+
+
+        message.textContent =
+            "No subscription was found for this company.";
+
+    }
+
+    else{
+
+        title.textContent =
+            "Website Inactive";
+
+
+        message.textContent =
+            "This company's website is currently inactive.";
 
     }
 
 }
 
 
-/* =====================================================
-   RENDER PROPERTIES
-===================================================== */
+/* =========================================================
+   LOAD COMPANY
+========================================================= */
 
-function renderProperties(
-    properties
-) {
+async function loadCompany(){
 
-    count.textContent =
-        `${properties.length} ${
-            properties.length === 1
-                ? "Property"
-                : "Properties"
-        }`;
+    const snapshot =
+        await getDoc(
+            getCompanyRef()
+        );
 
 
-    if (!properties.length) {
+    if(!snapshot.exists()){
 
-        listings.innerHTML = "";
+        throw new Error(
+            "Company not found: " +
+            currentCompanyId
+        );
 
-        noProperties.hidden =
-            false;
+    }
+
+
+    currentCompany =
+        snapshot.data();
+
+
+    const subscription =
+        await loadSubscription();
+
+
+    if(!subscription.active){
+
+        showSubscriptionLock(
+            subscription.reason,
+            currentCompany.name ||
+            currentCompany.companyName ||
+            currentCompanyId
+        );
+
+
+        return false;
+
+    }
+
+
+    updateCompanyUI(
+        currentCompany
+    );
+
+
+    return true;
+
+}
+
+
+/* =========================================================
+   COMPANY UI
+========================================================= */
+
+function updateCompanyUI(company){
+
+    const name =
+        company.name ||
+        company.companyName ||
+        "Company";
+
+
+    const logo =
+        company.logo ||
+        company.companyLogo ||
+        "";
+
+
+    const phone =
+        company.phone ||
+        company.companyPhone ||
+        "";
+
+
+    const whatsapp =
+        company.whatsapp ||
+        company.companyWhatsApp ||
+        phone;
+
+
+    const email =
+        company.email ||
+        company.companyEmail ||
+        "";
+
+
+    const address =
+        company.address ||
+        company.companyAddress ||
+        "";
+
+
+    const description =
+        company.description ||
+        company.companyDescription ||
+        "";
+
+
+    document.title =
+        name +
+        " | Property";
+
+
+    document
+        .getElementById(
+            "pageDescription"
+        )
+        .setAttribute(
+            "content",
+            description ||
+            "Property details from " +
+            name
+        );
+
+
+    document
+        .getElementById(
+            "brandName"
+        )
+        .textContent =
+        name;
+
+
+    document
+        .getElementById(
+            "brandLocation"
+        )
+        .textContent =
+        address ||
+        "Property Services";
+
+
+    const brandLogo =
+        document.getElementById(
+            "brandLogo"
+        );
+
+
+    if(logo){
+
+        brandLogo.innerHTML = `
+
+            <img
+                src="${escapeHTML(logo)}"
+                alt="${escapeHTML(name)}"
+            >
+
+        `;
+
+    }
+    else{
+
+        brandLogo.textContent =
+            name.charAt(0)
+                .toUpperCase();
+
+    }
+
+
+    const companyLogo =
+        document.getElementById(
+            "companyLogo"
+        );
+
+
+    if(logo){
+
+        companyLogo.innerHTML = `
+
+            <img
+                src="${escapeHTML(logo)}"
+                alt="${escapeHTML(name)}"
+            >
+
+        `;
+
+    }
+    else{
+
+        companyLogo.textContent =
+            name.charAt(0)
+                .toUpperCase();
+
+    }
+
+
+    document
+        .getElementById(
+            "companyName"
+        )
+        .textContent =
+        name;
+
+
+    document
+        .getElementById(
+            "companyDescription"
+        )
+        .textContent =
+        description ||
+        "Property services and listings.";
+
+
+    document
+        .getElementById(
+            "footerCompanyName"
+        )
+        .textContent =
+        name;
+
+
+    document
+        .getElementById(
+            "footerCompany"
+        )
+        .textContent =
+        name;
+
+
+    document
+        .getElementById(
+            "footerDescription"
+        )
+        .textContent =
+        description ||
+        "Property services and listings.";
+
+
+    document
+        .getElementById(
+            "footerAddress"
+        )
+        .textContent =
+        address ||
+        "Contact us for more information.";
+
+
+    const footerContact =
+        document.getElementById(
+            "footerContact"
+        );
+
+
+    let html = "";
+
+
+    if(phone){
+
+        html += `
+
+            <a
+                href="tel:${escapeHTML(
+                    normalizePhone(phone)
+                )}"
+            >
+                📞 ${escapeHTML(phone)}
+            </a>
+
+        `;
+
+    }
+
+
+    if(email){
+
+        html += `
+
+            <a
+                href="mailto:${escapeHTML(email)}"
+            >
+                ✉️ ${escapeHTML(email)}
+            </a>
+
+        `;
+
+    }
+
+
+    if(whatsapp){
+
+        html += `
+
+            <a
+                href="https://wa.me/${escapeHTML(
+                    whatsappNumber(whatsapp)
+                )}"
+                target="_blank"
+                rel="noopener"
+            >
+                💬 WhatsApp
+            </a>
+
+        `;
+
+    }
+
+
+    footerContact.innerHTML =
+        html;
+
+
+    const callButton =
+        document.getElementById(
+            "headerCallButton"
+        );
+
+
+    if(phone){
+
+        callButton.classList.remove(
+            "hidden"
+        );
+
+
+        callButton.onclick =
+            () => {
+
+                window.location.href =
+                    "tel:" +
+                    normalizePhone(phone);
+
+            };
+
+    }
+    else{
+
+        callButton.classList.add(
+            "hidden"
+        );
+
+    }
+
+
+    const whatsappButton =
+        document.getElementById(
+            "headerWhatsAppButton"
+        );
+
+
+    if(whatsapp){
+
+        whatsappButton.classList.remove(
+            "hidden"
+        );
+
+
+        whatsappButton.onclick =
+            () => {
+
+                window.open(
+                    "https://wa.me/" +
+                    whatsappNumber(whatsapp),
+                    "_blank"
+                );
+
+            };
+
+    }
+    else{
+
+        whatsappButton.classList.add(
+            "hidden"
+        );
+
+    }
+
+
+    const homeURL =
+        "index.html?companyId=" +
+        encodeURIComponent(
+            currentCompanyId
+        );
+
+
+    document
+        .getElementById(
+            "homeLink"
+        )
+        .href =
+        homeURL;
+
+
+    document
+        .getElementById(
+            "propertiesLink"
+        )
+        .href =
+        homeURL +
+        "#propertiesSection";
+
+
+    document
+        .getElementById(
+            "mobileHomeLink"
+        )
+        .href =
+        homeURL;
+
+
+    document
+        .getElementById(
+            "mobilePropertiesLink"
+        )
+        .href =
+        homeURL +
+        "#propertiesSection";
+
+
+    document
+        .getElementById(
+            "backButton"
+        )
+        .href =
+        homeURL;
+
+}
+
+
+/* =========================================================
+   LOAD PROPERTY
+========================================================= */
+
+async function loadProperty(){
+
+    if(!currentPropertyId){
+
+        throw new Error(
+            "Property ID is missing from the URL."
+        );
+
+    }
+
+
+    const snapshot =
+        await getDoc(
+            getPropertyRef()
+        );
+
+
+    if(!snapshot.exists()){
+
+        throw new Error(
+            "Property not found."
+        );
+
+    }
+
+
+    currentProperty = {
+
+        id:snapshot.id,
+
+        ...snapshot.data()
+
+    };
+
+
+    renderProperty(
+        currentProperty
+    );
+
+}
+
+
+/* =========================================================
+   GET PROPERTY IMAGES
+========================================================= */
+
+function getPropertyImages(property){
+
+    const fields = [
+
+        "imageUrl",
+        "imageUrl2",
+        "imageUrl3",
+        "imageUrl4",
+        "imageUrl5"
+
+    ];
+
+
+    const images = [];
+
+
+    fields.forEach(field => {
+
+        const value =
+            property[field];
+
+
+        if(
+            typeof value === "string" &&
+            value.trim()
+        ){
+
+            const url =
+                value.trim();
+
+
+            if(
+                !images.includes(url)
+            ){
+
+                images.push(url);
+
+            }
+
+        }
+
+    });
+
+
+    /*
+     * OPTIONAL SUPPORT:
+     *
+     * If later you add an images array,
+     * it can also work.
+     */
+
+    if(
+        Array.isArray(
+            property.images
+        )
+    ){
+
+        property.images.forEach(item => {
+
+            let url = "";
+
+
+            if(typeof item === "string"){
+
+                url =
+                    item.trim();
+
+            }
+
+            else if(
+                item &&
+                typeof item.url === "string"
+            ){
+
+                url =
+                    item.url.trim();
+
+            }
+
+
+            if(
+                url &&
+                !images.includes(url)
+            ){
+
+                images.push(url);
+
+            }
+
+        });
+
+    }
+
+
+    return images;
+
+}
+
+
+/* =========================================================
+   RENDER PROPERTY
+========================================================= */
+
+function renderProperty(property){
+
+    const title =
+        property.title ||
+        "Untitled Property";
+
+
+    const type =
+        property.propertyType ||
+        property.type ||
+        "Property";
+
+
+    const location =
+        property.location ||
+        "Location not specified";
+
+
+    const price =
+        property.price ||
+        "Price on request";
+
+
+    const description =
+        property.description ||
+        "No description available.";
+
+
+    const purpose =
+        String(
+            property.purpose ||
+            "sale"
+        )
+        .toLowerCase();
+
+
+    const status =
+        String(
+            property.status ||
+            "available"
+        )
+        .toLowerCase();
+
+
+    document.title =
+        title +
+        " | " +
+        (
+            currentCompany?.name ||
+            currentCompany?.companyName ||
+            "Property"
+        );
+
+
+    document
+        .getElementById(
+            "propertyTitle"
+        )
+        .textContent =
+        title;
+
+
+    document
+        .getElementById(
+            "propertyType"
+        )
+        .textContent =
+        type;
+
+
+    document
+        .getElementById(
+            "propertyLocation"
+        )
+        .textContent =
+        "📍 " +
+        location;
+
+
+    document
+        .getElementById(
+            "propertyPrice"
+        )
+        .textContent =
+        price;
+
+
+    document
+        .getElementById(
+            "propertyDescription"
+        )
+        .textContent =
+        description;
+
+
+    const statusElement =
+        document.getElementById(
+            "propertyStatus"
+        );
+
+
+    statusElement.className =
+        "property-status";
+
+
+    if(status === "sold"){
+
+        statusElement.classList.add(
+            "sold"
+        );
+
+        statusElement.textContent =
+            "Sold";
+
+    }
+
+    else if(status === "rented"){
+
+        statusElement.classList.add(
+            "rented"
+        );
+
+        statusElement.textContent =
+            "Rented";
+
+    }
+
+    else{
+
+        statusElement.textContent =
+            "Available";
+
+    }
+
+
+    const meta =
+        document.getElementById(
+            "propertyMeta"
+        );
+
+
+    let metaHTML = "";
+
+
+    if(property.bedrooms){
+
+        metaHTML += `
+
+            <div class="meta-item">
+
+                🛏
+                ${escapeHTML(
+                    property.bedrooms
+                )}
+                Bedrooms
+
+            </div>
+
+        `;
+
+    }
+
+
+    if(property.bathrooms){
+
+        metaHTML += `
+
+            <div class="meta-item">
+
+                🚿
+                ${escapeHTML(
+                    property.bathrooms
+                )}
+                Bathrooms
+
+            </div>
+
+        `;
+
+    }
+
+
+    if(property.area){
+
+        metaHTML += `
+
+            <div class="meta-item">
+
+                📐
+                ${escapeHTML(
+                    property.area
+                )}
+
+            </div>
+
+        `;
+
+    }
+
+
+    if(purpose){
+
+        metaHTML += `
+
+            <div class="meta-item">
+
+                ${
+                    purpose === "rent"
+                    ? "🏠 For Rent"
+                    : "🏠 For Sale"
+                }
+
+            </div>
+
+        `;
+
+    }
+
+
+    meta.innerHTML =
+        metaHTML;
+
+
+    renderDetails(
+        property
+    );
+
+
+    /*
+     * THIS IS THE IMPORTANT PART.
+     *
+     * It reads ALL FIVE URLs.
+     */
+
+    propertyImages =
+        getPropertyImages(
+            property
+        );
+
+
+    currentImageIndex = 0;
+
+
+    renderGallery();
+
+
+    setupContactButtons();
+
+}
+
+
+/* =========================================================
+   GALLERY
+========================================================= */
+
+function renderGallery(){
+
+    thumbnails.innerHTML =
+        "";
+
+
+    if(!propertyImages.length){
+
+        mainPropertyImage.classList.add(
+            "hidden"
+        );
+
+
+        mainImagePlaceholder.classList.remove(
+            "hidden"
+        );
+
+
+        previousImageButton.classList.add(
+            "hidden"
+        );
+
+
+        nextImageButton.classList.add(
+            "hidden"
+        );
+
+
+        galleryCounter.classList.add(
+            "hidden"
+        );
+
 
         return;
 
     }
 
 
-    noProperties.hidden =
-        true;
+    mainImagePlaceholder.classList.add(
+        "hidden"
+    );
 
 
-    listings.innerHTML =
-        properties.map(
-            property => {
-
-                const location =
-                    property.Location ||
-                    property.location ||
-                    property.address ||
-                    "Location not provided";
+    mainPropertyImage.classList.remove(
+        "hidden"
+    );
 
 
-                const purpose =
-                    String(
-                        property.purpose ||
-                        property.status ||
-                        "sale"
-                    )
-                        .trim()
-                        .toLowerCase();
+    if(propertyImages.length > 1){
+
+        previousImageButton.classList.remove(
+            "hidden"
+        );
 
 
-                const purposeLabel =
-                    purpose === "rent"
-                        ? "For Rent"
-                        : "For Sale";
+        nextImageButton.classList.remove(
+            "hidden"
+        );
 
 
-                const propertyType =
-                    String(
-                        property.propertyType ||
-                        property.type ||
-                        ""
-                    )
-                        .trim()
-                        .toLowerCase();
+        galleryCounter.classList.remove(
+            "hidden"
+        );
+
+    }
+    else{
+
+        previousImageButton.classList.add(
+            "hidden"
+        );
 
 
-                const image =
-                    property.imageUrl ||
-                    property.imageURL ||
-                    property.image ||
-                    "";
+        nextImageButton.classList.add(
+            "hidden"
+        );
 
 
-                const title =
-                    property.title ||
-                    property.name ||
-                    "Untitled Property";
+        galleryCounter.classList.add(
+            "hidden"
+        );
+
+    }
 
 
-                const imageHTML =
-                    image
-                        ? `
-                            <img
-                                src="${escapeHTML(image)}"
-                                alt="${escapeHTML(title)}"
-                                class="dynamic-image"
-                                loading="lazy"
-                                onerror="
-                                    this.style.display='none';
-                                    this.nextElementSibling.style.display='grid';
-                                "
-                            >
+    propertyImages.forEach(
+        (url,index) => {
 
-                            <div
-                                class="image-placeholder"
-                                style="display:none;"
-                            >
-                                Property Image
-                            </div>
-                        `
-                        : `
-                            <div class="image-placeholder">
-                                Property Image
-                            </div>
-                        `;
+            const button =
+                document.createElement(
+                    "button"
+                );
 
 
-                return `
-
-                    <article class="property-card">
-
-                        <div class="property-image">
-
-                            ${imageHTML}
-
-                            <span class="property-status">
-                                ${purposeLabel}
-                            </span>
-
-                        </div>
+            button.type =
+                "button";
 
 
-                        <div class="property-content">
-
-                            <h3>
-                                ${escapeHTML(title)}
-                            </h3>
+            button.className =
+                "thumbnail";
 
 
-                            <p class="property-location">
-                                📍
-                                ${escapeHTML(location)}
-                            </p>
+            if(
+                index ===
+                currentImageIndex
+            ){
 
-
-                            <div class="property-meta">
-
-                                ${
-                                    property.bedrooms
-                                        ? `
-                                            <span>
-                                                🛏
-                                                ${escapeHTML(
-                                                    property.bedrooms
-                                                )}
-                                                Beds
-                                            </span>
-                                        `
-                                        : ""
-                                }
-
-
-                                ${
-                                    property.bathrooms
-                                        ? `
-                                            <span>
-                                                🚿
-                                                ${escapeHTML(
-                                                    property.bathrooms
-                                                )}
-                                                Baths
-                                            </span>
-                                        `
-                                        : ""
-                                }
-
-
-                                ${
-                                    property.area
-                                        ? `
-                                            <span>
-                                                📐
-                                                ${escapeHTML(
-                                                    property.area
-                                                )}
-                                                sqm
-                                            </span>
-                                        `
-                                        : ""
-                                }
-
-
-                                ${
-                                    propertyType
-                                        ? `
-                                            <span>
-                                                🏠
-                                                ${escapeHTML(
-                                                    propertyType
-                                                )}
-                                            </span>
-                                        `
-                                        : ""
-                                }
-
-                            </div>
-
-
-                            <div class="property-bottom">
-
-                                <strong>
-                                    ${formatPrice(
-                                        property.price,
-                                        purpose
-                                    )}
-                                </strong>
-
-
-                                <a
-                                    href="property-details.html?id=${encodeURIComponent(property.id)}"
-                                >
-                                    View Details →
-                                </a>
-
-                            </div>
-
-                        </div>
-
-                    </article>
-
-                `;
+                button.classList.add(
+                    "active"
+                );
 
             }
-        ).join("");
+
+
+            button.innerHTML = `
+
+                <img
+                    src="${escapeHTML(url)}"
+                    alt="Property photo ${index + 1}"
+                    loading="lazy"
+                >
+
+            `;
+
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    setMainImage(
+                        index
+                    );
+
+                }
+            );
+
+
+            thumbnails.appendChild(
+                button
+            );
+
+        }
+    );
+
+
+    setMainImage(
+        currentImageIndex
+    );
 
 }
 
 
-/* =====================================================
-   APPLY FILTERS
-===================================================== */
+/* =========================================================
+   SET MAIN IMAGE
+========================================================= */
 
-function applyFilters() {
+function setMainImage(index){
 
-    const location =
-        locationInput.value
-            .trim()
-            .toLowerCase();
+    if(!propertyImages.length){
 
+        return;
 
-    const type =
-        typeSelect.value
-            .trim()
-            .toLowerCase();
+    }
 
 
-    const purpose =
-        purposeSelect.value
-            .trim()
-            .toLowerCase();
+    if(index < 0){
+
+        index =
+            propertyImages.length - 1;
+
+    }
 
 
-    const filtered =
-        allProperties.filter(
-            property => {
+    if(
+        index >=
+        propertyImages.length
+    ){
 
-                const propertyLocation =
-                    String(
-                        property.Location ||
-                        property.location ||
-                        property.address ||
-                        ""
-                    )
-                        .toLowerCase();
+        index = 0;
+
+    }
 
 
-                const propertyType =
-                    String(
-                        property.propertyType ||
-                        property.type ||
-                        ""
-                    )
-                        .trim()
-                        .toLowerCase();
+    currentImageIndex =
+        index;
 
 
-                const propertyPurpose =
-                    String(
-                        property.purpose ||
-                        property.status ||
-                        ""
-                    )
-                        .trim()
-                        .toLowerCase();
+    const url =
+        propertyImages[index];
 
 
-                return (
+    mainPropertyImage.src =
+        url;
 
-                    (
-                        !location ||
-                        propertyLocation.includes(
-                            location
-                        )
-                    )
 
-                    &&
+    mainPropertyImage.alt =
+        (
+            currentProperty?.title ||
+            "Property"
+        ) +
+        " photo " +
+        (index + 1);
 
-                    (
-                        !type ||
-                        propertyType === type
-                    )
 
-                    &&
+    galleryCounter.textContent =
+        (index + 1) +
+        " / " +
+        propertyImages.length;
 
-                    (
-                        !purpose ||
-                        propertyPurpose === purpose
-                    )
 
+    thumbnails
+        .querySelectorAll(
+            ".thumbnail"
+        )
+        .forEach(
+            (button,buttonIndex) => {
+
+                button.classList.toggle(
+                    "active",
+                    buttonIndex === index
                 );
 
             }
         );
 
+}
 
-    renderProperties(
-        filtered
-    );
+
+/* =========================================================
+   GALLERY NAVIGATION
+========================================================= */
+
+previousImageButton.addEventListener(
+    "click",
+    () => {
+
+        setMainImage(
+            currentImageIndex - 1
+        );
+
+    }
+);
+
+
+nextImageButton.addEventListener(
+    "click",
+    () => {
+
+        setMainImage(
+            currentImageIndex + 1
+        );
+
+    }
+);
+
+
+/* =========================================================
+   IMAGE ERROR
+========================================================= */
+
+mainPropertyImage.addEventListener(
+    "error",
+    () => {
+
+        mainPropertyImage.classList.add(
+            "hidden"
+        );
+
+
+        mainImagePlaceholder.classList.remove(
+            "hidden"
+        );
+
+        mainImagePlaceholder.textContent =
+            "Image could not be loaded.";
+
+    }
+);
+
+
+/* =========================================================
+   DETAILS
+========================================================= */
+
+function renderDetails(property){
+
+    const detailsGrid =
+        document.getElementById(
+            "detailsGrid"
+        );
+
+
+    const details = [
+
+        [
+            "Property Type",
+            property.propertyType ||
+            property.type ||
+            "Not specified"
+        ],
+
+        [
+            "Purpose",
+            String(
+                property.purpose ||
+                "Sale"
+            )
+            .toLowerCase() === "rent"
+            ? "For Rent"
+            : "For Sale"
+        ],
+
+        [
+            "Status",
+            property.status ||
+            "Available"
+        ],
+
+        [
+            "Bedrooms",
+            property.bedrooms ||
+            "Not specified"
+        ],
+
+        [
+            "Bathrooms",
+            property.bathrooms ||
+            "Not specified"
+        ],
+
+        [
+            "Area",
+            property.area ||
+            "Not specified"
+        ]
+
+    ];
+
+
+    detailsGrid.innerHTML =
+        details
+        .map(item => `
+
+            <div class="detail-box">
+
+                <span class="detail-label">
+                    ${escapeHTML(
+                        item[0]
+                    )}
+                </span>
+
+                <span class="detail-value">
+                    ${escapeHTML(
+                        item[1]
+                    )}
+                </span>
+
+            </div>
+
+        `)
+        .join("");
 
 }
 
 
-/* =====================================================
-   SEARCH BUTTON
-===================================================== */
+/* =========================================================
+   CONTACT BUTTONS
+========================================================= */
 
-document
-    .getElementById(
-        "propertyFilterButton"
-    )
-    .addEventListener(
-        "click",
-        applyFilters
-    );
+function setupContactButtons(){
+
+    const company =
+        currentCompany ||
+        {};
 
 
-/* =====================================================
-   LOAD PROPERTIES
-===================================================== */
-
-async function loadProperties() {
-
-    listings.innerHTML = `
-        <div class="property-loading">
-            Loading properties...
-        </div>
-    `;
+    const phone =
+        company.phone ||
+        company.companyPhone ||
+        "";
 
 
-    try {
-
-        const snapshot =
-            await getDocs(
-                collection(
-                    db,
-                    "Properties"
-                )
-            );
+    const whatsapp =
+        company.whatsapp ||
+        company.companyWhatsApp ||
+        phone;
 
 
-        allProperties =
-            snapshot.docs.map(
-                item => ({
-
-                    id:
-                        item.id,
-
-                    ...item.data()
-
-                })
-            );
+    const email =
+        company.email ||
+        company.companyEmail ||
+        "";
 
 
-        /*
-         * First apply category from URL.
-         */
-
-        applyFilters();
-
-
-    } catch (error) {
-
-        console.error(
-            "EstatePro: Properties loading error:",
-            error
+    const call =
+        document.getElementById(
+            "propertyCallButton"
         );
 
 
-        listings.innerHTML = `
-            <div class="property-error">
-                Unable to load properties from Firebase.
-            </div>
-        `;
+    const whatsappButton =
+        document.getElementById(
+            "propertyWhatsAppButton"
+        );
 
 
-        count.textContent =
-            "0 Properties";
+    const emailButton =
+        document.getElementById(
+            "propertyEmailButton"
+        );
+
+
+    if(phone){
+
+        call.href =
+            "tel:" +
+            normalizePhone(phone);
+
+        call.classList.remove(
+            "hidden"
+        );
+
+    }
+    else{
+
+        call.classList.add(
+            "hidden"
+        );
+
+    }
+
+
+    if(whatsapp){
+
+        whatsappButton.href =
+            "https://wa.me/" +
+            whatsappNumber(whatsapp);
+
+        whatsappButton.classList.remove(
+            "hidden"
+        );
+
+    }
+    else{
+
+        whatsappButton.classList.add(
+            "hidden"
+        );
+
+    }
+
+
+    if(email){
+
+        emailButton.href =
+            "mailto:" +
+            email;
+
+        emailButton.classList.remove(
+            "hidden"
+        );
+
+    }
+    else{
+
+        emailButton.classList.add(
+            "hidden"
+        );
 
     }
 
 }
 
 
-/* =====================================================
-   COMPANY SETTINGS
-===================================================== */
+/* =========================================================
+   MOBILE MENU
+========================================================= */
 
-async function loadCompanySettings() {
-
-    try {
-
-        const companyRef =
-            doc(
-                db,
-                "CompanySettings",
-                "main"
-            );
+const mobileMenuButton =
+    document.getElementById(
+        "mobileMenuButton"
+    );
 
 
-        const snapshot =
-            await getDoc(
-                companyRef
-            );
+const mobileMenu =
+    document.getElementById(
+        "mobileMenu"
+    );
 
 
-        if (!snapshot.exists()) {
+mobileMenuButton.addEventListener(
+    "click",
+    () => {
+
+        mobileMenu.classList.toggle(
+            "show"
+        );
+
+    }
+);
+
+
+mobileMenu
+    .querySelectorAll("a")
+    .forEach(link => {
+
+        link.addEventListener(
+            "click",
+            () => {
+
+                mobileMenu.classList.remove(
+                    "show"
+                );
+
+            }
+        );
+
+    });
+
+
+/* =========================================================
+   SUBSCRIPTION RELOAD
+========================================================= */
+
+document
+    .getElementById(
+        "subscriptionReload"
+    )
+    .addEventListener(
+        "click",
+        () => {
+
+            window.location.reload();
+
+        }
+    );
+
+
+/* =========================================================
+   START APP
+========================================================= */
+
+async function startApp(){
+
+    document
+        .getElementById(
+            "footerYear"
+        )
+        .textContent =
+        new Date()
+        .getFullYear();
+
+
+    if(!currentPropertyId){
+
+        loadingBox.innerHTML = `
+
+            <div class="error-box">
+
+                <h2>
+                    Property ID Missing
+                </h2>
+
+                <p>
+                    Please open the property from the Properties page.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    try{
+
+        const active =
+            await loadCompany();
+
+
+        if(!active){
 
             return;
 
         }
 
 
-        const data =
-            snapshot.data();
+        await loadProperty();
 
 
-        const phone =
-            document.getElementById(
-                "footerPhone"
-            );
+        loadingBox.classList.add(
+            "hidden"
+        );
 
 
-        const email =
-            document.getElementById(
-                "footerEmail"
-            );
+        propertyContent.classList.remove(
+            "hidden"
+        );
 
 
-        const address =
-            document.getElementById(
-                "footerAddress"
-            );
+        console.log(
+            "EstatePro Property:",
+            currentPropertyId
+        );
 
 
-        if (
-            phone &&
-            data.companyPhone
-        ) {
-
-            phone.textContent =
-                data.companyPhone;
-
-            phone.href =
-                "tel:" +
-                data.companyPhone;
-
-        }
+        console.log(
+            "Property Images:",
+            propertyImages
+        );
 
 
-        if (
-            email &&
-            data.companyEmail
-        ) {
+    }
 
-            email.textContent =
-                data.companyEmail;
-
-            email.href =
-                "mailto:" +
-                data.companyEmail;
-
-        }
-
-
-        if (
-            address &&
-            data.companyAddress
-        ) {
-
-            address.textContent =
-                data.companyAddress;
-
-        }
-
-
-        const whatsappNumber =
-            String(
-                data.companyWhatsApp ||
-                data.companyPhone ||
-                ""
-            )
-                .replace(
-                    /\D/g,
-                    ""
-                );
-
-
-        const navWhatsapp =
-            document.getElementById(
-                "navWhatsapp"
-            );
-
-
-        const propertyWhatsapp =
-            document.getElementById(
-                "propertyWhatsapp"
-            );
-
-
-        if (whatsappNumber) {
-
-            const whatsappURL =
-                `https://wa.me/${whatsappNumber}`;
-
-
-            if (navWhatsapp) {
-
-                navWhatsapp.href =
-                    whatsappURL;
-
-            }
-
-
-            if (propertyWhatsapp) {
-
-                propertyWhatsapp.href =
-                    whatsappURL;
-
-            }
-
-        }
-
-    } catch (error) {
+    catch(error){
 
         console.error(
-            "EstatePro: Company settings error:",
+            "EstatePro property error:",
             error
         );
+
+
+        let message =
+            error?.message ||
+            "Something went wrong.";
+
+
+        if(
+            error?.code ===
+            "permission-denied"
+        ){
+
+            message =
+                "Firebase denied access. Check your Firestore Rules.";
+
+        }
+
+
+        loadingBox.innerHTML = `
+
+            <div class="error-box">
+
+                <h2>
+                    Unable to Load Property
+                </h2>
+
+                <p>
+                    ${escapeHTML(
+                        message
+                    )}
+                </p>
+
+                <p>
+
+                    Company ID:
+                    <strong>
+                        ${escapeHTML(
+                            currentCompanyId
+                        )}
+                    </strong>
+
+                    <br>
+
+                    Property ID:
+                    <strong>
+                        ${escapeHTML(
+                            currentPropertyId
+                        )}
+                    </strong>
+
+                </p>
+
+            </div>
+
+        `;
 
     }
 
 }
 
 
-/* =====================================================
-   START
-===================================================== */
+/* =========================================================
+   DEBUG
+========================================================= */
 
-setupCategory();
+window.estateProProperty = {
 
-loadProperties();
+    companyId:
+        currentCompanyId,
 
-loadCompanySettings();
+    propertyId:
+        currentPropertyId,
+
+    getCompany:
+        () => currentCompany,
+
+    getProperty:
+        () => currentProperty,
+
+    getImages:
+        () => propertyImages,
+
+    reload:
+        startApp
+
+};
 
 
-/* =====================================================
-   YEAR
-===================================================== */
+/* =========================================================
+   RUN
+========================================================= */
 
-const year =
-    document.getElementById(
-        "currentYear"
-    );
-
-
-if (year) {
-
-    year.textContent =
-        new Date().getFullYear();
-
-}
+startApp();
 
 </script>
 
-
-<script src="app.js?v=5"></script>
-
 </body>
-
 </html>

@@ -1,3280 +1,3554 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<meta
-    name="description"
-    id="pageDescription"
-    content="Browse available properties."
->
-
-<meta name="theme-color" content="#0f766e">
-
-<title id="pageTitle">Properties</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
->
-
-<style>
-*{
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    margin:0;
-    font-family:Inter,Arial,sans-serif;
-    background:#f5f7f9;
-    color:#17202a;
-}
-
-button,
-input,
-select,
-textarea{
-    font:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-img{
-    max-width:100%;
-}
-
-a{
-    text-decoration:none;
-    color:inherit;
-}
-
-.hidden{
-    display:none!important;
-}
-
-/* HEADER */
-
-.site-header{
-    position:sticky;
-    top:0;
-    z-index:1000;
-    background:#fff;
-    border-bottom:1px solid #e5e7eb;
-}
-
-.header-inner{
-    max-width:1200px;
-    margin:auto;
-    padding:13px 18px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:20px;
-}
-
-.brand{
-    display:flex;
-    align-items:center;
-    gap:11px;
-    min-width:0;
-}
-
-.brand-logo{
-    width:48px;
-    height:48px;
-    border-radius:12px;
-    background:#ecfdf5;
-    color:#0f766e;
-    display:grid;
-    place-items:center;
-    overflow:hidden;
-    flex-shrink:0;
-    font-weight:800;
-    font-size:20px;
-}
-
-.brand-logo img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-}
-
-.brand-text{
-    min-width:0;
-}
-
-.brand-name{
-    font-size:17px;
-    font-weight:800;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-
-.brand-location{
-    color:#64748b;
-    font-size:12px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-
-.header-actions{
-    display:flex;
-    align-items:center;
-    gap:8px;
-}
-
-.header-button{
-    border:1px solid #d7dde3;
-    background:#fff;
-    color:#334155;
-    padding:9px 13px;
-    border-radius:8px;
-    font-weight:600;
-}
-
-.whatsapp-button{
-    border:0;
-    background:#0f766e;
-    color:#fff;
-    padding:10px 15px;
-    border-radius:8px;
-    font-weight:700;
-}
-
-/* HERO */
-
-.hero{
-    background:linear-gradient(135deg,#0f766e,#115e59);
-    color:#fff;
-}
-
-.hero-inner{
-    max-width:1200px;
-    margin:auto;
-    padding:65px 18px 70px;
-}
-
-.hero-content{
-    max-width:720px;
-}
-
-.hero-label{
-    display:inline-block;
-    padding:7px 12px;
-    border-radius:999px;
-    background:rgba(255,255,255,.12);
-    font-size:12px;
-    font-weight:700;
-    margin-bottom:15px;
-}
-
-.hero h1{
-    margin:0 0 15px;
-    font-size:clamp(32px,6vw,55px);
-    line-height:1.08;
-}
-
-.hero p{
-    margin:0;
-    color:rgba(255,255,255,.86);
-    line-height:1.7;
-    max-width:650px;
-}
-
-/* SEARCH */
-
-.search-section{
-    max-width:1100px;
-    margin:-28px auto 0;
-    position:relative;
-    z-index:10;
-    padding:0 18px;
-}
-
-.search-box{
-    background:#fff;
-    border-radius:15px;
-    padding:15px;
-    box-shadow:0 10px 35px rgba(0,0,0,.10);
-    display:grid;
-    grid-template-columns:1.5fr 1fr 1fr auto;
-    gap:10px;
-}
-
-.search-control{
-    min-width:0;
-}
-
-.search-control input,
-.search-control select{
-    width:100%;
-    border:1px solid #d7dde3;
-    background:#fff;
-    padding:12px;
-    border-radius:9px;
-    outline:none;
-}
-
-.search-control input:focus,
-.search-control select:focus{
-    border-color:#0f766e;
-}
-
-.search-button{
-    border:0;
-    background:#0f766e;
-    color:#fff;
-    padding:0 22px;
-    border-radius:9px;
-    font-weight:700;
-}
-
-/* MAIN */
-
-.main-container{
-    max-width:1200px;
-    margin:auto;
-    padding:45px 18px 70px;
-}
-
-.section-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-end;
-    gap:20px;
-    margin-bottom:20px;
-}
-
-.section-header h2{
-    margin:0 0 5px;
-    font-size:26px;
-}
-
-.section-header p{
-    margin:0;
-    color:#64748b;
-    font-size:14px;
-}
-
-.property-count{
-    color:#64748b;
-    font-size:13px;
-}
-
-/* CATEGORIES */
-
-.categories{
-    display:flex;
-    gap:8px;
-    overflow-x:auto;
-    padding-bottom:10px;
-    margin-bottom:20px;
-}
-
-.category-button{
-    flex-shrink:0;
-    border:1px solid #d7dde3;
-    background:#fff;
-    color:#475569;
-    padding:9px 14px;
-    border-radius:999px;
-    font-size:13px;
-    font-weight:600;
-}
-
-.category-button.active{
-    background:#0f766e;
-    border-color:#0f766e;
-    color:#fff;
-}
-
-/* GRID */
-
-.properties-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:20px;
-}
-
-.property-card{
-    background:#fff;
-    border-radius:15px;
-    overflow:hidden;
-    border:1px solid #e5e7eb;
-    box-shadow:0 4px 18px rgba(0,0,0,.045);
-}
-
-.property-image{
-    position:relative;
-    height:220px;
-    background:#e2e8f0;
-    overflow:hidden;
-}
-
-.property-image img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.image-placeholder{
-    width:100%;
-    height:100%;
-    display:grid;
-    place-items:center;
-    color:#94a3b8;
-    font-size:13px;
-}
-
-.featured-label{
-    position:absolute;
-    top:12px;
-    left:12px;
-    background:#6d28d9;
-    color:#fff;
-    padding:6px 9px;
-    border-radius:7px;
-    font-size:11px;
-    font-weight:700;
-}
-
-.purpose-label{
-    position:absolute;
-    top:12px;
-    right:12px;
-    background:rgba(15,118,110,.95);
-    color:#fff;
-    padding:6px 9px;
-    border-radius:7px;
-    font-size:11px;
-    font-weight:700;
-}
-
-.property-body{
-    padding:17px;
-}
-
-.property-type{
-    color:#0f766e;
-    font-size:11px;
-    font-weight:800;
-    text-transform:uppercase;
-    margin-bottom:6px;
-}
-
-.property-title{
-    margin:0 0 8px;
-    font-size:18px;
-    line-height:1.35;
-}
-
-.property-location{
-    color:#64748b;
-    font-size:13px;
-    line-height:1.5;
-    margin-bottom:12px;
-}
-
-.property-price{
-    font-size:20px;
-    font-weight:800;
-    color:#0f766e;
-    margin-bottom:12px;
-}
-
-.property-meta{
-    display:flex;
-    flex-wrap:wrap;
-    gap:6px;
-    margin-bottom:15px;
-}
-
-.meta-item{
-    background:#f1f5f9;
-    color:#475569;
-    padding:6px 8px;
-    border-radius:6px;
-    font-size:11px;
-    font-weight:600;
-}
-
-.property-description{
-    color:#64748b;
-    font-size:13px;
-    line-height:1.6;
-    display:-webkit-box;
-    -webkit-line-clamp:3;
-    -webkit-box-orient:vertical;
-    overflow:hidden;
-    margin-bottom:15px;
-}
-
-.view-button{
-    width:100%;
-    border:0;
-    background:#0f766e;
-    color:#fff;
-    padding:11px;
-    border-radius:8px;
-    font-weight:700;
-}
-
-/* STATUS */
-
-.status-badge{
-    display:inline-block;
-    padding:5px 8px;
-    border-radius:999px;
-    background:#dcfce7;
-    color:#166534;
-    font-size:10px;
-    font-weight:800;
-    text-transform:uppercase;
-    margin-bottom:8px;
-}
-
-.status-sold{
-    background:#fee2e2;
-    color:#b91c1c;
-}
-
-.status-rented{
-    background:#fef3c7;
-    color:#92400e;
-}
-
-/* LOADING */
-
-.loading{
-    grid-column:1/-1;
-    background:#fff;
-    border-radius:14px;
-    padding:50px 20px;
-    text-align:center;
-    color:#64748b;
-}
-
-.spinner{
-    width:35px;
-    height:35px;
-    border:3px solid #d1fae5;
-    border-top-color:#0f766e;
-    border-radius:50%;
-    animation:spin .8s linear infinite;
-    margin:0 auto 15px;
-}
-
-@keyframes spin{
-    to{
-        transform:rotate(360deg);
-    }
-}
-
-/* EMPTY */
-
-.empty-state{
-    grid-column:1/-1;
-    background:#fff;
-    border-radius:14px;
-    padding:55px 20px;
-    text-align:center;
-    border:1px solid #e5e7eb;
-}
-
-.empty-icon{
-    font-size:42px;
-    margin-bottom:10px;
-}
-
-.empty-state h3{
-    margin:0 0 7px;
-}
-
-.empty-state p{
-    margin:0;
-    color:#64748b;
-}
-
-/* ABOUT */
-
-.about-section{
-    margin-top:55px;
-    background:#fff;
-    border-radius:16px;
-    padding:30px;
-    border:1px solid #e5e7eb;
-    display:grid;
-    grid-template-columns:180px 1fr;
-    gap:30px;
-    align-items:center;
-}
-
-.about-logo{
-    width:160px;
-    height:160px;
-    border-radius:18px;
-    background:#ecfdf5;
-    display:grid;
-    place-items:center;
-    overflow:hidden;
-    color:#0f766e;
-    font-size:55px;
-    font-weight:800;
-}
-
-.about-logo img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-}
-
-.about-content h2{
-    margin:0 0 10px;
-    font-size:27px;
-}
-
-.about-content p{
-    color:#64748b;
-    line-height:1.7;
-    margin:0 0 15px;
-}
-
-.company-contact{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-}
-
-.contact-item{
-    background:#f8fafc;
-    border:1px solid #e2e8f0;
-    border-radius:8px;
-    padding:9px 11px;
-    color:#475569;
-    font-size:12px;
-    font-weight:600;
-}
-
-/* MODAL */
-
-.modal{
-    position:fixed;
-    inset:0;
-    z-index:3000;
-    background:rgba(15,23,42,.70);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:18px;
-}
-
-.modal.show{
-    display:flex;
-}
-
-.modal-box{
-    width:100%;
-    max-width:850px;
-    max-height:92vh;
-    overflow-y:auto;
-    background:#fff;
-    border-radius:16px;
-    position:relative;
-}
-
-.modal-close{
-    position:absolute;
-    top:12px;
-    right:12px;
-    z-index:5;
-    width:38px;
-    height:38px;
-    border:0;
-    border-radius:50%;
-    background:rgba(0,0,0,.55);
-    color:#fff;
-    font-size:22px;
-}
-
-.modal-image{
-    width:100%;
-    height:390px;
-    background:#e2e8f0;
-}
-
-.modal-image img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.modal-content{
-    padding:25px;
-}
-
-.modal-content h2{
-    margin:0 0 8px;
-    font-size:27px;
-}
-
-.modal-location{
-    color:#64748b;
-    font-size:14px;
-    margin-bottom:14px;
-}
-
-.modal-price{
-    color:#0f766e;
-    font-size:24px;
-    font-weight:800;
-    margin-bottom:15px;
-}
-
-.modal-meta{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-bottom:20px;
-}
-
-.modal-description{
-    color:#475569;
-    line-height:1.75;
-    white-space:pre-line;
-    margin-bottom:20px;
-}
-
-.modal-contact{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-}
-
-.modal-contact a{
-    text-align:center;
-    padding:12px;
-    border-radius:8px;
-    background:#0f766e;
-    color:#fff;
-    font-weight:700;
-}
-
-.modal-contact a.secondary{
-    background:#f1f5f9;
-    color:#334155;
-}
-
-/* ERROR */
-
-.error-box{
-    grid-column:1/-1;
-    max-width:700px;
-    margin:30px auto;
-    padding:25px;
-    background:#fee2e2;
-    color:#991b1b;
-    border-radius:12px;
-    line-height:1.6;
-    text-align:center;
-}
-
-.error-box h2{
-    margin-top:0;
-}
-
-/* FOOTER */
-
-.footer{
-    background:#0f172a;
-    color:#fff;
-    margin-top:30px;
-}
-
-.footer-inner{
-    max-width:1200px;
-    margin:auto;
-    padding:35px 18px;
-    display:grid;
-    grid-template-columns:1.5fr 1fr 1fr;
-    gap:30px;
-}
-
-.footer-brand{
-    font-size:20px;
-    font-weight:800;
-    margin-bottom:8px;
-}
-
-.footer p{
-    color:#94a3b8;
-    font-size:13px;
-    line-height:1.6;
-}
-
-.footer h3{
-    margin-top:0;
-    font-size:15px;
-}
-
-.footer-contact{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-    color:#cbd5e1;
-    font-size:13px;
-}
-
-.footer-bottom{
-    border-top:1px solid #1e293b;
-    text-align:center;
-    padding:15px;
-    color:#64748b;
-    font-size:11px;
-}
-
-/* RESPONSIVE */
-
-@media(max-width:1000px){
-
-    .properties-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .search-box{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .search-button{
-        padding:12px;
-    }
-}
-
-@media(max-width:700px){
-
-    .header-inner{
-        padding:10px 14px;
-    }
-
-    .header-actions .header-button{
-        display:none;
-    }
-
-    .brand-logo{
-        width:42px;
-        height:42px;
-    }
-
-    .brand-name{
-        font-size:15px;
-    }
-
-    .hero-inner{
-        padding:45px 18px 55px;
-    }
-
-    .search-box{
-        grid-template-columns:1fr;
-    }
-
-    .search-button{
-        width:100%;
-    }
-
-    .main-container{
-        padding-top:35px;
-    }
-
-    .section-header{
-        align-items:flex-start;
-        flex-direction:column;
-    }
-
-    .properties-grid{
-        grid-template-columns:1fr;
-    }
-
-    .about-section{
-        grid-template-columns:1fr;
-        text-align:center;
-    }
-
-    .about-logo{
-        margin:auto;
-    }
-
-    .company-contact{
-        justify-content:center;
-    }
-
-    .footer-inner{
-        grid-template-columns:1fr;
-    }
-
-    .modal-image{
-        height:260px;
-    }
-
-    .modal-contact{
-        grid-template-columns:1fr;
-    }
-}
-</style>
-</head>
-
-<body>
-
-<header class="site-header">
-
-    <div class="header-inner">
-
-        <a href="#top" class="brand">
-
-            <div id="brandLogo" class="brand-logo">
-                E
-            </div>
-
-            <div class="brand-text">
-
-                <div
-                    id="brandName"
-                    class="brand-name"
-                >
-                    Loading...
-                </div>
-
-                <div
-                    id="brandLocation"
-                    class="brand-location"
-                >
-                    Property Services
-                </div>
-
-            </div>
-
-        </a>
-
-        <div class="header-actions">
-
-            <button
-                id="headerCallButton"
-                class="header-button"
-                type="button"
-            >
-                Call
-            </button>
-
-            <button
-                id="headerWhatsAppButton"
-                class="whatsapp-button"
-                type="button"
-            >
-                WhatsApp
-            </button>
-
-        </div>
-
-    </div>
-
-</header>
-
-
-<section id="top" class="hero">
-
-    <div class="hero-inner">
-
-        <div class="hero-content">
-
-            <span
-                id="heroLabel"
-                class="hero-label"
-            >
-                Property Listings
-            </span>
-
-            <h1 id="heroTitle">
-                Find Your Perfect Property
-            </h1>
-
-            <p id="heroDescription">
-                Browse available properties and find the right place for you.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<section class="search-section">
-
-    <div class="search-box">
-
-        <div class="search-control">
-
-            <input
-                id="searchInput"
-                type="search"
-                placeholder="Search properties..."
-                autocomplete="off"
-            >
-
-        </div>
-
-        <div class="search-control">
-
-            <select id="purposeFilter">
-
-                <option value="">
-                    All Purposes
-                </option>
-
-                <option value="sale">
-                    For Sale
-                </option>
-
-                <option value="rent">
-                    For Rent
-                </option>
-
-            </select>
-
-        </div>
-
-        <div class="search-control">
-
-            <select id="typeFilter">
-
-                <option value="">
-                    All Types
-                </option>
-
-            </select>
-
-        </div>
-
-        <button
-            id="searchButton"
-            class="search-button"
-            type="button"
-        >
-            Search
-        </button>
-
-    </div>
-
-</section>
-
-
-<main class="main-container">
-
-    <section id="propertiesSection">
-
-        <div class="section-header">
-
-            <div>
-
-                <h2>
-                    Properties
-                </h2>
-
-                <p id="propertiesSubtitle">
-                    Browse available properties.
-                </p>
-
-            </div>
-
-            <div
-                id="propertyCount"
-                class="property-count"
-            >
-                0 properties
-            </div>
-
-        </div>
-
-
-        <div
-            id="categories"
-            class="categories"
-        >
-
-            <button
-                class="category-button active"
-                data-category=""
-                type="button"
-            >
-                All
-            </button>
-
-        </div>
-
-
-        <div
-            id="propertiesGrid"
-            class="properties-grid"
-        >
-
-            <div class="loading">
-
-                <div class="spinner"></div>
-
-                Loading properties...
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <section
-        id="aboutSection"
-        class="about-section"
-    >
-
-        <div
-            id="aboutLogo"
-            class="about-logo"
-        >
-            E
-        </div>
-
-        <div class="about-content">
-
-            <h2 id="aboutCompanyName">
-                Company
-            </h2>
-
-            <p id="aboutDescription">
-                Loading company information...
-            </p>
-
-            <div
-                id="companyContact"
-                class="company-contact"
-            ></div>
-
-        </div>
-
-    </section>
-
-</main>
-
-
-<footer class="footer">
-
-    <div class="footer-inner">
-
-        <div>
-
-            <div
-                id="footerCompanyName"
-                class="footer-brand"
-            >
-                Company
-            </div>
-
-            <p id="footerDescription">
-                Property services and listings.
-            </p>
-
-        </div>
-
-
-        <div>
-
-            <h3>
-                Contact
-            </h3>
-
-            <div
-                id="footerContact"
-                class="footer-contact"
-            ></div>
-
-        </div>
-
-
-        <div>
-
-            <h3>
-                Location
-            </h3>
-
-            <p id="footerAddress">
-                Loading...
-            </p>
-
-        </div>
-
-    </div>
-
-
-    <div class="footer-bottom">
-
-        ©
-        <span id="footerYear"></span>
-
-        <span id="footerCompany">
-            Company
-        </span>
-
-        — All rights reserved.
-
-    </div>
-
-</footer>
-
-
-<div
-    id="propertyModal"
-    class="modal"
->
-
-    <div class="modal-box">
-
-        <button
-            id="modalClose"
-            class="modal-close"
-            type="button"
-        >
-            ×
-        </button>
-
-        <div
-            id="modalImage"
-            class="modal-image"
-        ></div>
-
-        <div class="modal-content">
-
-            <div
-                id="modalStatus"
-                class="status-badge"
-            >
-                AVAILABLE
-            </div>
-
-            <h2 id="modalTitle">
-                Property
-            </h2>
-
-            <div
-                id="modalLocation"
-                class="modal-location"
-            >
-                Location
-            </div>
-
-            <div
-                id="modalPrice"
-                class="modal-price"
-            >
-                Price
-            </div>
-
-            <div
-                id="modalMeta"
-                class="modal-meta"
-            ></div>
-
-            <div
-                id="modalDescription"
-                class="modal-description"
-            ></div>
-
-            <div class="modal-contact">
-
-                <a
-                    id="modalWhatsApp"
-                    href="#"
-                    target="_blank"
-                    rel="noopener"
-                >
-                    WhatsApp
-                </a>
-
-                <a
-                    id="modalPhone"
-                    href="#"
-                    class="secondary"
-                >
-                    Call Company
-                </a>
-
-            </div>
-
-        </div>
-
-    </div>
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  <meta name="description" id="pageDescription"  
+content="Browse available properties.">
+
+<meta name="theme-color" content="#0f766e">  <title id="pageTitle">Properties</title>  <link rel="preconnect" href="https://fonts.googleapis.com">  
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  <link  
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"  
+rel="stylesheet">  <style>  
+  
+*{  
+    box-sizing:border-box;  
+}  
+  
+html{  
+    scroll-behavior:smooth;  
+}  
+  
+body{  
+    margin:0;  
+    font-family:Inter,Arial,sans-serif;  
+    background:#f5f7f9;  
+    color:#17202a;  
+}  
+  
+button,  
+input,  
+select{  
+    font:inherit;  
+}  
+  
+button{  
+    cursor:pointer;  
+}  
+  
+a{  
+    text-decoration:none;  
+    color:inherit;  
+}  
+  
+.hidden{  
+    display:none!important;  
+}  
+  
+  
+/* =========================  
+   HEADER  
+========================= */  
+  
+.site-header{  
+    position:sticky;  
+    top:0;  
+    z-index:1000;  
+    background:#fff;  
+    border-bottom:1px solid #e5e7eb;  
+}  
+  
+.header-inner{  
+    max-width:1200px;  
+    margin:auto;  
+    min-height:70px;  
+    padding:10px 18px;  
+  
+    display:flex;  
+    align-items:center;  
+    justify-content:space-between;  
+    gap:20px;  
+}  
+  
+.brand{  
+    display:flex;  
+    align-items:center;  
+    gap:11px;  
+    min-width:0;  
+}  
+  
+.brand-logo{  
+    width:45px;  
+    height:45px;  
+    border-radius:11px;  
+    background:#ecfdf5;  
+    color:#0f766e;  
+  
+    display:grid;  
+    place-items:center;  
+    overflow:hidden;  
+  
+    flex-shrink:0;  
+    font-weight:800;  
+    font-size:20px;  
+}  
+  
+.brand-logo img{  
+    width:100%;  
+    height:100%;  
+    object-fit:contain;  
+}  
+  
+.brand-text{  
+    min-width:0;  
+}  
+  
+.brand-name{  
+    font-size:16px;  
+    font-weight:800;  
+    white-space:nowrap;  
+    overflow:hidden;  
+    text-overflow:ellipsis;  
+}  
+  
+.brand-location{  
+    color:#64748b;  
+    font-size:11px;  
+    white-space:nowrap;  
+    overflow:hidden;  
+    text-overflow:ellipsis;  
+}  
+  
+.menu{  
+    display:flex;  
+    align-items:center;  
+    gap:5px;  
+}  
+  
+.menu a{  
+    padding:9px 11px;  
+    border-radius:8px;  
+    font-size:13px;  
+    font-weight:600;  
+    color:#475569;  
+}  
+  
+.menu a:hover{  
+    background:#f1f5f9;  
+    color:#0f766e;  
+}  
+  
+.header-actions{  
+    display:flex;  
+    align-items:center;  
+    gap:7px;  
+}  
+  
+.header-button{  
+    border:1px solid #d7dde3;  
+    background:#fff;  
+    color:#334155;  
+    padding:9px 12px;  
+    border-radius:8px;  
+    font-weight:600;  
+}  
+  
+.whatsapp-button{  
+    border:0;  
+    background:#0f766e;  
+    color:#fff;  
+    padding:10px 13px;  
+    border-radius:8px;  
+    font-weight:700;  
+}  
+  
+.mobile-menu-button{  
+    display:none;  
+    border:1px solid #d7dde3;  
+    background:#fff;  
+    width:42px;  
+    height:42px;  
+    border-radius:9px;  
+    font-size:20px;  
+}  
+  
+  
+/* =========================  
+   MOBILE MENU  
+========================= */  
+  
+.mobile-menu{  
+    display:none;  
+    background:#fff;  
+    border-top:1px solid #e5e7eb;  
+    padding:10px 15px 15px;  
+}  
+  
+.mobile-menu.show{  
+    display:block;  
+}  
+  
+.mobile-menu a{  
+    display:block;  
+    padding:12px;  
+    border-radius:8px;  
+    font-size:14px;  
+    font-weight:600;  
+}  
+  
+.mobile-menu a:hover{  
+    background:#f1f5f9;  
+}  
+  
+  
+/* =========================  
+   HERO  
+========================= */  
+  
+.hero{  
+    background:linear-gradient(  
+        135deg,  
+        #0f766e,  
+        #115e59  
+    );  
+  
+    color:#fff;  
+}  
+  
+.hero-inner{  
+    max-width:1200px;  
+    margin:auto;  
+    padding:60px 18px 68px;  
+}  
+  
+.hero-content{  
+    max-width:720px;  
+}  
+  
+.hero-label{  
+    display:inline-block;  
+  
+    padding:7px 12px;  
+    border-radius:999px;  
+  
+    background:rgba(255,255,255,.13);  
+  
+    font-size:12px;  
+    font-weight:700;  
+  
+    margin-bottom:15px;  
+}  
+  
+.hero h1{  
+    margin:0 0 15px;  
+  
+    font-size:clamp(32px,6vw,55px);  
+  
+    line-height:1.08;  
+}  
+  
+.hero p{  
+    margin:0;  
+  
+    color:rgba(255,255,255,.86);  
+  
+    line-height:1.7;  
+  
+    max-width:650px;  
+}  
+  
+  
+/* =========================  
+   SEARCH  
+========================= */  
+  
+.search-section{  
+    max-width:1100px;  
+    margin:-28px auto 0;  
+  
+    position:relative;  
+    z-index:10;  
+  
+    padding:0 18px;  
+}  
+  
+.search-box{  
+    background:#fff;  
+    border-radius:15px;  
+    padding:15px;  
+  
+    box-shadow:  
+        0 10px 35px rgba(0,0,0,.10);  
+  
+    display:grid;  
+  
+    grid-template-columns:  
+        1.5fr 1fr 1fr auto;  
+  
+    gap:10px;  
+}  
+  
+.search-control{  
+    min-width:0;  
+}  
+  
+.search-control input,  
+.search-control select{  
+    width:100%;  
+  
+    border:1px solid #d7dde3;  
+  
+    background:#fff;  
+  
+    padding:12px;  
+  
+    border-radius:9px;  
+  
+    outline:none;  
+}  
+  
+.search-control input:focus,  
+.search-control select:focus{  
+    border-color:#0f766e;  
+}  
+  
+.search-button{  
+    border:0;  
+  
+    background:#0f766e;  
+    color:#fff;  
+  
+    padding:0 22px;  
+  
+    border-radius:9px;  
+  
+    font-weight:700;  
+}  
+  
+  
+/* =========================  
+   MAIN  
+========================= */  
+  
+.main-container{  
+    max-width:1200px;  
+    margin:auto;  
+  
+    padding:45px 18px 70px;  
+}  
+  
+.section-header{  
+    display:flex;  
+  
+    justify-content:space-between;  
+  
+    align-items:flex-end;  
+  
+    gap:20px;  
+  
+    margin-bottom:20px;  
+}  
+  
+.section-header h2{  
+    margin:0 0 5px;  
+    font-size:26px;  
+}  
+  
+.section-header p{  
+    margin:0;  
+  
+    color:#64748b;  
+    font-size:14px;  
+}  
+  
+.property-count{  
+    color:#64748b;  
+    font-size:13px;  
+}  
+  
+  
+/* =========================  
+   CATEGORIES  
+========================= */  
+  
+.categories{  
+    display:flex;  
+  
+    gap:8px;  
+  
+    overflow-x:auto;  
+  
+    padding-bottom:10px;  
+  
+    margin-bottom:20px;  
+}  
+  
+.category-button{  
+    flex-shrink:0;  
+  
+    border:1px solid #d7dde3;  
+  
+    background:#fff;  
+  
+    color:#475569;  
+  
+    padding:9px 14px;  
+  
+    border-radius:999px;  
+  
+    font-size:13px;  
+  
+    font-weight:600;  
+}  
+  
+.category-button.active{  
+    background:#0f766e;  
+    border-color:#0f766e;  
+    color:#fff;  
+}  
+  
+  
+/* =========================  
+   PROPERTY GRID  
+========================= */  
+  
+.properties-grid{  
+    display:grid;  
+  
+    grid-template-columns:  
+        repeat(3,1fr);  
+  
+    gap:20px;  
+}  
+  
+.property-card{  
+    background:#fff;  
+  
+    border-radius:15px;  
+  
+    overflow:hidden;  
+  
+    border:1px solid #e5e7eb;  
+  
+    box-shadow:  
+        0 4px 18px rgba(0,0,0,.045);  
+  
+    transition:  
+        transform .2s ease,  
+        box-shadow .2s ease;  
+}  
+  
+.property-card:hover{  
+    transform:translateY(-3px);  
+  
+    box-shadow:  
+        0 10px 30px rgba(0,0,0,.08);  
+}  
+  
+.property-image{  
+    position:relative;  
+  
+    height:220px;  
+  
+    background:#e2e8f0;  
+  
+    overflow:hidden;  
+}  
+  
+.property-image img{  
+    width:100%;  
+    height:100%;  
+    object-fit:cover;  
+}  
+  
+.image-placeholder{  
+    width:100%;  
+    height:100%;  
+  
+    display:grid;  
+    place-items:center;  
+  
+    color:#94a3b8;  
+  
+    font-size:13px;  
+}  
+  
+.featured-label{  
+    position:absolute;  
+  
+    top:12px;  
+    left:12px;  
+  
+    background:#6d28d9;  
+  
+    color:#fff;  
+  
+    padding:6px 9px;  
+  
+    border-radius:7px;  
+  
+    font-size:11px;  
+  
+    font-weight:700;  
+}  
+  
+.purpose-label{  
+    position:absolute;  
+  
+    top:12px;  
+    right:12px;  
+  
+    background:rgba(15,118,110,.95);  
+  
+    color:#fff;  
+  
+    padding:6px 9px;  
+  
+    border-radius:7px;  
+  
+    font-size:11px;  
+  
+    font-weight:700;  
+}  
+  
+.property-body{  
+    padding:17px;  
+}  
+  
+.property-type{  
+    color:#0f766e;  
+  
+    font-size:11px;  
+  
+    font-weight:800;  
+  
+    text-transform:uppercase;  
+  
+    margin-bottom:6px;  
+}  
+  
+.property-title{  
+    margin:0 0 8px;  
+  
+    font-size:18px;  
+  
+    line-height:1.35;  
+}  
+  
+.property-location{  
+    color:#64748b;  
+  
+    font-size:13px;  
+  
+    line-height:1.5;  
+  
+    margin-bottom:12px;  
+}  
+  
+.property-price{  
+    font-size:20px;  
+  
+    font-weight:800;  
+  
+    color:#0f766e;  
+  
+    margin-bottom:12px;  
+}  
+  
+.property-meta{  
+    display:flex;  
+  
+    flex-wrap:wrap;  
+  
+    gap:6px;  
+  
+    margin-bottom:15px;  
+}  
+  
+.meta-item{  
+    background:#f1f5f9;  
+  
+    color:#475569;  
+  
+    padding:6px 8px;  
+  
+    border-radius:6px;  
+  
+    font-size:11px;  
+  
+    font-weight:600;  
+}  
+  
+.property-description{  
+    color:#64748b;  
+  
+    font-size:13px;  
+  
+    line-height:1.6;  
+  
+    display:-webkit-box;  
+  
+    -webkit-line-clamp:3;  
+  
+    -webkit-box-orient:vertical;  
+  
+    overflow:hidden;  
+  
+    margin-bottom:15px;  
+}  
+  
+.view-button{  
+    width:100%;  
+  
+    border:0;  
+  
+    background:#0f766e;  
+  
+    color:#fff;  
+  
+    padding:11px;  
+  
+    border-radius:8px;  
+  
+    font-weight:700;  
+}  
+  
+.view-button:hover{  
+    background:#115e59;  
+}  
+  
+  
+/* =========================  
+   STATUS  
+========================= */  
+  
+.status-badge{  
+    display:inline-block;  
+  
+    padding:5px 8px;  
+  
+    border-radius:999px;  
+  
+    background:#dcfce7;  
+  
+    color:#166534;  
+  
+    font-size:10px;  
+  
+    font-weight:800;  
+  
+    text-transform:uppercase;  
+  
+    margin-bottom:8px;  
+}  
+  
+.status-sold{  
+    background:#fee2e2;  
+    color:#b91c1c;  
+}  
+  
+.status-rented{  
+    background:#fef3c7;  
+    color:#92400e;  
+}  
+  
+  
+/* =========================  
+   LOADING  
+========================= */  
+  
+.loading{  
+    grid-column:1/-1;  
+  
+    background:#fff;  
+  
+    border-radius:14px;  
+  
+    padding:50px 20px;  
+  
+    text-align:center;  
+  
+    color:#64748b;  
+}  
+  
+.spinner{  
+    width:35px;  
+    height:35px;  
+  
+    border:3px solid #d1fae5;  
+  
+    border-top-color:#0f766e;  
+  
+    border-radius:50%;  
+  
+    animation:spin .8s linear infinite;  
+  
+    margin:0 auto 15px;  
+}  
+  
+@keyframes spin{  
+    to{  
+        transform:rotate(360deg);  
+    }  
+}  
+  
+  
+/* =========================  
+   EMPTY  
+========================= */  
+  
+.empty-state{  
+    grid-column:1/-1;  
+  
+    background:#fff;  
+  
+    border-radius:14px;  
+  
+    padding:55px 20px;  
+  
+    text-align:center;  
+  
+    border:1px solid #e5e7eb;  
+}  
+  
+.empty-icon{  
+    font-size:42px;  
+    margin-bottom:10px;  
+}  
+  
+.empty-state h3{  
+    margin:0 0 7px;  
+}  
+  
+.empty-state p{  
+    margin:0;  
+    color:#64748b;  
+}  
+  
+  
+/* =========================  
+   ABOUT  
+========================= */  
+  
+.about-section{  
+    margin-top:55px;  
+  
+    background:#fff;  
+  
+    border-radius:16px;  
+  
+    padding:30px;  
+  
+    border:1px solid #e5e7eb;  
+  
+    display:grid;  
+  
+    grid-template-columns:180px 1fr;  
+  
+    gap:30px;  
+  
+    align-items:center;  
+}  
+  
+.about-logo{  
+    width:160px;  
+    height:160px;  
+  
+    border-radius:18px;  
+  
+    background:#ecfdf5;  
+  
+    display:grid;  
+  
+    place-items:center;  
+  
+    overflow:hidden;  
+  
+    color:#0f766e;  
+  
+    font-size:55px;  
+  
+    font-weight:800;  
+}  
+  
+.about-logo img{  
+    width:100%;  
+    height:100%;  
+  
+    object-fit:contain;  
+}  
+  
+.about-content h2{  
+    margin:0 0 10px;  
+    font-size:27px;  
+}  
+  
+.about-content p{  
+    color:#64748b;  
+  
+    line-height:1.7;  
+  
+    margin:0 0 15px;  
+}  
+  
+.company-contact{  
+    display:flex;  
+  
+    flex-wrap:wrap;  
+  
+    gap:8px;  
+}  
+  
+.contact-item{  
+    background:#f8fafc;  
+  
+    border:1px solid #e2e8f0;  
+  
+    border-radius:8px;  
+  
+    padding:9px 11px;  
+  
+    color:#475569;  
+  
+    font-size:12px;  
+  
+    font-weight:600;  
+}  
+  
+  
+/* =========================  
+   SUBSCRIPTION LOCK  
+========================= */  
+  
+.subscription-lock{  
+    position:fixed;  
+  
+    inset:0;  
+  
+    z-index:99999;  
+  
+    background:  
+        radial-gradient(  
+            circle at top,  
+            rgba(15,118,110,.12),  
+            transparent 45%  
+        ),  
+        #f8fafc;  
+  
+    display:flex;  
+  
+    align-items:center;  
+  
+    justify-content:center;  
+  
+    padding:20px;  
+}  
+  
+.subscription-lock-card{  
+    width:100%;  
+  
+    max-width:520px;  
+  
+    background:#fff;  
+  
+    border:1px solid #e5e7eb;  
+  
+    border-radius:22px;  
+  
+    padding:40px 28px;  
+  
+    text-align:center;  
+  
+    box-shadow:  
+        0 20px 60px rgba(15,23,42,.12);  
+}  
+  
+.subscription-lock-icon{  
+    width:75px;  
+    height:75px;  
+  
+    margin:0 auto 20px;  
+  
+    border-radius:50%;  
+  
+    display:grid;  
+    place-items:center;  
+  
+    background:#fee2e2;  
+    color:#b91c1c;  
+  
+    font-size:34px;  
+}  
+  
+.subscription-lock-card h1{  
+    margin:0 0 12px;  
+  
+    color:#0f172a;  
+  
+    font-size:28px;  
+}  
+  
+.subscription-lock-card p{  
+    margin:0 auto 12px;  
+  
+    max-width:440px;  
+  
+    color:#64748b;  
+  
+    font-size:14px;  
+  
+    line-height:1.7;  
+}  
+  
+.subscription-company{  
+    margin-top:20px;  
+  
+    padding:12px;  
+  
+    border-radius:10px;  
+  
+    background:#f8fafc;  
+  
+    color:#334155;  
+  
+    font-weight:700;  
+}  
+  
+.subscription-reload{  
+    margin-top:22px;  
+  
+    border:0;  
+  
+    background:#0f766e;  
+  
+    color:#fff;  
+  
+    padding:12px 20px;  
+  
+    border-radius:9px;  
+  
+    font-weight:700;  
+}  
+  
+  
+/* =========================  
+   ERROR  
+========================= */  
+  
+.error-box{  
+    grid-column:1/-1;  
+  
+    max-width:700px;  
+  
+    margin:30px auto;  
+  
+    padding:25px;  
+  
+    background:#fee2e2;  
+  
+    color:#991b1b;  
+  
+    border-radius:12px;  
+  
+    line-height:1.6;  
+  
+    text-align:center;  
+}  
+  
+.error-box h2{  
+    margin-top:0;  
+}  
+  
+  
+/* =========================  
+   FOOTER  
+========================= */  
+  
+.footer{  
+    background:#0f172a;  
+  
+    color:#fff;  
+  
+    margin-top:30px;  
+}  
+  
+.footer-inner{  
+    max-width:1200px;  
+  
+    margin:auto;  
+  
+    padding:35px 18px;  
+  
+    display:grid;  
+  
+    grid-template-columns:  
+        1.5fr 1fr 1fr;  
+  
+    gap:30px;  
+}  
+  
+.footer-brand{  
+    font-size:20px;  
+  
+    font-weight:800;  
+  
+    margin-bottom:8px;  
+}  
+  
+.footer p{  
+    color:#94a3b8;  
+  
+    font-size:13px;  
+  
+    line-height:1.6;  
+}  
+  
+.footer h3{  
+    margin-top:0;  
+    font-size:15px;  
+}  
+  
+.footer-contact{  
+    display:flex;  
+  
+    flex-direction:column;  
+  
+    gap:8px;  
+  
+    color:#cbd5e1;  
+  
+    font-size:13px;  
+}  
+  
+.footer-bottom{  
+    border-top:1px solid #1e293b;  
+  
+    text-align:center;  
+  
+    padding:15px;  
+  
+    color:#64748b;  
+  
+    font-size:11px;  
+}  
+  
+  
+/* =========================  
+   RESPONSIVE  
+========================= */  
+  
+@media(max-width:1000px){  
+  
+    .properties-grid{  
+        grid-template-columns:  
+            repeat(2,1fr);  
+    }  
+  
+    .search-box{  
+        grid-template-columns:  
+            1fr 1fr;  
+    }  
+  
+    .search-button{  
+        padding:12px;  
+    }  
+  
+    .menu{  
+        display:none;  
+    }  
+  
+    .mobile-menu-button{  
+        display:block;  
+    }  
+  
+}  
+  
+@media(max-width:700px){  
+  
+    .header-inner{  
+        padding:10px 14px;  
+    }  
+  
+    .header-button{  
+        display:none;  
+    }  
+  
+    .brand-logo{  
+        width:42px;  
+        height:42px;  
+    }  
+  
+    .brand-name{  
+        font-size:15px;  
+    }  
+  
+    .hero-inner{  
+        padding:45px 18px 55px;  
+    }  
+  
+    .search-box{  
+        grid-template-columns:1fr;  
+    }  
+  
+    .search-button{  
+        width:100%;  
+    }  
+  
+    .main-container{  
+        padding-top:35px;  
+    }  
+  
+    .section-header{  
+        align-items:flex-start;  
+        flex-direction:column;  
+    }  
+  
+    .properties-grid{  
+        grid-template-columns:1fr;  
+    }  
+  
+    .about-section{  
+        grid-template-columns:1fr;  
+        text-align:center;  
+    }  
+  
+    .about-logo{  
+        margin:auto;  
+    }  
+  
+    .company-contact{  
+        justify-content:center;  
+    }  
+  
+    .footer-inner{  
+        grid-template-columns:1fr;  
+    }  
+  
+}  
+  
+@media(max-width:500px){  
+  
+    .header-actions{  
+        gap:5px;  
+    }  
+  
+    .whatsapp-button{  
+        padding:9px 10px;  
+        font-size:12px;  
+    }  
+  
+}  
+  
+</style>  </head>  <body>  <!-- =========================  
+     SUBSCRIPTION LOCK  
+========================= -->  <div id="subscriptionLock"  
+     class="subscription-lock hidden">  <div class="subscription-lock-card">  
+
+    <div class="subscription-lock-icon">  
+        🔒  
+    </div>  
+
+    <h1 id="subscriptionLockTitle">  
+        Subscription Expired  
+    </h1>  
+
+    <p id="subscriptionLockMessage">  
+        This company's website subscription has expired.  
+    </p>  
+
+    <div id="subscriptionCompanyName"  
+         class="subscription-company">  
+        Company  
+    </div>  
+
+    <button id="subscriptionReload"  
+            class="subscription-reload"  
+            type="button">  
+        Try Again  
+    </button>  
 
 </div>
 
+</div>  <!-- =========================  
+     WEBSITE  
+========================= -->  <div id="websiteContent">  <header class="site-header">  <div class="header-inner">  
 
-<script type="module">
+    <a href="#top" class="brand">  
 
-/* =========================================================
-   FIREBASE IMPORTS
-========================================================= */
+        <div id="brandLogo"  
+             class="brand-logo">  
+            E  
+        </div>  
 
-import {
-    initializeApp
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+        <div class="brand-text">  
 
-import {
-    getFirestore,
-    doc,
-    getDoc,
-    collection,
-    getDocs
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+            <div id="brandName"  
+                 class="brand-name">  
+                Loading...  
+            </div>  
 
+            <div id="brandLocation"  
+                 class="brand-location">  
+                Property Services  
+            </div>  
 
-/* =========================================================
-   FIREBASE CONFIG
-========================================================= */
+        </div>  
 
-const firebaseConfig = {
+    </a>  
 
-    apiKey:
-        "AIzaSyAE44DxNnqz3m8ScqaZxoSj2FdQ7aJ2NIg",
 
-    authDomain:
-        "estate-pro-d564b.firebaseapp.com",
+    <nav class="menu">  
 
-    projectId:
-        "estate-pro-d564b",
+        <a href="#top">  
+            Home  
+        </a>  
 
-    storageBucket:
-        "estate-pro-d564b.firebasestorage.app",
+        <a href="#propertiesSection">  
+            Properties  
+        </a>  
 
-    messagingSenderId:
-        "600309829118",
+        <a href="#aboutSection">  
+            About  
+        </a>  
 
-    appId:
-        "1:600309829118:web:60c61624ca8cdf05e884af",
+        <a href="#contactSection">  
+            Contact  
+        </a>  
 
-    measurementId:
-        "G-TG60FCJHXB"
+    </nav>  
 
-};
 
+    <div class="header-actions">  
 
-/* =========================================================
-   INITIALIZE FIREBASE
-========================================================= */
+        <button id="headerCallButton"  
+                class="header-button"  
+                type="button">  
+            Call  
+        </button>  
 
-const app =
-    initializeApp(firebaseConfig);
+        <button id="headerWhatsAppButton"  
+                class="whatsapp-button"  
+                type="button">  
+            WhatsApp  
+        </button>  
 
-const db =
-    getFirestore(app);
+        <button id="mobileMenuButton"  
+                class="mobile-menu-button"  
+                type="button"  
+                aria-label="Menu">  
+            ☰  
+        </button>  
 
+    </div>  
 
-/* =========================================================
-   FIREBASE STRUCTURE
-========================================================= */
+</div>  
 
-const COMPANIES_COLLECTION =
-    "companies";
 
-const PROPERTIES_SUBCOLLECTION =
-    "properties";
+<div id="mobileMenu"  
+     class="mobile-menu">  
 
+    <a href="#top">  
+        🏠 Home  
+    </a>  
 
-/* =========================================================
-   COMPANY ID
-=========================================================
+    <a href="#propertiesSection">  
+        🏘 Properties  
+    </a>  
 
-IMPORTANT:
+    <a href="#aboutSection">  
+        ℹ️ About  
+    </a>  
 
-Do NOT lowercase the company ID.
+    <a href="#contactSection">  
+        📞 Contact  
+    </a>  
 
-Firebase document IDs are case-sensitive.
+</div>
 
-Correct:
+</header>  <section id="top"  
+         class="hero">  <div class="hero-inner">  
 
-Company_001
-Company_002
+    <div class="hero-content">  
 
-Wrong:
+        <span id="heroLabel"  
+              class="hero-label">  
+            Property Listings  
+        </span>  
 
-company_001
-company_002
+        <h1 id="heroTitle">  
+            Find Your Perfect Property  
+        </h1>  
 
-Default is Company_001 as requested.
+        <p id="heroDescription">  
+            Browse available properties and find the right place for you.  
+        </p>  
 
-URL examples:
+    </div>  
 
-index.html
-→ Company_002
+</div>
 
-index.html?companyId=Company_001
-→ Company_001
-index
-.html?companyId=Company_002
-→ Company_002
+</section>  <section class="search-section">  <div class="search-box">  
 
-========================================================= */
+    <div class="search-control">  
 
-function getCompanyId(){
+        <input id="searchInput"  
+               type="search"  
+               placeholder="Search properties..."  
+               autocomplete="off">  
 
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
+    </div>  
 
-    const urlId =
-        params.get("companyId");
+    <div class="search-control">  
 
-    if(
-        urlId &&
-        urlId.trim()
-    ){
+        <select id="purposeFilter">  
 
-        return urlId.trim();
+            <option value="">  
+                All Purposes  
+            </option>  
 
-    }
+            <option value="sale">  
+                For Sale  
+            </option>  
 
-    return "Company_001";
+            <option value="rent">  
+                For Rent  
+            </option>  
 
-}
+        </select>  
 
+    </div>  
 
-const currentCompanyId =
-    getCompanyId();
+    <div class="search-control">  
 
+        <select id="typeFilter">  
 
-console.log(
-    "ESTATEPRO COMPANY ID:",
-    currentCompanyId
-);
+            <option value="">  
+                All Types  
+            </option>  
 
+        </select>  
 
-/* =========================================================
-   STATE
-========================================================= */
+    </div>  
 
-let currentCompany = null;
+    <button id="searchButton"  
+            class="search-button"  
+            type="button">  
 
-let allProperties = [];
+        Search  
 
-let filteredProperties = [];
+    </button>  
 
-let selectedCategory = "";
+</div>
 
+</section>  <main class="main-container">  <section id="propertiesSection">  <div class="section-header">  
 
-/* =========================================================
-   DOM
-========================================================= */
-
-const brandLogo =
-    document.getElementById(
-        "brandLogo"
-    );
+    <div>  
 
-const brandName =
-    document.getElementById(
-        "brandName"
-    );
+        <h2>  
+            Properties  
+        </h2>  
 
-const brandLocation =
-    document.getElementById(
-        "brandLocation"
-    );
+        <p id="propertiesSubtitle">  
+            Browse available properties.  
+        </p>  
 
-const heroLabel =
-    document.getElementById(
-        "heroLabel"
-    );
+    </div>  
 
-const heroTitle =
-    document.getElementById(
-        "heroTitle"
-    );
+    <div id="propertyCount"  
+         class="property-count">  
+        0 properties  
+    </div>  
 
-const heroDescription =
-    document.getElementById(
-        "heroDescription"
-    );
+</div>  
 
-const propertiesGrid =
-    document.getElementById(
-        "propertiesGrid"
-    );
 
-const propertyCount =
-    document.getElementById(
-        "propertyCount"
-    );
+<div id="categories"  
+     class="categories">  
 
-const categories =
-    document.getElementById(
-        "categories"
-    );
+    <button class="category-button active"  
+            data-category=""  
+            type="button">  
 
-const searchInput =
-    document.getElementById(
-        "searchInput"
-    );
+        All  
 
-const purposeFilter =
-    document.getElementById(
-        "purposeFilter"
-    );
+    </button>  
 
-const typeFilter =
-    document.getElementById(
-        "typeFilter"
-    );
+</div>  
 
-const searchButton =
-    document.getElementById(
-        "searchButton"
-    );
 
-const propertyModal =
-    document.getElementById(
-        "propertyModal"
-    );
+<div id="propertiesGrid"  
+     class="properties-grid">  
 
+    <div class="loading">  
 
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
+        <div class="spinner"></div>  
 
-function escapeHTML(value){
+        Loading properties...  
 
-    return String(
-        value ?? ""
-    )
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-    .replace(
-        /</g,
-        "&lt;"
-    )
-    .replace(
-        />/g,
-        "&gt;"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-    .replace(
-        /'/g,
-        "&#039;"
-    );
+    </div>  
 
-}
+</div>
 
+</section>  <section id="aboutSection"  
+         class="about-section">  <div id="aboutLogo"  
+     class="about-logo">  
+    E  
+</div>  
 
-/* =========================================================
-   PHONE
-========================================================= */
+<div class="about-content">  
 
-function normalizePhone(phone){
+    <h2 id="aboutCompanyName">  
+        Company  
+    </h2>  
 
-    return String(
-        phone || ""
-    )
-    .replace(
-        /[^0-9+]/g,
-        ""
-    );
+    <p id="aboutDescription">  
+        Loading company information...  
+    </p>  
 
-}
+    <div id="companyContact"  
+         class="company-contact">  
+    </div>  
 
+</div>
 
-function whatsappNumber(phone){
+</section>  </main>  <footer id="contactSection"  
+        class="footer">  <div class="footer-inner">  
 
-    let number =
-        String(
-            phone || ""
-        )
-        .replace(
-            /\D/g,
-            ""
-        );
+    <div>  
 
-    if(
-        number.startsWith("0")
-    ){
+        <div id="footerCompanyName"  
+             class="footer-brand">  
+            Company  
+        </div>  
 
-        number =
-            "234" +
-            number.substring(1);
+        <p id="footerDescription">  
+            Property services and listings.  
+        </p>  
 
-    }
+    </div>  
 
-    return number;
 
-}
+    <div>  
 
+        <h3>  
+            Contact  
+        </h3>  
 
-/* =========================================================
-   FIREBASE REFERENCES
-========================================================= */
+        <div id="footerContact"  
+             class="footer-contact">  
+        </div>  
 
-function getCompanyRef(){
+    </div>  
 
-    return doc(
-        db,
-        COMPANIES_COLLECTION,
-        currentCompanyId
-    );
 
-}
+    <div>  
 
+        <h3>  
+            Location  
+        </h3>  
 
-function getPropertiesRef(){
+        <p id="footerAddress">  
+            Loading...  
+        </p>  
 
-    return collection(
-        db,
-        COMPANIES_COLLECTION,
-        currentCompanyId,
-        PROPERTIES_SUBCOLLECTION
-    );
+    </div>  
 
-}
+</div>  
 
 
-/* =========================================================
-   LOAD COMPANY
-========================================================= */
+<div class="footer-bottom">  
 
-async function loadCompany(){
+    © <span id="footerYear"></span>  
 
-    console.log(
-        "Reading company:",
-        currentCompanyId
-    );
+    <span id="footerCompany">  
+        Company  
+    </span>  
 
-    const snapshot =
-        await getDoc(
-            getCompanyRef()
-        );
+    — All rights reserved.  
 
-
-    if(
-        !snapshot.exists()
-    ){
-
-        throw new Error(
-            "Company '" +
-            currentCompanyId +
-            "' was not found in Firebase."
-        );
-
-    }
-
-
-    currentCompany =
-        snapshot.data();
-
-
-    updateCompanyUI(
-        currentCompany
-    );
-
-}
-
-
-/* =========================================================
-   UPDATE COMPANY UI
-========================================================= */
-
-function updateCompanyUI(company){
-
-    const name =
-        company.name ||
-        "Company";
-
-    const logo =
-        company.logo ||
-        "";
-
-    const phone =
-        company.phone ||
-        "";
-
-    const whatsapp =
-        company.whatsapp ||
-        phone ||
-        "";
-
-    const email =
-        company.email ||
-        "";
-
-    const address =
-        company.address ||
-        "";
-
-    const description =
-        company.description ||
-        "";
-
-
-    document.title =
-        name +
-        " | Properties";
-
-
-    document
-        .getElementById(
-            "pageDescription"
-        )
-        .setAttribute(
-            "content",
-            description ||
-            "Browse properties from " +
-            name
-        );
-
-
-    brandName.textContent =
-        name;
-
-
-    brandLocation.textContent =
-        address ||
-        "Property Services";
-
-
-    if(logo){
-
-        brandLogo.innerHTML =
-            `
-            <img
-                src="${escapeHTML(logo)}"
-                alt="${escapeHTML(name)}"
-            >
-            `;
-
-    }else{
-
-        brandLogo.textContent =
-            name
-                .charAt(0)
-                .toUpperCase();
-
-    }
-
-
-    heroLabel.textContent =
-        name;
-
-
-    heroTitle.textContent =
-        "Find Your Perfect Property";
-
-
-    heroDescription.textContent =
-        description ||
-        "Browse available properties from " +
-        name +
-        " and find the right place for you.";
-
-
-    document
-        .getElementById(
-            "aboutCompanyName"
-        )
-        .textContent =
-        name;
-
-
-    document
-        .getElementById(
-            "aboutDescription"
-        )
-        .textContent =
-        description ||
-        "Explore our available properties and find the right property for your needs.";
-
-
-    const aboutLogo =
-        document.getElementById(
-            "aboutLogo"
-        );
-
-
-    if(logo){
-
-        aboutLogo.innerHTML =
-            `
-            <img
-                src="${escapeHTML(logo)}"
-                alt="${escapeHTML(name)}"
-            >
-            `;
-
-    }else{
-
-        aboutLogo.textContent =
-            name
-                .charAt(0)
-                .toUpperCase();
-
-    }
-
-
-    /* COMPANY CONTACT */
-
-    const companyContact =
-        document.getElementById(
-            "companyContact"
-        );
-
-
-    let contactHTML = "";
-
-
-    if(phone){
-
-        contactHTML +=
-            `
-            <a
-                class="contact-item"
-                href="tel:${escapeHTML(
-                    normalizePhone(phone)
-                )}"
-            >
-                📞 ${escapeHTML(phone)}
-            </a>
-            `;
-
-    }
-
-
-    if(whatsapp){
-
-        contactHTML +=
-            `
-            <a
-                class="contact-item"
-                href="https://wa.me/${escapeHTML(
-                    whatsappNumber(whatsapp)
-                )}"
-                target="_blank"
-                rel="noopener"
-            >
-                💬 WhatsApp
-            </a>
-            `;
-
-    }
-
-
-    if(email){
-
-        contactHTML +=
-            `
-            <a
-                class="contact-item"
-                href="mailto:${escapeHTML(email)}"
-            >
-                ✉️ ${escapeHTML(email)}
-            </a>
-            `;
-
-    }
-
-
-    if(address){
-
-        contactHTML +=
-            `
-            <span class="contact-item">
-                📍 ${escapeHTML(address)}
-            </span>
-            `;
-
-    }
-
-
-    companyContact.innerHTML =
-        contactHTML;
-
-
-    /* HEADER CALL */
-
-    const headerCall =
-        document.getElementById(
-            "headerCallButton"
-        );
-
-
-    if(phone){
-
-        headerCall.classList.remove(
-            "hidden"
-        );
-
-        headerCall.onclick =
-            () => {
-
-                window.location.href =
-                    "tel:" +
-                    normalizePhone(phone);
-
-            };
-
-    }else{
-
-        headerCall.classList.add(
-            "hidden"
-        );
-
-    }
-
-
-    /* HEADER WHATSAPP */
-
-    const headerWhatsApp =
-        document.getElementById(
-            "headerWhatsAppButton"
-        );
-
-
-    if(whatsapp){
-
-        headerWhatsApp.classList.remove(
-            "hidden"
-        );
-
-        headerWhatsApp.onclick =
-            () => {
-
-                window.open(
-                    "https://wa.me/" +
-                    whatsappNumber(
-                        whatsapp
-                    ),
-                    "_blank"
-                );
-
-            };
-
-    }else{
-
-        headerWhatsApp.classList.add(
-            "hidden"
-        );
-
-    }
-
-
-    /* FOOTER */
-
-    document
-        .getElementById(
-            "footerCompanyName"
-        )
-        .textContent =
-        name;
-
-
-    document
-        .getElementById(
-            "footerDescription"
-        )
-        .textContent =
-        description ||
-        "Property services and listings.";
-
-
-    document
-        .getElementById(
-            "footerAddress"
-        )
-        .textContent =
-        address ||
-        "Contact us for more information.";
-
-
-    document
-        .getElementById(
-            "footerCompany"
-        )
-        .textContent =
-        name;
-
-
-    const footerContact =
-        document.getElementById(
-            "footerContact"
-        );
-
-
-    let footerHTML = "";
-
-
-    if(phone){
-
-        footerHTML +=
-            `
-            <a
-                href="tel:${escapeHTML(
-                    normalizePhone(phone)
-                )}"
-            >
-                📞 ${escapeHTML(phone)}
-            </a>
-            `;
-
-    }
-
-
-    if(email){
-
-        footerHTML +=
-            `
-            <a
-                href="mailto:${escapeHTML(email)}"
-            >
-                ✉️ ${escapeHTML(email)}
-            </a>
-            `;
-
-    }
-
-
-    if(whatsapp){
-
-        footerHTML +=
-            `
-            <a
-                href="https://wa.me/${escapeHTML(
-                    whatsappNumber(whatsapp)
-                )}"
-                target="_blank"
-                rel="noopener"
-            >
-                💬 WhatsApp
-            </a>
-            `;
-
-    }
-
-
-    footerContact.innerHTML =
-        footerHTML;
-
-}
-
-
-/* =========================================================
-   LOAD PROPERTIES
-========================================================= */
-
-async function loadProperties(){
-
-    propertiesGrid.innerHTML =
-        `
-        <div class="loading">
-
-            <div class="spinner"></div>
-
-            Loading properties...
-
-        </div>
-        `;
-
-
-    console.log(
-        "Reading properties from:",
-        "companies/" +
-        currentCompanyId +
-        "/properties"
-    );
-
-
-    const snapshot =
-        await getDocs(
-            getPropertiesRef()
-        );
-
-
-    allProperties = [];
-
-
-    snapshot.forEach(
-        propertyDoc => {
-
-            allProperties.push({
-
-                id:
-                    propertyDoc.id,
-
-                ...propertyDoc.data()
-
-            });
-
-        }
-    );
-
-
-    allProperties.sort(
-        (a,b) => {
-
-            if(
-                a.featured === true &&
-                b.featured !== true
-            ){
-
-                return -1;
-
-            }
-
-
-            if(
-                a.featured !== true &&
-                b.featured === true
-            ){
-
-                return 1;
-
-            }
-
-
-            return 0;
-
-        }
-    );
-
-
-    createCategories();
-
-    createTypeFilter();
-
-    applyFilters();
-
-}
-
-
-/* =========================================================
-   CATEGORIES
-========================================================= */
-
-function createCategories(){
-
-    const types =
-        [
-            ...new Set(
-                allProperties
-                    .map(
-                        property =>
-                            property.propertyType ||
-                            property.type ||
-                            ""
-                    )
-                    .filter(Boolean)
-            )
-        ];
-
-
-    categories.innerHTML =
-        `
-        <button
-            class="category-button active"
-            data-category=""
-            type="button"
-        >
-            All
-        </button>
-        `;
-
-
-    types.forEach(
-        type => {
-
-            const button =
-                document.createElement(
-                    "button"
-                );
-
-
-            button.type =
-                "button";
-
-
-            button.className =
-                "category-button";
-
-
-            button.dataset.category =
-                type;
-
-
-            button.textContent =
-                type;
-
-
-            categories.appendChild(
-                button
-            );
-
-        }
-    );
-
-
-    categories
-        .querySelectorAll(
-            ".category-button"
-        )
-        .forEach(
-            button => {
-
-                button.addEventListener(
-                    "click",
-                    () => {
-
-                        categories
-                            .querySelectorAll(
-                                ".category-button"
-                            )
-                            .forEach(
-                                item => {
-
-                                    item.classList.remove(
-                                        "active"
-                                    );
-
-                                }
-                            );
-
-
-                        button.classList.add(
-                            "active"
-                        );
-
-
-                        selectedCategory =
-                            button.dataset.category;
-
-
-                        applyFilters();
-
-                    }
-                );
-
-            }
-        );
-
-}
-
-
-/* =========================================================
-   TYPE FILTER
-========================================================= */
-
-function createTypeFilter(){
-
-    const types =
-        [
-            ...new Set(
-                allProperties
-                    .map(
-                        property =>
-                            property.propertyType ||
-                            property.type ||
-                            ""
-                    )
-                    .filter(Boolean)
-            )
-        ];
-
-
-    typeFilter.innerHTML =
-        `
-        <option value="">
-            All Types
-        </option>
-        `;
-
-
-    types.forEach(
-        type => {
-
-            const option =
-                document.createElement(
-                    "option"
-                );
-
-
-            option.value =
-                type;
-
-
-            option.textContent =
-                type;
-
-
-            typeFilter.appendChild(
-                option
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   FILTERS
-========================================================= */
-
-function applyFilters(){
-
-    const query =
-        searchInput.value
-            .trim()
-            .toLowerCase();
-
-
-    const purpose =
-        purposeFilter.value
-            .trim()
-            .toLowerCase();
-
-
-    const type =
-        typeFilter.value
-            .trim()
-            .toLowerCase();
-
-
-    filteredProperties =
-        allProperties.filter(
-            property => {
-
-                const propertyType =
-                    String(
-                        property.propertyType ||
-                        property.type ||
-                        ""
-                    )
-                    .toLowerCase();
-
-
-                const propertyPurpose =
-                    String(
-                        property.purpose ||
-                        "sale"
-                    )
-                    .toLowerCase();
-
-
-                const searchableText =
-                    [
-                        property.title,
-                        property.propertyType,
-                        property.type,
-                        property.location,
-                        property.price,
-                        property.status,
-                        property.purpose,
-                        property.description
-                    ]
-                    .join(" ")
-                    .toLowerCase();
-
-
-                return (
-
-                    (!query ||
-                        searchableText.includes(
-                            query
-                        )
-                    )
-
-                    &&
-
-                    (!purpose ||
-                        propertyPurpose ===
-                        purpose
-                    )
-
-                    &&
-
-                    (!type ||
-                        propertyType ===
-                        type
-                    )
-
-                    &&
-
-                    (!selectedCategory ||
-                        propertyType ===
-                        selectedCategory
-                            .toLowerCase()
-                    )
-
-                );
-
-            }
-        );
-
-
-    renderProperties(
-        filteredProperties
-    );
-
-}
-
-
-/* =========================================================
-   RENDER PROPERTIES
-========================================================= */
-
-function renderProperties(
-    properties
-){
-
-    propertyCount.textContent =
-        properties.length +
-        (
-            properties.length === 1
-                ? " property"
-                : " properties"
-        );
-
-
-    if(
-        !properties.length
-    ){
-
-        propertiesGrid.innerHTML =
-            `
-            <div class="empty-state">
-
-                <div class="empty-icon">
-                    🏠
-                </div>
-
-                <h3>
-                    No properties found
-                </h3>
-
-                <p>
-                    Try changing your search or filter.
-                </p>
-
-            </div>
-            `;
-
-        return;
-
-    }
-
-
-    propertiesGrid.innerHTML =
-        properties
-            .map(
-                property =>
-                    createPropertyCard(
-                        property
-                    )
-            )
-            .join("");
-
-
-    propertiesGrid
-        .querySelectorAll(
-            "[data-property-id]"
-        )
-        .forEach(
-            button => {
-
-                button.addEventListener(
-                    "click",
-                    () => {
-
-                        openPropertyModal(
-                            button.dataset.propertyId
-                        );
-
-                    }
-                );
-
-            }
-        );
-
-}
-
-
-/* =========================================================
-   PROPERTY CARD
-========================================================= */
-
-function createPropertyCard(
-    property
-){
-
-    const id =
-        property.id;
-
-
-    const title =
-        property.title ||
-        "Untitled Property";
-
-
-    const type =
-        property.propertyType ||
-        property.type ||
-        "Property";
-
-
-    const status =
-        String(
-            property.status ||
-            "available"
-        ).toLowerCase();
-
-
-    const purpose =
-        String(
-            property.purpose ||
-            "sale"
-        ).toLowerCase();
-
-
-    const location =
-        property.location ||
-        "Location not specified";
-
-
-    const price =
-        property.price ||
-        "Price on request";
-
-
-    const image =
-        property.imageUrl ||
-        property.image ||
-        "";
-
-
-    let statusClass = "";
-
-
-    if(
-        status === "sold"
-    ){
-
-        statusClass =
-            "status-sold";
-
-    }
-
-
-    if(
-        status === "rented"
-    ){
-
-        statusClass =
-            "status-rented";
-
-    }
-
-
-    const imageHTML =
-        image
-
-        ?
-
-        `
-        <img
-            src="${escapeHTML(image)}"
-            alt="${escapeHTML(title)}"
-            loading="lazy"
-            onerror="
-                this.style.display='none';
-                this.nextElementSibling.style.display='grid';
-            "
-        >
-
-        <div
-            class="image-placeholder"
-            style="display:none"
-        >
-            No Image
-        </div>
-        `
-
-        :
-
-        `
-        <div class="image-placeholder">
-            No Image
-        </div>
-        `;
-
-
-    const bedroomHTML =
-        Number(
-            property.bedrooms || 0
-        ) > 0
-
-        ?
-
-        `
-        <span class="meta-item">
-            🛏
-            ${escapeHTML(
-                property.bedrooms
-            )}
-            Bedrooms
-        </span>
-        `
-
-        :
-
-        "";
-
-
-    const bathroomHTML =
-        Number(
-            property.bathrooms || 0
-        ) > 0
-
-        ?
-
-        `
-        <span class="meta-item">
-            🚿
-            ${escapeHTML(
-                property.bathrooms
-            )}
-            Bathrooms
-        </span>
-        `
-
-        :
-
-        "";
-
-
-    return `
-
-    <article class="property-card">
-
-        <div class="property-image">
-
-            ${imageHTML}
-
-            ${
-                property.featured === true
-
-                ?
-
-                `
-                <span class="featured-label">
-                    Featured
-                </span>
-                `
-
-                :
-
-                ""
-            }
-
-
-            <span class="purpose-label">
-
-                ${
-                    purpose === "rent"
-                        ? "For Rent"
-                        : "For Sale"
-                }
-
-            </span>
-
-        </div>
-
-
-        <div class="property-body">
-
-            <div
-                class="status-badge ${statusClass}"
-            >
-
-                ${
-                    status === "sold"
-                        ? "Sold"
-                        : status === "rented"
-                            ? "Rented"
-                            : "Available"
-                }
-
-            </div>
-
-
-            <div class="property-type">
-
-                ${escapeHTML(type)}
-
-            </div>
-
-
-            <h3 class="property-title">
-
-                ${escapeHTML(title)}
-
-            </h3>
-
-
-            <div class="property-location">
-
-                📍
-                ${escapeHTML(location)}
-
-            </div>
-
-
-            <div class="property-price">
-
-                ${escapeHTML(price)}
-
-            </div>
-
-
-            <div class="property-meta">
-
-                ${bedroomHTML}
-
-                ${bathroomHTML}
-
-            </div>
-
-
-            <div class="property-description">
-
-                ${escapeHTML(
-                    property.description ||
-                    "Contact the company for more information."
-                )}
-
-            </div>
-
-
-            <button
-                class="view-button"
-                type="button"
-                data-property-id="${escapeHTML(id)}"
-            >
-                View Property
-            </button>
-
-        </div>
-
-    </article>
-
-    `;
-
-}
-
-
-/* =========================================================
-   OPEN PROPERTY
-========================================================= */
-
-function openPropertyModal(id){
-
-    const property =
-        allProperties.find(
-            item =>
-                item.id === id
-        );
-
-
-    if(!property){
-
-        return;
-
-    }
-
-
-    const title =
-        property.title ||
-        "Property";
-
-
-    const location =
-        property.location ||
-        "Location not specified";
-
-
-    const price =
-        property.price ||
-        "Price on request";
-
-
-    const type =
-        property.propertyType ||
-        property.type ||
-        "Property";
-
-
-    const status =
-        String(
-            property.status ||
-            "available"
-        ).toLowerCase();
-
-
-    const purpose =
-        String(
-            property.purpose ||
-            "sale"
-        ).toLowerCase();
-
-
-    const image =
-        property.imageUrl ||
-        property.image ||
-        "";
-
-
-    const phone =
-        currentCompany?.phone ||
-        "";
-
-
-    const whatsapp =
-        currentCompany?.whatsapp ||
-        phone ||
-        "";
-
-
-    const modalImage =
-        document.getElementById(
-            "modalImage"
-        );
-
-
-    if(image){
-
-        modalImage.innerHTML =
-            `
-            <img
-                src="${escapeHTML(image)}"
-                alt="${escapeHTML(title)}"
-            >
-            `;
-
-    }else{
-
-        modalImage.innerHTML =
-            `
-            <div class="image-placeholder">
-                No Image Available
-            </div>
-            `;
-
-    }
-
-
-    const modalStatus =
-        document.getElementById(
-            "modalStatus"
-        );
-
-
-    modalStatus.textContent =
-        status === "sold"
-            ? "SOLD"
-            : status === "rented"
-                ? "RENTED"
-                : "AVAILABLE";
-
-
-    modalStatus.className =
-        "status-badge";
-
-
-    if(
-        status === "sold"
-    ){
-
-        modalStatus.classList.add(
-            "status-sold"
-        );
-
-    }
-
-
-    if(
-        status === "rented"
-    ){
-
-        modalStatus.classList.add(
-            "status-rented"
-        );
-
-    }
-
-
-    document
-        .getElementById(
-            "modalTitle"
-        )
-        .textContent =
-        title;
-
-
-    document
-        .getElementById(
-            "modalLocation"
-        )
-        .textContent =
-        "📍 " +
-        location;
-
-
-    document
-        .getElementById(
-            "modalPrice"
-        )
-        .textContent =
-        price;
-
-
-    const modalMeta =
-        document.getElementById(
-            "modalMeta"
-        );
-
-
-    let metaHTML =
-        `
-
-        <span class="meta-item">
-            🏠
-            ${escapeHTML(type)}
-        </span>
-
-        <span class="meta-item">
-            ${
-                purpose === "rent"
-                    ? "For Rent"
-                    : "For Sale"
-            }
-        </span>
-
-        `;
-
-
-    if(
-        Number(
-            property.bedrooms || 0
-        ) > 0
-    ){
-
-        metaHTML +=
-            `
-
-            <span class="meta-item">
-                🛏
-                ${escapeHTML(
-                    property.bedrooms
-                )}
-                Bedrooms
-            </span>
-
-            `;
-
-    }
-
-
-    if(
-        Number(
-            property.bathrooms || 0
-        ) > 0
-    ){
-
-        metaHTML +=
-            `
-
-            <span class="meta-item">
-                🚿
-                ${escapeHTML(
-                    property.bathrooms
-                )}
-                Bathrooms
-            </span>
-
-            `;
-
-    }
-
-
-    modalMeta.innerHTML =
-        metaHTML;
-
-
-    document
-        .getElementById(
-            "modalDescription"
-        )
-        .textContent =
-        property.description ||
-        "No additional description provided.";
-
-
-    const modalWhatsApp =
-        document.getElementById(
-            "modalWhatsApp"
-        );
-
-
-    if(whatsapp){
-
-        const message =
-            encodeURIComponent(
-                "Hello, I am interested in this property: " +
-                title
-            );
-
-
-        modalWhatsApp.href =
-            "https://wa.me/" +
-            whatsappNumber(
-                whatsapp
-            ) +
-            "?text=" +
-            message;
-
-
-        modalWhatsApp.classList.remove(
-            "hidden"
-        );
-
-    }else{
-
-        modalWhatsApp.classList.add(
-            "hidden"
-        );
-
-    }
-
-
-    const modalPhone =
-        document.getElementById(
-            "modalPhone"
-        );
-
-
-    if(phone){
-
-        modalPhone.href =
-            "tel:" +
-            normalizePhone(phone);
-
-
-        modalPhone.classList.remove(
-            "hidden"
-        );
-
-    }else{
-
-        modalPhone.classList.add(
-            "hidden"
-        );
-
-    }
-
-
-    propertyModal.classList.add(
-        "show"
-    );
-
-
-    document.body.style.overflow =
-        "hidden";
-
-}
-
-
-/* =========================================================
-   CLOSE MODAL
-========================================================= */
-
-function closeModal(){
-
-    propertyModal.classList.remove(
-        "show"
-    );
-
-    document.body.style.overflow =
-        "";
-
-}
-
-
-document
-    .getElementById(
-        "modalClose"
-    )
-    .addEventListener(
-        "click",
-        closeModal
-    );
-
-
-propertyModal.addEventListener(
-    "click",
-    event => {
-
-        if(
-            event.target ===
-            propertyModal
-        ){
-
-            closeModal();
-
-        }
-
-    }
-);
-
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if(
-            event.key === "Escape"
-        ){
-
-            closeModal();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   SEARCH EVENTS
-========================================================= */
-
-searchInput.addEventListener(
-    "input",
-    applyFilters
-);
-
-
-purposeFilter.addEventListener(
-    "change",
-    applyFilters
-);
-
-
-typeFilter.addEventListener(
-    "change",
-    applyFilters
-);
-
-
-searchButton.addEventListener(
-    "click",
-    () => {
-
-        applyFilters();
-
-        document
-            .getElementById(
-                "propertiesSection"
-            )
-            .scrollIntoView({
-                behavior:"smooth"
-            });
-
-    }
-);
-
-
-/* =========================================================
-   START APPLICATION
-========================================================= */
-
-async function startApp(){
-
-    document
-        .getElementById(
-            "footerYear"
-        )
-        .textContent =
-        new Date()
-            .getFullYear();
-
-
-    console.log(
-        "================================"
-    );
-
-    console.log(
-        "ESTATEPRO STARTING"
-    );
-
-    console.log(
-        "Company ID:",
-        currentCompanyId
-    );
-
-    console.log(
-        "Company path:",
-        "companies/" +
-        currentCompanyId
-    );
-
-    console.log(
-        "Properties path:",
-        "companies/" +
-        currentCompanyId +
-        "/properties"
-    );
-
-    console.log(
-        "================================"
-    );
-
-
-    try{
-
-        await loadCompany();
-
-        await loadProperties();
-
-
-        console.log(
-            "EstatePro loaded successfully."
-        );
-
-
-    }catch(error){
-
-        console.error(
-            "EstatePro Error:",
-            error
-        );
-
-
-        let message =
-            error?.message ||
-            "Something went wrong.";
-
-
-        if(
-            error?.code ===
-            "permission-denied"
-        ){
-
-            message =
-                "Firebase denied access. Check Firestore Rules for companies/" +
-                currentCompanyId +
-                "/properties.";
-
-        }
-
-
-        propertiesGrid.innerHTML =
-            `
-
-            <div class="error-box">
-
-                <h2>
-                    Unable to Load Website
-                </h2>
-
-                <p>
-                    ${escapeHTML(message)}
-                </p>
-
-                <p>
-
-                    <strong>
-                        Company ID:
-                    </strong>
-
-                    ${escapeHTML(
-                        currentCompanyId
-                    )}
-
-                </p>
-
-                <p>
-
-                    <strong>
-                        Firebase path:
-                    </strong>
-
-                    companies /
-                    ${escapeHTML(
-                        currentCompanyId
-                    )}
-                    /
-                    properties
-
-                </p>
-
-            </div>
-
-            `;
-
-    }
-
-}
-
-
-/* =========================================================
-   DEBUG
-========================================================= */
-
-window.estateProWebsite = {
-
-    companyId:
-        currentCompanyId,
-
-    getCompany:
-        () =>
-            currentCompany,
-
-    getProperties:
-        () =>
-            allProperties,
-
-    reload:
-        startApp
-
-};
-
-
-/* START */
-
-startApp();
-
-</script>
-
-</body>
+</div>
+
+</footer>  </div>  <script type="module">  
+  
+  
+/* =========================================================  
+   FIREBASE  
+========================================================= */  
+  
+import {  
+    initializeApp  
+}  
+from  
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";  
+  
+  
+import {  
+    getFirestore,  
+    doc,  
+    getDoc,  
+    collection,  
+    getDocs,  
+    query,  
+    where  
+}  
+from  
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";  
+  
+  
+const firebaseConfig = {  
+  
+    apiKey:  
+        "AIzaSyAE44DxNnqz3m8ScqaZxoSj2FdQ7aJ2NIg",  
+  
+    authDomain:  
+        "estate-pro-d564b.firebaseapp.com",  
+  
+    projectId:  
+        "estate-pro-d564b",  
+  
+    storageBucket:  
+        "estate-pro-d564b.firebasestorage.app",  
+  
+    messagingSenderId:  
+        "600309829118",  
+  
+    appId:  
+        "1:600309829118:web:60c61624ca8cdf05e884af",  
+  
+    measurementId:  
+        "G-TG60FCJHXB"  
+  
+};  
+  
+  
+const app =  
+    initializeApp(firebaseConfig);  
+  
+const db =  
+    getFirestore(app);  
+  
+  
+/* =========================================================  
+   COLLECTIONS  
+========================================================= */  
+  
+const COMPANIES_COLLECTION =  
+    "companies";  
+  
+const PROPERTIES_SUBCOLLECTION =  
+    "properties";  
+  
+const SUBSCRIPTIONS_COLLECTION =  
+    "subscriptions";  
+  
+  
+/* =========================================================  
+   COMPANY ID  
+========================================================= */  
+  
+function getCompanyId(){  
+  
+    const params =  
+        new URLSearchParams(  
+            window.location.search  
+        );  
+  
+    const companyId =  
+        params.get("companyId");  
+  
+    if(  
+        companyId &&  
+        companyId.trim()  
+    ){  
+  
+        return companyId.trim();  
+  
+    }  
+  
+    return "Company_002";  
+  
+}  
+  
+  
+const currentCompanyId =  
+    getCompanyId();  
+  
+  
+/* =========================================================  
+   STATE  
+========================================================= */  
+  
+let currentCompany = null;  
+  
+let currentSubscription = null;  
+  
+let allProperties = [];  
+  
+let filteredProperties = [];  
+  
+let selectedCategory = "";  
+  
+  
+/* =========================================================  
+   DOM  
+========================================================= */  
+  
+const websiteContent =  
+    document.getElementById(  
+        "websiteContent"  
+    );  
+  
+const subscriptionLock =  
+    document.getElementById(  
+        "subscriptionLock"  
+    );  
+  
+const brandLogo =  
+    document.getElementById(  
+        "brandLogo"  
+    );  
+  
+const brandName =  
+    document.getElementById(  
+        "brandName"  
+    );  
+  
+const brandLocation =  
+    document.getElementById(  
+        "brandLocation"  
+    );  
+  
+const heroLabel =  
+    document.getElementById(  
+        "heroLabel"  
+    );  
+  
+const heroDescription =  
+    document.getElementById(  
+        "heroDescription"  
+    );  
+  
+const propertiesGrid =  
+    document.getElementById(  
+        "propertiesGrid"  
+    );  
+  
+const propertyCount =  
+    document.getElementById(  
+        "propertyCount"  
+    );  
+  
+const categories =  
+    document.getElementById(  
+        "categories"  
+    );  
+  
+const searchInput =  
+    document.getElementById(  
+        "searchInput"  
+    );  
+  
+const purposeFilter =  
+    document.getElementById(  
+        "purposeFilter"  
+    );  
+  
+const typeFilter =  
+    document.getElementById(  
+        "typeFilter"  
+    );  
+  
+  
+/* =========================================================  
+   ESCAPE HTML  
+========================================================= */  
+  
+function escapeHTML(value){  
+  
+    return String(value ?? "")  
+        .replace(/&/g,"&amp;")  
+        .replace(/</g,"&lt;")  
+        .replace(/>/g,"&gt;")  
+        .replace(/"/g,"&quot;")  
+        .replace(/'/g,"&#039;");  
+  
+}  
+  
+  
+/* =========================================================  
+   PHONE  
+========================================================= */  
+  
+function normalizePhone(phone){  
+  
+    return String(phone || "")  
+        .replace(/[^0-9+]/g,"");  
+  
+}  
+  
+  
+function whatsappNumber(phone){  
+  
+    let number =  
+        String(phone || "")  
+        .replace(/\D/g,"");  
+  
+  
+    if(number.startsWith("0")){  
+  
+        number =  
+            "234" +  
+            number.substring(1);  
+  
+    }  
+  
+  
+    return number;  
+  
+}  
+  
+  
+/* =========================================================  
+   FIRESTORE REFERENCES  
+========================================================= */  
+  
+function getCompanyRef(){  
+  
+    return doc(  
+        db,  
+        COMPANIES_COLLECTION,  
+        currentCompanyId  
+    );  
+  
+}  
+  
+  
+function getPropertiesRef(){  
+  
+    return collection(  
+        db,  
+        COMPANIES_COLLECTION,  
+        currentCompanyId,  
+        PROPERTIES_SUBCOLLECTION  
+    );  
+  
+}  
+  
+  
+function getSubscriptionsRef(){  
+  
+    return collection(  
+        db,  
+        SUBSCRIPTIONS_COLLECTION  
+    );  
+  
+}  
+  
+  
+/* =========================================================  
+   DATE  
+========================================================= */  
+  
+function timestampToDate(value){  
+  
+    if(!value){  
+        return null;  
+    }  
+  
+    if(  
+        typeof value.toDate === "function"  
+    ){  
+  
+        return value.toDate();  
+  
+    }  
+  
+    if(value instanceof Date){  
+  
+        return value;  
+  
+    }  
+  
+    if(typeof value === "number"){  
+  
+        const date =  
+            new Date(value);  
+  
+        return isNaN(  
+            date.getTime()  
+        )  
+        ? null  
+        : date;  
+  
+    }  
+  
+    if(typeof value === "string"){  
+  
+        const date =  
+            new Date(value);  
+  
+        return isNaN(  
+            date.getTime()  
+        )  
+        ? null  
+        : date;  
+  
+    }  
+  
+    if(  
+        typeof value === "object" &&  
+        typeof value.seconds === "number"  
+    ){  
+  
+        return new Date(  
+            value.seconds * 1000  
+        );  
+  
+    }  
+  
+    return null;  
+  
+}  
+  
+  
+/* =========================================================  
+   SUBSCRIPTION  
+========================================================= */  
+  
+function checkSubscription(subscription){  
+  
+    if(!subscription){  
+  
+        return {  
+            active:false,  
+            reason:"not-found"  
+        };  
+  
+    }  
+  
+  
+    const status =  
+        String(  
+            subscription.status || ""  
+        )  
+        .trim()  
+        .toLowerCase();  
+  
+  
+    const expiry =  
+        timestampToDate(  
+            subscription.expiryDate  
+        );  
+  
+  
+    if(status !== "active"){  
+  
+        if(status === "expired"){  
+  
+            return {  
+                active:false,  
+                reason:"expired"  
+            };  
+  
+        }  
+  
+        return {  
+            active:false,  
+            reason:"inactive"  
+        };  
+  
+    }  
+  
+  
+    if(!expiry){  
+  
+        return {  
+            active:false,  
+            reason:"no-expiry"  
+        };  
+  
+    }  
+  
+  
+    if(  
+        expiry.getTime()  
+        <=  
+        Date.now()  
+    ){  
+  
+        return {  
+            active:false,  
+            reason:"expired"  
+        };  
+  
+    }  
+  
+  
+    return {  
+        active:true,  
+        reason:"active"  
+    };  
+  
+}  
+  
+  
+/* =========================================================  
+   LOAD SUBSCRIPTION  
+========================================================= */  
+  
+async function loadSubscription(){  
+  
+    const ref =  
+        getSubscriptionsRef();  
+  
+  
+    const q =  
+        query(  
+            ref,  
+            where(  
+                "companyId",  
+                "==",  
+                currentCompanyId  
+            )  
+        );  
+  
+  
+    const snapshot =  
+        await getDocs(q);  
+  
+  
+    if(snapshot.empty){  
+  
+        currentSubscription =  
+            null;  
+  
+        return {  
+            active:false,  
+            reason:"not-found"  
+        };  
+  
+    }  
+  
+  
+    const subscriptions = [];  
+  
+  
+    snapshot.forEach(item => {  
+  
+        subscriptions.push({  
+  
+            id:item.id,  
+  
+            ...item.data()  
+  
+        });  
+  
+    });  
+  
+  
+    const valid =  
+        subscriptions  
+        .filter(item => {  
+  
+            const status =  
+                String(  
+                    item.status || ""  
+                )  
+                .toLowerCase();  
+  
+            const expiry =  
+                timestampToDate(  
+                    item.expiryDate  
+                );  
+  
+            return (  
+                status === "active" &&  
+                expiry &&  
+                expiry.getTime() > Date.now()  
+            );  
+  
+        })  
+        .sort((a,b) => {  
+  
+            const aDate =  
+                timestampToDate(  
+                    a.expiryDate  
+                );  
+  
+            const bDate =  
+                timestampToDate(  
+                    b.expiryDate  
+                );  
+  
+            return (  
+                bDate.getTime()  
+                -  
+                aDate.getTime()  
+            );  
+  
+        });  
+  
+  
+    if(valid.length){  
+  
+        currentSubscription =  
+            valid[0];  
+  
+        return checkSubscription(  
+            currentSubscription  
+        );  
+  
+    }  
+  
+  
+    currentSubscription =  
+        subscriptions[0];  
+  
+  
+    return checkSubscription(  
+        currentSubscription  
+    );  
+  
+}  
+  
+  
+/* =========================================================  
+   SUBSCRIPTION LOCK  
+========================================================= */  
+  
+function showSubscriptionLock(  
+    reason,  
+    companyName  
+){  
+  
+    websiteContent.classList.add(  
+        "hidden"  
+    );  
+  
+    subscriptionLock.classList.remove(  
+        "hidden"  
+    );  
+  
+  
+    document  
+        .getElementById(  
+            "subscriptionCompanyName"  
+        )  
+        .textContent =  
+        companyName ||  
+        currentCompanyId;  
+  
+  
+    const title =  
+        document.getElementById(  
+            "subscriptionLockTitle"  
+        );  
+  
+    const message =  
+        document.getElementById(  
+            "subscriptionLockMessage"  
+        );  
+  
+  
+    if(reason === "expired"){  
+  
+        title.textContent =  
+            "Subscription Expired";  
+  
+        message.textContent =  
+            "This company's website subscription has expired. Please renew the subscription to continue.";  
+  
+    }  
+  
+    else if(reason === "not-found"){  
+  
+        title.textContent =  
+            "Subscription Not Found";  
+  
+        message.textContent =  
+            "No subscription was found for this company.";  
+  
+    }  
+  
+    else{  
+  
+        title.textContent =  
+            "Website Inactive";  
+  
+        message.textContent =  
+            "This company's website is currently inactive.";  
+  
+    }  
+  
+}  
+  
+  
+/* =========================================================  
+   LOAD COMPANY  
+========================================================= */  
+  
+async function loadCompany(){  
+  
+    const snapshot =  
+        await getDoc(  
+            getCompanyRef()  
+        );  
+  
+  
+    if(!snapshot.exists()){  
+  
+        propertiesGrid.innerHTML = `  
+  
+            <div class="error-box">  
+  
+                <h2>  
+                    Company Not Found  
+                </h2>  
+  
+                <p>  
+                    Company ID:  
+                    <strong>  
+                        ${escapeHTML(  
+                            currentCompanyId  
+                        )}  
+                    </strong>  
+                </p>  
+  
+            </div>  
+  
+        `;  
+  
+        return false;  
+  
+    }  
+  
+  
+    currentCompany =  
+        snapshot.data();  
+  
+  
+    const subscription =  
+        await loadSubscription();  
+  
+  
+    if(!subscription.active){  
+  
+        showSubscriptionLock(  
+            subscription.reason,  
+            currentCompany.name ||  
+            currentCompany.companyName ||  
+            currentCompanyId  
+        );  
+  
+        return false;  
+  
+    }  
+  
+  
+    updateCompanyUI(  
+        currentCompany  
+    );  
+  
+  
+    return true;  
+  
+}  
+  
+  
+/* =========================================================  
+   COMPANY UI  
+========================================================= */  
+  
+function updateCompanyUI(company){  
+  
+    const name =  
+        company.name ||  
+        company.companyName ||  
+        "Company";  
+  
+  
+    const logo =  
+        company.logo ||  
+        company.companyLogo ||  
+        "";  
+  
+  
+    const phone =  
+        company.phone ||  
+        company.companyPhone ||  
+        "";  
+  
+  
+    const whatsapp =  
+        company.whatsapp ||  
+        company.companyWhatsApp ||  
+        phone;  
+  
+  
+    const email =  
+        company.email ||  
+        company.companyEmail ||  
+        "";  
+  
+  
+    const address =  
+        company.address ||  
+        company.companyAddress ||  
+        "";  
+  
+  
+    const description =  
+        company.description ||  
+        company.companyDescription ||  
+        "";  
+  
+  
+    document.title =  
+        name +  
+        " | Properties";  
+  
+  
+    document  
+        .getElementById(  
+            "pageDescription"  
+        )  
+        .setAttribute(  
+            "content",  
+            description ||  
+            "Browse properties from " +  
+            name  
+        );  
+  
+  
+    brandName.textContent =  
+        name;  
+  
+  
+    brandLocation.textContent =  
+        address ||  
+        "Property Services";  
+  
+  
+    if(logo){  
+  
+        brandLogo.innerHTML = `  
+  
+            <img  
+                src="${escapeHTML(logo)}"  
+                alt="${escapeHTML(name)}"  
+            >  
+  
+        `;  
+  
+    }  
+    else{  
+  
+        brandLogo.textContent =  
+            name.charAt(0)  
+                .toUpperCase();  
+  
+    }  
+  
+  
+    heroLabel.textContent =  
+        name;  
+  
+  
+    heroDescription.textContent =  
+        description ||  
+        "Browse available properties from " +  
+        name +  
+        " and find the right place for you.";  
+  
+  
+    document  
+        .getElementById(  
+            "aboutCompanyName"  
+        )  
+        .textContent =  
+        name;  
+  
+  
+    document  
+        .getElementById(  
+            "aboutDescription"  
+        )  
+        .textContent =  
+        description ||  
+        "Explore our available properties and find the right property for your needs.";  
+  
+  
+    const aboutLogo =  
+        document.getElementById(  
+            "aboutLogo"  
+        );  
+  
+  
+    if(logo){  
+  
+        aboutLogo.innerHTML = `  
+  
+            <img  
+                src="${escapeHTML(logo)}"  
+                alt="${escapeHTML(name)}"  
+            >  
+  
+        `;  
+  
+    }  
+    else{  
+  
+        aboutLogo.textContent =  
+            name.charAt(0)  
+                .toUpperCase();  
+  
+    }  
+  
+  
+    const companyContact =  
+        document.getElementById(  
+            "companyContact"  
+        );  
+  
+  
+    let html = "";  
+  
+  
+    if(phone){  
+  
+        html += `  
+  
+            <a  
+                class="contact-item"  
+                href="tel:${escapeHTML(  
+                    normalizePhone(phone)  
+                )}"  
+            >  
+                📞 ${escapeHTML(phone)}  
+            </a>  
+  
+        `;  
+  
+    }  
+  
+  
+    if(whatsapp){  
+  
+        html += `  
+  
+            <a  
+                class="contact-item"  
+                target="_blank"  
+                rel="noopener"  
+                href="https://wa.me/${escapeHTML(  
+                    whatsappNumber(whatsapp)  
+                )}"  
+            >  
+                💬 WhatsApp  
+            </a>  
+  
+        `;  
+  
+    }  
+  
+  
+    if(email){  
+  
+        html += `  
+  
+            <a  
+                class="contact-item"  
+                href="mailto:${escapeHTML(email)}"  
+            >  
+                ✉️ ${escapeHTML(email)}  
+            </a>  
+  
+        `;  
+  
+    }  
+  
+  
+    if(address){  
+  
+        html += `  
+  
+            <span class="contact-item">  
+                📍 ${escapeHTML(address)}  
+            </span>  
+  
+        `;  
+  
+    }  
+  
+  
+    companyContact.innerHTML =  
+        html;  
+  
+  
+    const callButton =  
+        document.getElementById(  
+            "headerCallButton"  
+        );  
+  
+  
+    if(phone){  
+  
+        callButton.classList.remove(  
+            "hidden"  
+        );  
+  
+        callButton.onclick =  
+            () => {  
+  
+                window.location.href =  
+                    "tel:" +  
+                    normalizePhone(phone);  
+  
+            };  
+  
+    }  
+    else{  
+  
+        callButton.classList.add(  
+            "hidden"  
+        );  
+  
+    }  
+  
+  
+    const whatsappButton =  
+        document.getElementById(  
+            "headerWhatsAppButton"  
+        );  
+  
+  
+    if(whatsapp){  
+  
+        whatsappButton.classList.remove(  
+            "hidden"  
+        );  
+  
+        whatsappButton.onclick =  
+            () => {  
+  
+                window.open(  
+                    "https://wa.me/" +  
+                    whatsappNumber(whatsapp),  
+                    "_blank"  
+                );  
+  
+            };  
+  
+    }  
+    else{  
+  
+        whatsappButton.classList.add(  
+            "hidden"  
+        );  
+  
+    }  
+  
+  
+    document  
+        .getElementById(  
+            "footerCompanyName"  
+        )  
+        .textContent =  
+        name;  
+  
+  
+    document  
+        .getElementById(  
+            "footerCompany"  
+        )  
+        .textContent =  
+        name;  
+  
+  
+    document  
+        .getElementById(  
+            "footerDescription"  
+        )  
+        .textContent =  
+        description ||  
+        "Property services and listings.";  
+  
+  
+    document  
+        .getElementById(  
+            "footerAddress"  
+        )  
+        .textContent =  
+        address ||  
+        "Contact us for more information.";  
+  
+  
+    const footerContact =  
+        document.getElementById(  
+            "footerContact"  
+        );  
+  
+  
+    let footerHTML = "";  
+  
+  
+    if(phone){  
+  
+        footerHTML += `  
+  
+            <a  
+                href="tel:${escapeHTML(  
+                    normalizePhone(phone)  
+                )}"  
+            >  
+                📞 ${escapeHTML(phone)}  
+            </a>  
+  
+        `;  
+  
+    }  
+  
+  
+    if(email){  
+  
+        footerHTML += `  
+  
+            <a  
+                href="mailto:${escapeHTML(email)}"  
+            >  
+                ✉️ ${escapeHTML(email)}  
+            </a>  
+  
+        `;  
+  
+    }  
+  
+  
+    if(whatsapp){  
+  
+        footerHTML += `  
+  
+            <a  
+                target="_blank"  
+                rel="noopener"  
+                href="https://wa.me/${escapeHTML(  
+                    whatsappNumber(whatsapp)  
+                )}"  
+            >  
+                💬 WhatsApp  
+            </a>  
+  
+        `;  
+  
+    }  
+  
+  
+    footerContact.innerHTML =  
+        footerHTML;  
+  
+}  
+  
+  
+/* =========================================================  
+   LOAD PROPERTIES  
+========================================================= */  
+  
+async function loadProperties(){  
+  
+    propertiesGrid.innerHTML = `  
+  
+        <div class="loading">  
+  
+            <div class="spinner"></div>  
+  
+            Loading properties...  
+  
+        </div>  
+  
+    `;  
+  
+  
+    const snapshot =  
+        await getDocs(  
+            getPropertiesRef()  
+        );  
+  
+  
+    allProperties = [];  
+  
+  
+    snapshot.forEach(item => {  
+  
+        allProperties.push({  
+  
+            id:item.id,  
+  
+            ...item.data()  
+  
+        });  
+  
+    });  
+  
+  
+    allProperties.sort((a,b) => {  
+  
+        if(  
+            a.featured === true &&  
+            b.featured !== true  
+        ){  
+            return -1;  
+        }  
+  
+        if(  
+            a.featured !== true &&  
+            b.featured === true  
+        ){  
+            return 1;  
+        }  
+  
+        return 0;  
+  
+    });  
+  
+  
+    createCategories();  
+  
+    createTypeFilter();  
+  
+    applyFilters();  
+  
+}  
+  
+  
+/* =========================================================  
+   CATEGORIES  
+========================================================= */  
+  
+function createCategories(){  
+  
+    const types =  
+        [  
+            ...new Set(  
+                allProperties  
+                .map(item =>  
+                    item.propertyType ||  
+                    item.type ||  
+                    ""  
+                )  
+                .filter(Boolean)  
+            )  
+        ];  
+  
+  
+    categories.innerHTML = `  
+  
+        <button  
+            class="category-button active"  
+            data-category=""  
+            type="button"  
+        >  
+            All  
+        </button>  
+  
+    `;  
+  
+  
+    types.forEach(type => {  
+  
+        const button =  
+            document.createElement(  
+                "button"  
+            );  
+  
+  
+        button.type = "button";  
+  
+        button.className =  
+            "category-button";  
+  
+        button.dataset.category =  
+            type;  
+  
+        button.textContent =  
+            type;  
+  
+  
+        categories.appendChild(  
+            button  
+        );  
+  
+    });  
+  
+  
+    categories  
+        .querySelectorAll(  
+            ".category-button"  
+        )  
+        .forEach(button => {  
+  
+            button.addEventListener(  
+                "click",  
+                () => {  
+  
+                    categories  
+                        .querySelectorAll(  
+                            ".category-button"  
+                        )  
+                        .forEach(item => {  
+  
+                            item.classList.remove(  
+                                "active"  
+                            );  
+  
+                        });  
+  
+  
+                    button.classList.add(  
+                        "active"  
+                    );  
+  
+  
+                    selectedCategory =  
+                        button.dataset.category;  
+  
+  
+                    applyFilters();  
+  
+                }  
+            );  
+  
+        });  
+  
+}  
+  
+  
+/* =========================================================  
+   TYPE FILTER  
+========================================================= */  
+  
+function createTypeFilter(){  
+  
+    const types =  
+        [  
+            ...new Set(  
+                allProperties  
+                .map(item =>  
+                    item.propertyType ||  
+                    item.type ||  
+                    ""  
+                )  
+                .filter(Boolean)  
+            )  
+        ];  
+  
+  
+    typeFilter.innerHTML = `  
+  
+        <option value="">  
+            All Types  
+        </option>  
+  
+    `;  
+  
+  
+    types.forEach(type => {  
+  
+        const option =  
+            document.createElement(  
+                "option"  
+            );  
+  
+        option.value =  
+            type;  
+  
+        option.textContent =  
+            type;  
+  
+        typeFilter.appendChild(  
+            option  
+        );  
+  
+    });  
+  
+}  
+  
+  
+/* =========================================================  
+   FILTER  
+========================================================= */  
+  
+function applyFilters(){  
+  
+    const search =  
+        searchInput.value  
+            .trim()  
+            .toLowerCase();  
+  
+  
+    const purpose =  
+        purposeFilter.value  
+            .trim()  
+            .toLowerCase();  
+  
+  
+    const type =  
+        typeFilter.value  
+            .trim()  
+            .toLowerCase();  
+  
+  
+    filteredProperties =  
+        allProperties.filter(property => {  
+  
+            const propertyType =  
+                String(  
+                    property.propertyType ||  
+                    property.type ||  
+                    ""  
+                )  
+                .toLowerCase();  
+  
+  
+            const propertyPurpose =  
+                String(  
+                    property.purpose ||  
+                    "sale"  
+                )  
+                .toLowerCase();  
+  
+  
+            const text =  
+                [  
+  
+                    property.title,  
+  
+                    property.propertyType,  
+  
+                    property.type,  
+  
+                    property.location,  
+  
+                    property.price,  
+  
+                    property.status,  
+  
+                    property.purpose,  
+  
+                    property.description  
+  
+                ]  
+                .join(" ")  
+                .toLowerCase();  
+  
+  
+            return (  
+  
+                (!search ||  
+                    text.includes(search)  
+                )  
+  
+                &&  
+  
+                (!purpose ||  
+                    propertyPurpose === purpose  
+                )  
+  
+                &&  
+  
+                (!type ||  
+                    propertyType === type  
+                )  
+  
+                &&  
+  
+                (!selectedCategory ||  
+                    propertyType ===  
+                    selectedCategory.toLowerCase()  
+                )  
+  
+            );  
+  
+        });  
+  
+  
+    renderProperties(  
+        filteredProperties  
+    );  
+  
+}  
+  
+  
+/* =========================================================  
+   RENDER PROPERTIES  
+========================================================= */  
+  
+function renderProperties(properties){  
+  
+    propertyCount.textContent =  
+        properties.length +  
+        (  
+            properties.length === 1  
+            ? " property"  
+            : " properties"  
+        );  
+  
+  
+    if(!properties.length){  
+  
+        propertiesGrid.innerHTML = `  
+  
+            <div class="empty-state">  
+  
+                <div class="empty-icon">  
+                    🏠  
+                </div>  
+  
+                <h3>  
+                    No properties found  
+                </h3>  
+  
+                <p>  
+                    Try changing your search or filter.  
+                </p>  
+  
+            </div>  
+  
+        `;  
+  
+        return;  
+  
+    }  
+  
+  
+    propertiesGrid.innerHTML =  
+        properties  
+        .map(  
+            property =>  
+                createPropertyCard(  
+                    property  
+                )  
+        )  
+        .join("");  
+  
+  
+    propertiesGrid  
+        .querySelectorAll(  
+            ".view-button"  
+        )  
+        .forEach(button => {  
+  
+            button.addEventListener(  
+                "click",  
+                () => {  
+  
+                    const propertyId =  
+                        button.dataset.propertyId;  
+  
+                    openPropertyPage(  
+                        propertyId  
+                    );  
+  
+                }  
+            );  
+  
+        });  
+  
+}  
+  
+  
+/* =========================================================  
+   OPEN PROPERTY PAGE  
+========================================================= */  
+  
+function openPropertyPage(propertyId){  
+  
+    if(!propertyId){  
+  
+        alert(  
+            "Property ID is missing."  
+        );  
+  
+        return;  
+  
+    }  
+  
+  
+    const url =  
+        "properties.html?companyId=" +  
+        encodeURIComponent(  
+            currentCompanyId  
+        ) +  
+        "&propertyId=" +  
+        encodeURIComponent(  
+            propertyId  
+        );  
+  
+  
+    window.open(  
+        url,  
+        "_blank"  
+    );  
+  
+}  
+  
+  
+/* =========================================================  
+   PROPERTY CARD  
+========================================================= */  
+  
+function createPropertyCard(property){  
+  
+    const id =  
+        property.id;  
+  
+  
+    const title =  
+        property.title ||  
+        "Untitled Property";  
+  
+  
+    const type =  
+        property.propertyType ||  
+        property.type ||  
+        "Property";  
+  
+  
+    const status =  
+        String(  
+            property.status ||  
+            "available"  
+        )  
+        .toLowerCase();  
+  
+  
+    const purpose =  
+        String(  
+            property.purpose ||  
+            "sale"  
+        )  
+        .toLowerCase();  
+  
+  
+    const location =  
+        property.location ||  
+        "Location not specified";  
+  
+  
+    const price =  
+        property.price ||  
+        "Price on request";  
+  
+  
+    /*  
+     * IMPORTANT:  
+     *  
+     * INDEX PAGE USES ONLY imageUrl.  
+     *  
+     * imageUrl2 - imageUrl5  
+     * are NOT displayed here.  
+     */  
+  
+    const image =  
+        typeof property.imageUrl === "string"  
+        ? property.imageUrl.trim()  
+        : "";  
+  
+  
+    let statusClass = "";  
+  
+  
+    if(status === "sold"){  
+  
+        statusClass =  
+            "status-sold";  
+  
+    }  
+  
+  
+    if(status === "rented"){  
+  
+        statusClass =  
+            "status-rented";  
+  
+    }  
+  
+  
+    const imageHTML =  
+        image  
+  
+        ?  
+  
+        `  
+  
+            <img  
+                src="${escapeHTML(image)}"  
+                alt="${escapeHTML(title)}"  
+                loading="lazy"  
+                onerror="  
+                    this.style.display='none';  
+                    this.nextElementSibling.style.display='grid';  
+                "  
+            >  
+  
+            <div  
+                class="image-placeholder"  
+                style="display:none"  
+            >  
+                No Image  
+            </div>  
+  
+        `  
+  
+        :  
+  
+        `  
+  
+            <div class="image-placeholder">  
+                No Image  
+            </div>  
+  
+        `;  
+  
+  
+    const bedrooms =  
+        Number(  
+            property.bedrooms || 0  
+        );  
+  
+  
+    const bathrooms =  
+        Number(  
+            property.bathrooms || 0  
+        );  
+  
+  
+    return `  
+  
+        <article class="property-card">  
+  
+            <div class="property-image">  
+  
+                ${imageHTML}  
+  
+  
+                ${  
+                    property.featured === true  
+  
+                    ?  
+  
+                    `  
+  
+                        <span class="featured-label">  
+                            Featured  
+                        </span>  
+  
+                    `  
+  
+                    :  
+  
+                    ""  
+                }  
+  
+  
+                <span class="purpose-label">  
+  
+                    ${  
+                        purpose === "rent"  
+                        ? "For Rent"  
+                        : "For Sale"  
+                    }  
+  
+                </span>  
+  
+            </div>  
+  
+  
+            <div class="property-body">  
+  
+                <div class="status-badge ${statusClass}">  
+  
+                    ${  
+                        status === "sold"  
+                        ? "Sold"  
+                        : status === "rented"  
+                        ? "Rented"  
+                        : "Available"  
+                    }  
+  
+                </div>  
+  
+  
+                <div class="property-type">  
+  
+                    ${escapeHTML(type)}  
+  
+                </div>  
+  
+  
+                <h3 class="property-title">  
+  
+                    ${escapeHTML(title)}  
+  
+                </h3>  
+  
+  
+                <div class="property-location">  
+  
+                    📍 ${escapeHTML(location)}  
+  
+                </div>  
+  
+  
+                <div class="property-price">  
+  
+                    ${escapeHTML(price)}  
+  
+                </div>  
+  
+  
+                <div class="property-meta">  
+  
+                    ${  
+                        bedrooms > 0  
+  
+                        ?  
+  
+                        `  
+  
+                            <span class="meta-item">  
+  
+                                🛏  
+                                ${escapeHTML(  
+                                    bedrooms  
+                                )}  
+                                Bedrooms  
+  
+                            </span>  
+  
+                        `  
+  
+                        :  
+  
+                        ""  
+                    }  
+  
+  
+                    ${  
+                        bathrooms > 0  
+  
+                        ?  
+  
+                        `  
+  
+                            <span class="meta-item">  
+  
+                                🚿  
+                                ${escapeHTML(  
+                                    bathrooms  
+                                )}  
+                                Bathrooms  
+  
+                            </span>  
+  
+                        `  
+  
+                        :  
+  
+                        ""  
+                    }  
+  
+  
+                    ${  
+                        property.area  
+  
+                        ?  
+  
+                        `  
+  
+                            <span class="meta-item">  
+  
+                                📐  
+                                ${escapeHTML(  
+                                    property.area  
+                                )}  
+  
+                            </span>  
+  
+                        `  
+  
+                        :  
+  
+                        ""  
+                    }  
+  
+                </div>  
+  
+  
+                <div class="property-description">  
+  
+                    ${escapeHTML(  
+                        property.description ||  
+                        "Contact the company for more information."  
+                    )}  
+  
+                </div>  
+  
+  
+                <button  
+                    class="view-button"  
+                    type="button"  
+                    data-property-id="${escapeHTML(  
+                        id  
+                    )}"  
+                >  
+  
+                    View Property  
+  
+                </button>  
+  
+            </div>  
+  
+        </article>  
+  
+    `;  
+  
+}  
+  
+  
+/* =========================================================  
+   MOBILE MENU  
+========================================================= */  
+  
+const mobileMenuButton =  
+    document.getElementById(  
+        "mobileMenuButton"  
+    );  
+  
+const mobileMenu =  
+    document.getElementById(  
+        "mobileMenu"  
+    );  
+  
+  
+mobileMenuButton.addEventListener(  
+    "click",  
+    () => {  
+  
+        mobileMenu.classList.toggle(  
+            "show"  
+        );  
+  
+    }  
+);  
+  
+  
+mobileMenu  
+    .querySelectorAll("a")  
+    .forEach(link => {  
+  
+        link.addEventListener(  
+            "click",  
+            () => {  
+  
+                mobileMenu.classList.remove(  
+                    "show"  
+                );  
+  
+            }  
+        );  
+  
+    });  
+  
+  
+/* =========================================================  
+   SEARCH EVENTS  
+========================================================= */  
+  
+searchInput.addEventListener(  
+    "input",  
+    applyFilters  
+);  
+  
+  
+purposeFilter.addEventListener(  
+    "change",  
+    applyFilters  
+);  
+  
+  
+typeFilter.addEventListener(  
+    "change",  
+    applyFilters  
+);  
+  
+  
+document  
+    .getElementById(  
+        "searchButton"  
+    )  
+    .addEventListener(  
+        "click",  
+        () => {  
+  
+            applyFilters();  
+  
+            document  
+                .getElementById(  
+                    "propertiesSection"  
+                )  
+                .scrollIntoView({  
+                    behavior:"smooth"  
+                });  
+  
+        }  
+    );  
+  
+  
+/* =========================================================  
+   RELOAD  
+========================================================= */  
+  
+document  
+    .getElementById(  
+        "subscriptionReload"  
+    )  
+    .addEventListener(  
+        "click",  
+        () => {  
+  
+            window.location.reload();  
+  
+        }  
+    );  
+  
+  
+/* =========================================================  
+   START  
+========================================================= */  
+  
+async function startApp(){  
+  
+    document  
+        .getElementById(  
+            "footerYear"  
+        )  
+        .textContent =  
+        new Date()  
+        .getFullYear();  
+  
+  
+    try{  
+  
+        const active =  
+            await loadCompany();  
+  
+  
+        if(!active){  
+  
+            return;  
+  
+        }  
+  
+  
+        await loadProperties();  
+  
+  
+        console.log(  
+            "EstatePro loaded:",  
+            currentCompanyId  
+        );  
+  
+  
+        console.log(  
+            "Properties:",  
+            allProperties  
+        );  
+  
+    }  
+  
+    catch(error){  
+  
+        console.error(  
+            "EstatePro error:",  
+            error  
+        );  
+  
+  
+        let message =  
+            error?.message ||  
+            "Something went wrong.";  
+  
+  
+        if(  
+            error?.code ===  
+            "permission-denied"  
+        ){  
+  
+            message =  
+                "Firebase denied access. Check your Firestore Rules.";  
+  
+        }  
+  
+  
+        propertiesGrid.innerHTML = `  
+  
+            <div class="error-box">  
+  
+                <h2>  
+                    Unable to Load Website  
+                </h2>  
+  
+                <p>  
+                    ${escapeHTML(message)}  
+                </p>  
+  
+                <p>  
+  
+                    Company ID:  
+                    <strong>  
+                        ${escapeHTML(  
+                            currentCompanyId  
+                        )}  
+                    </strong>  
+  
+                </p>  
+  
+            </div>  
+  
+        `;  
+  
+    }  
+  
+}  
+  
+  
+/* =========================================================  
+   DEBUG  
+========================================================= */  
+  
+window.estateProWebsite = {  
+  
+    companyId:  
+        currentCompanyId,  
+  
+    getCompany:  
+        () => currentCompany,  
+  
+    getSubscription:  
+        () => currentSubscription,  
+  
+    getProperties:  
+        () => allProperties,  
+  
+    reload:  
+        startApp  
+  
+};  
+  
+  
+/* =========================================================  
+   RUN  
+========================================================= */  
+  
+startApp();  
+  
+</script>  </body>  
 </html>
