@@ -1,0 +1,108 @@
+<!DOCTYPE html><html lang="ha"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Lyric Video Maker</title>
+<style>
+:root{--bg:#0b1020;--card:#161d3a;--fg:#e8eaf6;--ac:#ffb020}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,sans-serif;padding:14px;max-width:720px;margin:auto}
+h1{font-size:18px;color:var(--ac);margin:0 0 12px}
+.c{background:var(--card);border-radius:12px;padding:12px;margin-bottom:12px}
+label{display:block;font-size:13px;margin:8px 0 4px;opacity:.85}
+input,select,textarea{width:100%;padding:9px;border-radius:8px;border:1px solid #2b335c;background:#0e142b;color:var(--fg);font-size:14px}
+textarea{height:200px;font-family:inherit}
+button{background:var(--ac);color:#111;border:0;border-radius:10px;padding:11px 14px;font-weight:700;font-size:14px;margin:4px 4px 0 0}
+button.s{background:#2b335c;color:#fff}button:disabled{opacity:.4}
+canvas{width:100%;max-height:60vh;object-fit:contain;background:#000;border-radius:10px;display:block;margin:auto}
+small{opacity:.7;display:block;margin-top:6px;line-height:1.4}
+</style></head><body>
+<h1>🎬 Lyric Video Maker</h1>
+<div class="c">
+<label>1. Audio (waƙa)</label><input id="f" type="file" accept="audio/*">
+<label>2. Taken waƙa (Title)</label><input id="ti" value="ADUSTECH Anthem — Wudil to the World">
+<label>3. Lyrics (layi ɗaya ɗaya)</label>
+<textarea id="ly">[Intro]
+Aliko Dangote-o! (Teo!)
+Your enemy is gone! (Gone!)
+Your energy is done! (Done!)
+ADUSTECH on top!
+Wudil to the world!
+Science and Technology — we run this show!
+[Verse 1]
+ADUSTECH Wudil, mun zo da knowledge,
+Muna karatu sosai, we came for college.
+Duk wanda ya shiga, ya san the standard,
+Degree a hannu, future ya fi brighter.
+Maza da mata, duk muna da vision,
+Muna neman ilimi, ba wai decoration.
+Daga lecture hall har zuwa examination,
+ADUSTECH tana gina future generation!
+[Chorus]
+ADUSTECH! (Wudil!)
+ADUSTECH! (The real deal!)
+Ilimi da tarbiyya, that's our seal!
+ADUSTECH! (We rise!)
+Science and Technology, touching the skies!
+[Outro]
+ADUSTECH — we are going higher! 🔥</textarea>
+<small>Za ka iya rubuta lokaci a gaban layi, misali <b>[0:12.5] Layin farko</b>. Layuka masu <b>[Intro]</b> ba a nuna su. Idan babu lokaci, za a raba su daidai da tsawon waƙa, ko ka yi <b>Tap Sync</b>.</small>
+<label>Girman bidiyo</label>
+<select id="ar"><option value="720x1280">Tsaye 9:16 (TikTok/Status)</option><option value="1280x720">Kwance 16:9 (YouTube)</option></select>
+</div>
+<div class="c">
+<canvas id="cv"></canvas>
+<div style="margin-top:8px">
+<button id="pv" class="s">▶ Preview</button>
+<button id="sy" class="s">👆 Tap Sync</button>
+<button id="tp" class="s" style="display:none">TAP — layi na gaba</button>
+<button id="gen">🔴 Ƙirƙiri Bidiyo</button>
+</div>
+<small id="st">Zaɓi audio don farawa.</small>
+<div id="out"></div>
+</div></div>
+<script>
+var $=function(i){return document.getElementById(i)},a=new Audio(),cv=$('cv'),g=cv.getContext('2d'),lines=[],syncing=false,times=[],rec=null,actx,dst,srcN;
+a.crossOrigin='anonymous';
+function size(){var p=$('ar').value.split('x');cv.width=+p[0];cv.height=+p[1];draw()}
+function parse(){var raw=$('ly').value.split('\n'),r=[],any=false;
+raw.forEach(function(l){l=l.trim();if(!l)return;var m=l.match(/^\[(\d+):(\d+(?:\.\d+)?)\]\s*(.*)$/);
+if(m){any=true;r.push({t:+m[1]*60+ +m[2],x:m[3]})}else if(/^\[.*\]$/.test(l))return;else r.push({t:null,x:l})});
+var d=a.duration||r.length*3;
+if(!any){r.forEach(function(o,i){o.t=i*d/r.length})}else{var p=0;r.forEach(function(o){if(o.t==null)o.t=p+3;p=o.t})}
+lines=r}
+function wrap(t,x,y,w,lh){var ws=t.split(' '),ln='',rows=[];ws.forEach(function(k){var s=ln?ln+' '+k:k;if(g.measureText(s).width>w&&ln){rows.push(ln);ln=k}else ln=s});rows.push(ln);
+y-=(rows.length-1)*lh/2;rows.forEach(function(r,i){g.fillText(r,x,y+i*lh)});return rows.length}
+function draw(){var W=cv.width,H=cv.height,t=a.currentTime||0,k=W/720,gr=g.createLinearGradient(0,0,W,H);
+var h=(t*8)%360;gr.addColorStop(0,'hsl('+(230+Math.sin(t/4)*20)+',60%,10%)');gr.addColorStop(1,'hsl('+(290+Math.cos(t/5)*25)+',55%,20%)');
+g.fillStyle=gr;g.fillRect(0,0,W,H);g.textAlign='center';g.textBaseline='middle';
+g.fillStyle='#ffb020';g.font='700 '+26*k+'px system-ui,sans-serif';wrap($('ti').value,W/2,H*.07,W*.9,30*k);
+var i=-1;for(var n=0;n<lines.length;n++)if(lines[n].t<=t)i=n;
+function L(j,sz,al,col){if(j<0||j>=lines.length)return;g.globalAlpha=al;g.fillStyle=col;g.font='700 '+sz*k+'px system-ui,sans-serif';return wrap(lines[j].x,W/2,0,W*.86,sz*k*1.25)}
+function at(y,j,sz,al,col){g.save();g.translate(0,y);L(j,sz,al,col);g.restore()}
+at(H*.5-120*k*1.6,i-1,30,.35,'#fff');
+if(i>=0){g.shadowColor='rgba(255,176,32,.6)';g.shadowBlur=24*k;at(H*.5,i,46,1,'#fff');g.shadowBlur=0}
+at(H*.5+120*k*1.6,i+1,30,.35,'#fff');g.globalAlpha=1;
+var pr=a.duration?t/a.duration:0;g.fillStyle='#ffb020';g.fillRect(0,H-6*k,W*pr,6*k)}
+function loop(){draw();if(!a.paused||rec||syncing)requestAnimationFrame(loop)}
+function mk(){if(actx)return;actx=new (window.AudioContext||window.webkitAudioContext)();dst=actx.createMediaStreamDestination();srcN=actx.createMediaElementSource(a);srcN.connect(dst);srcN.connect(actx.destination)}
+$('f').onchange=function(e){var f=e.target.files[0];if(!f)return;a.src=URL.createObjectURL(f);a.onloadedmetadata=function(){parse();draw();$('st').textContent='Audio a shirye: '+a.duration.toFixed(1)+'s'}};
+$('ly').oninput=function(){parse();draw()};$('ti').oninput=draw;$('ar').onchange=size;
+$('pv').onclick=function(){if(!a.src)return alert('Zaɓi audio tukuna');parse();if(a.paused){a.play();$('pv').textContent='⏸ Dakata';loop()}else{a.pause();$('pv').textContent='▶ Preview'}};
+a.onended=function(){$('pv').textContent='▶ Preview';if(rec){rec.stop()}if(syncing)finishSync()};
+$('sy').onclick=function(){if(!a.src)return alert('Zaɓi audio tukuna');
+var ls=$('ly').value.split('\n').map(function(s){return s.trim()}).filter(Boolean);
+syncing=true;times=[];a.currentTime=0;a.play();loop();$('tp').style.display='inline-block';$('st').textContent='Danna TAP a lokacin da kowane layi ya fara. Layi na 1 a gaba.';showNext()};
+function lyrics(){return $('ly').value.split('\n').map(function(s){return s.trim()}).filter(function(s){return s&&!/^\[.*\]$/.test(s)}).map(function(s){return s.replace(/^\[\d+:\d+(\.\d+)?\]\s*/,'')})}
+function showNext(){var l=lyrics();$('tp').textContent='TAP → '+(l[times.length]||'').slice(0,28)}
+$('tp').onclick=function(){times.push(a.currentTime);var l=lyrics();if(times.length>=l.length)return finishSync();showNext()};
+function fmt(t){var m=Math.floor(t/60);return '['+m+':'+(t%60).toFixed(1).padStart(4,'0')+']'}
+function finishSync(){syncing=false;a.pause();$('tp').style.display='none';var l=lyrics(),o=[];l.forEach(function(x,i){if(times[i]!=null)o.push(fmt(times[i])+' '+x);else o.push(x)});$('ly').value=o.join('\n');parse();a.currentTime=0;draw();$('st').textContent='An daidaita lokaci! Yanzu danna Ƙirƙiri Bidiyo.'}
+$('gen').onclick=function(){if(!a.src)return alert('Zaɓi audio tukuna');if(!window.MediaRecorder)return alert('Browser ɗinka ba ya tallafa wa recording. Yi amfani da Chrome.');
+parse();mk();actx.resume();a.pause();a.currentTime=0;
+var vs=cv.captureStream(30),tr=vs.getVideoTracks().concat(dst.stream.getAudioTracks()),ms=new MediaStream(tr);
+var ty=['video/mp4;codecs=avc1,mp4a.40.2','video/webm;codecs=vp9,opus','video/webm'].filter(function(m){return MediaRecorder.isTypeSupported(m)})[0]||'';
+var ch=[];rec=new MediaRecorder(ms,ty?{mimeType:ty,videoBitsPerSecond:4e6}:{});
+rec.ondataavailable=function(e){if(e.data.size)ch.push(e.data)};
+rec.onstop=function(){var ext=(rec.mimeType||ty).indexOf('mp4')>-1?'mp4':'webm',b=new Blob(ch,{type:rec.mimeType||ty}),u=URL.createObjectURL(b);rec=null;
+$('out').innerHTML='<video src="'+u+'" controls style="width:100%;max-height:50vh;margin-top:10px;border-radius:10px"></video><a download="lyric-video.'+ext+'" href="'+u+'"><button>⬇ Sauke bidiyo (.'+ext+')</button></a>';
+$('st').textContent='An gama!';$('gen').disabled=false};
+$('gen').disabled=true;$('st').textContent='Ana ƙirƙirar bidiyo yayin da waƙa ke tafiya. Kada ka rufe shafin...';
+rec.start(500);a.play();loop()};
+size();
+</script></body></html>
